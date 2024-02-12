@@ -61,8 +61,6 @@ sum+=var[i].tarpiniai[j];
 cout<<" Iveskite "<<i+1<<" studento ezamino rezultata:";
 cin>>var[i].egz_rez;
 
-
-// var[i].galutinis=(sum/n)*0.4+0.6*var[i].egz_rez;
 cout<<endl;
 
 }
@@ -81,34 +79,43 @@ void spausdinimas(int &m,studentas var[]){
     int pasirinkimas; 
     cout<<"Jei norite spausdinti studentu galutini vidurki iveskite: 0\nJei norite spausdinti studentu galutine mediana iveskite: 1"<<endl;
     cin>>pasirinkimas;
-
-    cout<< "Pavarde"<<setw(10)<<" Vardas"<<setw(10)<<"Galutinis (Vid.)"<<endl;
-    cout<<"-------------------------------------------------------"<<endl;
-
     
+    if(pasirinkimas==0){
 
-    for(int i=0;i<m; i++){
-
-       cout<<var[i].Vardas;
-       cout<<setw(10)<<var[i].Pavarde;
-       cout<<setw(20)<< setprecision(3)<<galutinis(var,i,pasirinkimas)<<endl;
+        cout<< left <<setw(15)<< "Pavarde"<<setw(15)<<"Vardas"<<setw(15)<<"Galutinis (Vid.) "<<endl;
+        cout<<"-------------------------------------------------------"<<endl;
+        for(int i=0;i<m; i++){
+           cout<<left<<setw(15)<<var[i].Vardas<<setw(15)<<var[i].Pavarde;
+         cout<<setw(15) << fixed<< setprecision(2)<<galutinis(var,i,pasirinkimas)<<endl;
+        }
     }
 
- 
+    else {
 
-    //    cout<<mediana(var,i);
+        cout<< left <<setw(15)<< "Pavarde"<<setw(15)<<"Vardas"<<setw(15)<<"Galutinis (Med.) "<<endl;
+        cout<<"-------------------------------------------------------"<<endl;
+
+        for(int i=0;i<m; i++){
+
+            cout<<left<<setw(15)<<var[i].Vardas<<setw(15)<<var[i].Pavarde;
+         cout<<setw(30)<< fixed<< setprecision(2)<<galutinis(var,i,pasirinkimas)<<endl;
+        }
+
+
+    } 
 
 }
+
 
 double galutinis(studentas var[], int &k,int &pasirinkimas){
 
     double gal;
     if(pasirinkimas==0){
-     gal=vidurkis(var, k)*0.4+0.6*var[k].egz_rez;
+     gal=vidurkis(var, k) * 0.4 + 0.6 * var[k].egz_rez;
     }
 
     else{
-        gal=(mediana(var, k))*0.4+0.6*var[k].egz_rez;
+        gal=(mediana(var, k)) * 0.4 + 0.6 * var[k].egz_rez;
     }
 
     return gal;
@@ -119,18 +126,18 @@ double mediana(studentas var[],int &k){
 
     int pazymiai = var[k].pazKiekis;
     double medi;
-    int sk=pazymiai;
 
     sort(var[k].tarpiniai, var[k].tarpiniai+pazymiai);
 
 
     if((pazymiai%2)==0){
-      medi= ( var[k].tarpiniai[pazymiai/2+1]+var[k].tarpiniai[pazymiai/2+2]);
+      medi= ( double(var[k].tarpiniai[pazymiai/2-1]) + (var[k].tarpiniai[pazymiai/2]) ) /2;
     }
 
     else {
-        medi= ( var[k].tarpiniai[pazymiai/2+2]);
+        medi= ( var[k].tarpiniai[pazymiai/2]);
     }
+    return medi;
 }
 
 double vidurkis(studentas var[],int &k){
