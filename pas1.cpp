@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 #include <iomanip>
 #include <math.h>
 #include <string>
@@ -118,8 +117,20 @@ double galutinis(studentas var[], int &k,int &pasirinkimas){
 
 double mediana(studentas var[],int &k){
 
-    int sk=var[k].pazKiekis;
-    
+    int pazymiai = var[k].pazKiekis;
+    double medi;
+    int sk=pazymiai;
+
+    sort(var[k].tarpiniai, var[k].tarpiniai+pazymiai);
+
+
+    if((pazymiai%2)==0){
+      medi= ( var[k].tarpiniai[pazymiai/2+1]+var[k].tarpiniai[pazymiai/2+2]);
+    }
+
+    else {
+        medi= ( var[k].tarpiniai[pazymiai/2+2]);
+    }
 }
 
 double vidurkis(studentas var[],int &k){
