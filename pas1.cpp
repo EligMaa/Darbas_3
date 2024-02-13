@@ -51,7 +51,7 @@ do
    cout<<"Iveskite pasirinkima: ";
    cin>>meniu;
 
-    switch (meniu)
+    switch (meniu)                                                      ///meniu su pasirinkimais
     {
         case 1:
             ivedimasRanka(var, m);
@@ -83,43 +83,44 @@ do
 delete[] var->tarpiniai;
 delete[] var;
 
-
 }
+
 void atsitiktiniaiPazVar (studentas var[], int &m){
     int n;                                                            ///namu darbu kiekis
     
-    for (int i =0; i<m; i++){
-        cout<<" Iveskite "<<i+1<<" studento varda: ";
-        cin>>var[i].Vardas;
-        cout<<" Iveskite "<<i+1<<" studento pavarde: ";
-        cin>>var[i].Pavarde;
+    cout<<"Nera tokios funkcijos :) "<<endl;
+
+    // for (int i =0; i<m; i++){
+    //     cout<<" Iveskite "<<i+1<<" studento varda: ";
+    //     cin>>var[i].Vardas;
+    //     cout<<" Iveskite "<<i+1<<" studento pavarde: ";
+    //     cin>>var[i].Pavarde;
         
-        cout<<" Iveskite kiek namu darbu uzduociu atliko studentas: ";
-        cin>>n;
+    //     cout<<" Iveskite kiek namu darbu uzduociu atliko studentas: ";
+    //     cin>>n;
 
-        var[i].pazKiekis=n;
-        var[i].tarpiniai = new int [n];
+    //     var[i].pazKiekis=n;
+    //     var[i].tarpiniai = new int [n];
 
-        cout<<" Atsitiktinai sugeneruoti namu darbu rezultatai: "<<endl;
+    //     cout<<" Atsitiktinai sugeneruoti namu darbu rezultatai: "<<endl;
 
-        for(int j=0; j<n;j++)
-        {
+    //     for(int j=0; j<n;j++)
+    //     {
 
-            var[i].tarpiniai[j]= rand()% (1-10+1);                                  ///generuoja atsitikstinius skaicius intervale nuo 1 iki 10
+    //         var[i].tarpiniai[j]= rand()% (1-10+1);                                  ///generuoja atsitikstinius skaicius intervale nuo 1 iki 10
 
-            cout<< var[i].tarpiniai[j]<<"\t";
+    //         cout<< var[i].tarpiniai[j]<<"\t";
 
-        }
+    //     }
 
-        cout<<endl;
-        cout<<" Atsitiktinai sugeneruotas studento ezamino rezultatas: ";
-        var[i].egz_rez= rand()% (1-10+1);                                           ///generuoja atsitikstinius skaicius intervale nuo 1 iki 10
-        cout<<var[i].egz_rez<<endl;
-        cout<<endl;
-    }
+    //     cout<<endl;
+    //     cout<<" Atsitiktinai sugeneruotas studento ezamino rezultatas: ";
+    //     var[i].egz_rez= rand()% (1-10+1);                                           ///generuoja atsitikstinius skaicius intervale nuo 1 iki 10
+    //     cout<<var[i].egz_rez<<endl;
+    //     cout<<endl;
+    // }
 
 }
-
 
 void atsitiktiniaiPazymiai(studentas var[], int &m){
 
@@ -159,27 +160,44 @@ void atsitiktiniaiPazymiai(studentas var[], int &m){
 
 void ivedimasRanka(studentas var[], int &m){
 
-    int n;                                                            ///namu darbu kiekis
     for (int i =0; i<m; i++){
         cout<<" Iveskite "<<i+1<<" studento varda: ";
         cin>>var[i].Vardas;
         cout<<" Iveskite "<<i+1<<" studento pavarde: ";
         cin>>var[i].Pavarde;
         
-        cout<<" Iveskite kiek namu darbu uzduociu atliko studentas: ";
-        cin>>n;
+        cout<<" Iveskite studento namu darbu rezultatus (noredami baigti ivedima iveskite 0): "<<endl;
+        
+        int pazimys;
+        int kiek=0;                                   /// pazymiu sk
+        int skaiciams [100];
 
-        var[i].pazKiekis=n;
-        var[i].tarpiniai = new int [n];
-
-        cout<<" Iveskite studento namu darbu rezultatus: "<<endl;
-        for(int j=0; j<n;j++)
+        while (true)
         {
-        cin>>var[i].tarpiniai[j];
+            
+            while (!(cin >> pazimys) || pazimys<0 || pazimys>10)                                            ///prasyv vis ivesti pazimi,kol jis bus teisingas
+            {
+               cin.clear();
+               cin.ignore(numeric_limits<streamsize>::max(), '\n');
+               cout << "Klaida. Iveskite skaiciu nuo 1 iki 10" << endl;
+            }            
 
+            if(pazimys==0)break;                      ///jei iveda 0 nutraukiamas
 
+            else{
+            skaiciams[kiek]=pazimys;
+            kiek++;
+            }
         }
-        cout<<" Iveskite "<<i+1<<" studento ezamino rezultata: ";
+
+        var[i].tarpiniai = new int [kiek];
+        var[i].pazKiekis=kiek;
+        for(int j=0; j<kiek;j++)
+        {
+            var[i].tarpiniai[j] = skaiciams[j]; 
+        }
+
+        cout<<"\n Iveskite "<<i+1<<" studento ezamino rezultata: ";
         cin>>var[i].egz_rez;
         cout<<endl;
     }
