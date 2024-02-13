@@ -23,42 +23,44 @@ void spausdinimas(int &m, studentas var[]);
 double galutinis(studentas var[], int &k,int &pasirinkimas);
 double mediana(studentas var[],int &k);
 double vidurkis(studentas var[],int &k);
-void atsitiktiniaiPazymiai();
+void atsitiktiniaiPazymiai(studentas var[], int &pasirinkimas, int &m);
+void tikrinimas(int &pasirinkimas);
+void ivedimasRanka(studentas var[], int &pasirinkimas, int &m);
 
 int main() {
 
 int n;
 int m;
+int pasirinkimas;
+
+do
+{
+   cout<<"1 - ivedimas ranka"<<endl;
+   cout<<"2 - generuoti pazymius"<<endl;
+   cout<<"3 - generuoti ir pazymius ir studentu vardus, pavardes"<<endl;
+   cout<<"4 - baigti darba"<<endl;
+   cout<<"Iveskite pasirinkima: ";
+
+} while (/* condition */);
+
 
 cout<<"Iveskite kiek yra studentu: ";
 cin >> m;
 studentas* var = new studentas [m];                                /// rodyklė rodanti i dinamineje atmintyje sukurta strukturu masyva
 
+cout << "Jei norite atsitiktinai generoti namu darbu ir egzamino pazymius iveskite 1, jei norite irasyti ranka - 0" << endl;
 
-for (int i =0; i<m;i++){
-
-cout<<" Iveskite "<<i+1<<" studento varda: ";
-cin>>var[i].Vardas;
-cout<<" Iveskite "<<i+1<<" studento pavarde: ";
-cin>>var[i].Pavarde;
-
-cout<<"Iveskite kiek namu darbu uzduociu atliko studentas: ";
-cin>>n;
-
-var[i].pazKiekis=n;
-var[i].tarpiniai = new int [n];
-
-cout<<" Iveskite studento namu darbu rezultatus: "<<endl;
-for(int j=0; j<n;j++){
-cin>>var[i].tarpiniai[j];
-}
-
-cout<<" Iveskite "<<i+1<<" studento ezamino rezultata: ";
-cin>>var[i].egz_rez;
-
+tikrinimas(pasirinkimas);
 cout<<endl;
 
+if(pasirinkimas==0){                                             ///jei norima ivesti rezultatus ranka
+    ivedimasRanka(var, pasirinkimas, m);
 }
+
+else  {                                                          ///jei norima kad rezultatai butu sugeneruoti atsitiktinai
+    atsitiktiniaiPazymiai(var, pasirinkimas, m);
+}
+
 
 spausdinimas(m, var);
 
@@ -68,9 +70,78 @@ delete[] var;
 
 }
 
-void atsitiktiniaiPazymiai(){
+void atsitiktiniaiPazymiai(studentas var[], int &pasirinkimas, int &m){
 
-    
+    int n;                                                            ///namu darbu kiekis
+
+    for (int i =0; i<m; i++){
+        cout<<" Iveskite "<<i+1<<" studento varda: ";
+        cin>>var[i].Vardas;
+        cout<<" Iveskite "<<i+1<<" studento pavarde: ";
+        cin>>var[i].Pavarde;
+        
+        cout<<" Iveskite kiek namu darbu uzduociu atliko studentas: ";
+        cin>>n;
+
+        var[i].pazKiekis=n;
+        var[i].tarpiniai = new int [n];
+
+        cout<<" Atsitiktinai sugeneruoti namu darbu rezultatai: "<<endl;
+
+        for(int j=0; j<n;j++)
+        {
+
+            var[i].tarpiniai[j]= rand()% (1-10+1);                                  ///generuoja atsitikstinius skaicius intervale nuo 1 iki 10
+
+            cout<< var[i].tarpiniai[j]<<"\t";
+
+        }
+
+        cout<<endl;
+        cout<<" Atsitiktinai sugeneruotas studento ezamino rezultatas: ";
+        var[i].egz_rez= rand()% (1-10+1);                                           ///generuoja atsitikstinius skaicius intervale nuo 1 iki 10
+        cout<<var[i].egz_rez<<endl;
+        cout<<endl;
+    }
+
+}
+
+void ivedimasRanka(studentas var[], int &pasirinkimas, int &m){
+
+    int n;                                                            ///namu darbu kiekis
+    for (int i =0; i<m; i++){
+        cout<<" Iveskite "<<i+1<<" studento varda: ";
+        cin>>var[i].Vardas;
+        cout<<" Iveskite "<<i+1<<" studento pavarde: ";
+        cin>>var[i].Pavarde;
+        
+        cout<<" Iveskite kiek namu darbu uzduociu atliko studentas: ";
+        cin>>n;
+
+        var[i].pazKiekis=n;
+        var[i].tarpiniai = new int [n];
+
+        cout<<" Iveskite studento namu darbu rezultatus: "<<endl;
+        for(int j=0; j<n;j++)
+        {
+        cin>>var[i].tarpiniai[j];
+
+        cout<<" Iveskite "<<i+1<<" studento ezamino rezultata: ";
+        cin>>var[i].egz_rez;
+        cout<<endl;
+        }
+    }
+}
+
+
+void tikrinimas(int &pasirinkimas){
+
+    while (!(cin >> pasirinkimas) || (pasirinkimas!=0 && pasirinkimas!=1))
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
+        cout << "Klaida! Iveskite 1 arba 0: " << endl;
+    }
 }
 
 void spausdinimas(int &m,studentas var[]){
@@ -80,12 +151,7 @@ void spausdinimas(int &m,studentas var[]){
     cout<<"Jei norite spausdinti studentu galutini iverinima naudojant vidurki iveskite: 0";
     cout<<"\nJei norite spausdinti studentu galutini iverinima naudojant mediana iveskite: 1\n"<<endl;
 
-    while (!(cin >> pasirinkimas) || (pasirinkimas!=0 && pasirinkimas!=1))
-    {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
-        cout << "Klaida! Iveskite 1 arba 0: " << endl;
-    }
+    tikrinimas(pasirinkimas);
 
     cout<<endl;
     
