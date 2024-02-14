@@ -46,18 +46,23 @@ int meniu;
 bool baigti = false;
 
 cout<<"Iveskite kiek yra studentu: ";
-cin >> m;                                                         ///studentu skaicius
+    while (!(cin >> m) || (m<1))
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
+        cout << "Klaida! Iveskite naturaluji skaiciu " << endl;
+    }
 vector <studentas> var (m);                                      
 cout<<endl;
 
 do
 {
-    cout<<"Kaip noretumete uzpildyti duomenis: "<<endl;
    cout<<"1 - ivedimas ranka"<<endl;
    cout<<"2 - generuoti pazymius"<<endl;
    cout<<"3 - generuoti ir pazymius ir studentu vardus, pavardes"<<endl;
    cout<<"4 - baigti darba"<<endl;
-   cout<<"Iveskite pasirinkima: ";
+   cout<<"Iveskite pasirinkima: "<<endl;
+   cout<<"--------------------------------------------------------"<<endl;
    cin>>meniu;
 
     switch (meniu)                                                      ///meniu su pasirinkimais
@@ -83,6 +88,13 @@ do
             break;
         default:
             cout<< "Klaida! Iveskite nuo 1 iki 4 " << endl;
+
+            while (!(meniu) || (meniu<1 && meniu>4))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
+                break;
+            }
             cout<<endl;
     }
 
@@ -95,10 +107,10 @@ void atsitiktiniaiPazVar (vector<studentas>& var, int &m){
     
     int n;
 
-    for (int i =0; i<m; i++){
+    for (int i = 0; i<m; i++){
         
         bool lytis ;                                                           ///jeigu 0 - vyras, jeigu 1 - moteris  
-        lytis = rand() % 2;                                          ///arba 0 arba1
+        lytis = rand() % 2;                                                    ///arba 0 arba 1
 
         if(lytis==0){
 
@@ -107,9 +119,9 @@ void atsitiktiniaiPazVar (vector<studentas>& var, int &m){
 
             indeksas = rand() % (vyrP.size());
             var[i].Pavarde=vyrP[indeksas];
-            cout<<endl<<"--------------------------------------------------------"<<endl;
-            cout<<" Studento vardas: "<<var[i].Vardas<<endl;
-            cout<<" Studento pavarde: "<<var[i].Pavarde<<endl;
+            cout<<"--------------------------------------------------------"<<endl;
+            cout<<i+1<<"-ojo"<<" studento vardas: "<<var[i].Vardas<<endl;
+            cout<<i+1<<"-ojo"<<" studento pavarde: "<<var[i].Pavarde<<endl;
         }
 
         if(lytis==1){
@@ -120,13 +132,13 @@ void atsitiktiniaiPazVar (vector<studentas>& var, int &m){
             indeksas = rand() % (motP.size());
 
             var[i].Pavarde=motP[indeksas];
-            cout<<endl<<"--------------------------------------------------------"<<endl;
-            cout<<" Studento vardas: "<<var[i].Vardas<<endl;
-            cout<<" Studento pavarde: "<<var[i].Pavarde<<endl;
+            cout<<"--------------------------------------------------------"<<endl;
+            cout<<i+1<<"-ojo"<<" studento vardas: "<<var[i].Vardas<<endl;
+            cout<<i+1<<"-ojo"<<" studento pavarde: "<<var[i].Pavarde<<endl;
        }
  
         cout<<" Iveskite kiek namu darbu uzduociu atliko studentas: ";
-        while (!(cin >> n) || (n<1 && n>100))
+        while (!(cin >> n) || (n<0 || n>100))
         {
           cin.clear();
            cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos+
@@ -134,6 +146,7 @@ void atsitiktiniaiPazVar (vector<studentas>& var, int &m){
         }
 
         var[i].pazKiekis=n;
+        var[i].tarpiniai.resize(n);
 
         cout<<" Atsitiktinai sugeneruoti namu darbu rezultatai: "<<endl;
 
@@ -161,7 +174,7 @@ void atsitiktiniaiPazymiai(vector<studentas>& var, int &m){
     int n;                                                                          ///namu darbu kiekis
 
     for (int i =0; i<m; i++){
-        cout<<endl<<"--------------------------------------------------------"<<endl;
+        cout<<"--------------------------------------------------------"<<endl;
         cout<<" Iveskite "<<i+1<<" studento varda: ";
         cin>>var[i].Vardas;
         cout<<" Iveskite "<<i+1<<" studento pavarde: ";
@@ -189,7 +202,7 @@ void atsitiktiniaiPazymiai(vector<studentas>& var, int &m){
         }
 
         cout<<endl;
-        cout<<" Atsitiktinai sugeneruotas studento ezamino rezultatas: ";
+        cout<<" Atsitiktinai sugeneruotas studento ezamino rezultatas: "<<endl;
         var[i].egz_rez= rand()% 10+1;                                           ///generuoja atsitikstinius skaicius intervale nuo 1 iki 10
         cout<<var[i].egz_rez<<endl;
         cout<<endl;
@@ -200,7 +213,7 @@ void atsitiktiniaiPazymiai(vector<studentas>& var, int &m){
 void ivedimasRanka(vector<studentas>& var, int &m){
 
     for (int i =0; i<m; i++){
-        cout<<endl<<"--------------------------------------------------------"<<endl;
+        cout<<"--------------------------------------------------------"<<endl;
         cout<<" Iveskite "<<i+1<<" studento varda: ";
         cin>>var[i].Vardas;
         cout<<" Iveskite "<<i+1<<" studento pavarde: ";
@@ -232,7 +245,7 @@ void ivedimasRanka(vector<studentas>& var, int &m){
         
         var[i].tarpiniai = skaiciams;
 
-        cout<<"\n Iveskite "<<i+1<<" studento ezamino rezultata: ";
+        cout<<"\n Iveskite "<<i+1<<" studento ezamino rezultata: "<<endl;
         cin>>var[i].egz_rez;
         cout<<endl;
     }
