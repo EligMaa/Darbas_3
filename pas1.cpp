@@ -20,12 +20,12 @@ struct studentas
 };
 
 /// ivairus vyriski vardai ir pavardes
-const string vyrV[] = {"Jonas", "Petras", "Antanas", "Juozas", "Kazimieras", "Algirdas", "Rimas", "Mindaugas", "Rokas", "Paulius"};
-const string vyrP[] = {"Kazlauskas", "Petrauskas", "Jonaitis", "Antanaitis", "Rimkus", "Grybauskas", "Brazauskas", "Vaitkevicius"};
+const string vyrV[] = {"Jonas", "Petras", "Antanas", "Juozas", "Kazimieras", "Algirdas", "Rimas", "Mindaugas", "Rokas", "Paulius","Kajus", "Pijus", "Titas"};
+const string vyrP[] = {"Kazlauskas", "Petrauskas", "Jonaitis", "Antanaitis", "Rimkus", "Grybauskas", "Brazauskas", "Vaitkevicius", "Statkus", "Sutkaitis","Baciuska", "Zulkus"};
 
 /// ivairus moteriski vardai ir pavardes
-const string motV[] = {"Ona", "Marija", "Lina", "Gabija", "Jurga", "Egle", "Ruta", "Aiste", "Kamile", "Rugile", "Ugne"};
-const string motP[] = {"Kazlauskiene", "Petrauskiene", "Jonaite", "Antanaite", "Rimkute", "Grybauskiene", "Brazauskiene", "Vaitkeviciute"};
+const string motV[] = {"Ona", "Marija", "Lina", "Gabija", "Jurga", "Egle", "Ruta", "Aiste", "Kamile", "Rugile", "Ugne","Selina","Monika", "Paulina", "Adriana"};
+const string motP[] = {"Kazlauskiene", "Petrauskiene", "Jonaite", "Antanaite", "Rimkute", "Grybauskiene", "Brazauskiene", "Vaitkeviciute", "Zobelaite","Macaite","Mockute"};
 
 void spausdinimas(int &m, studentas var[]);
 double galutinis(studentas var[], int &k,int &pasirinkimas);
@@ -40,16 +40,19 @@ int main() {
 
 srand(time(nullptr));                                       /// inicializuoja atsitiktinių skaičių generatorių naudojant dabartinį laiką kaip pradinį numerį
 
-int n;
 int m;
-int pasirinkimas;
 int meniu;
 bool baigti = false;
-
 cout<<"Iveskite kiek yra studentu: ";
-cin >> m;                                                         ///studentu skaicius
+
+while (!(cin >> m) || (m<1 ))
+{
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
+    cout << "Klaida! Iveskite naturaluji skaiciu " << endl;
+}
+
 studentas* var = new studentas [m];                               /// rodyklė rodanti i dinamineje atmintyje sukurta strukturu masyva
-cout<<endl;
 
 do
 {
@@ -58,9 +61,9 @@ do
    cout<<"2 - generuoti pazymius"<<endl;
    cout<<"3 - generuoti ir pazymius ir studentu vardus, pavardes"<<endl;
    cout<<"4 - baigti darba"<<endl;
-   cout<<"Iveskite pasirinkima: ";
+   cout<<"--------------------------------------------------------"<<endl;
    cin>>meniu;
-   cout<<endl<<"--------------------------------------------------------"<<endl;
+
     switch (meniu)                                                      ///meniu su pasirinkimais
     {
         case 1:
@@ -84,6 +87,13 @@ do
             break;
         default:
             cout<< "Klaida! Iveskite nuo 1 iki 4 " << endl;
+
+            while (!(meniu) || (meniu<1 && meniu>4))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
+                break;
+            }
             cout<<endl;
     }
 
@@ -111,9 +121,9 @@ void atsitiktiniaiPazVar (studentas var[], int &m){
 
             indeksas = rand() % (sizeof(vyrP) / sizeof(vyrP[0]));
             var[i].Pavarde=vyrP[indeksas];
-
-            cout<<" Studento vardas: "<<var[i].Vardas<<endl;
-            cout<<" Studento pavarde: "<<var[i].Pavarde<<endl;
+            cout<<"--------------------------------------------------------"<<endl;
+            cout<<i+1<<"-ojo"<<" studento vardas: "<<var[i].Vardas<<endl;
+            cout<<i+1<<"-ojo"<<" studento pavarde: "<<var[i].Pavarde<<endl;
         }
 
         if(lytis==1){
@@ -124,9 +134,9 @@ void atsitiktiniaiPazVar (studentas var[], int &m){
             indeksas = rand() % (sizeof(motP) / sizeof(motP[0]));
 
             var[i].Pavarde=motP[indeksas];
-
-            cout<<" Studento vardas: "<<var[i].Vardas<<endl;
-            cout<<" Studento pavarde: "<<var[i].Pavarde<<endl;
+            cout<<"--------------------------------------------------------"<<endl;
+            cout<<i+1<<"-ojo"<<" studento vardas: "<<var[i].Vardas<<endl;
+            cout<<i+1<<"-ojo"<<" studento pavarde: "<<var[i].Pavarde<<endl;
        }
  
         cout<<" Iveskite kiek namu darbu uzduociu atliko studentas: ";
@@ -152,10 +162,9 @@ void atsitiktiniaiPazVar (studentas var[], int &m){
         }
 
         cout<<endl;
-        cout<<" Atsitiktinai sugeneruotas studento ezamino rezultatas: ";
+        cout<<" Atsitiktinai sugeneruotas studento ezamino rezultatas: "<<endl;
         var[i].egz_rez= rand()% 10+1;                                           ///generuoja atsitikstinius skaicius intervale nuo 1 iki 10
         cout<<var[i].egz_rez<<endl;
-        cout<<endl;
 
     }
 
@@ -166,6 +175,7 @@ void atsitiktiniaiPazymiai(studentas var[], int &m){
     int n;                                                                          ///namu darbu kiekis
 
     for (int i =0; i<m; i++){
+        cout<<"--------------------------------------------------------"<<endl;
         cout<<" Iveskite "<<i+1<<" studento varda: ";
         cin>>var[i].Vardas;
         cout<<" Iveskite "<<i+1<<" studento pavarde: ";
@@ -205,6 +215,7 @@ void atsitiktiniaiPazymiai(studentas var[], int &m){
 void ivedimasRanka(studentas var[], int &m){
 
     for (int i =0; i<m; i++){
+        cout<<"--------------------------------------------------------"<<endl;
         cout<<" Iveskite "<<i+1<<" studento varda: ";
         cin>>var[i].Vardas;
         cout<<" Iveskite "<<i+1<<" studento pavarde: ";

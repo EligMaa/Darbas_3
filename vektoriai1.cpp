@@ -358,4 +358,3 @@ double vidurkis(vector<studentas>& var, int &k){
 
 }
 
-
