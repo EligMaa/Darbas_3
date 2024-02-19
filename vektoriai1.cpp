@@ -35,6 +35,7 @@ void atsitiktiniaiPazymiai(vector<studentas>& var, int &studSk);
 void tikrinimas(int &pasirinkimas);
 void ivedimasRanka(vector<studentas>& var, int &studSk);
 void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk);
+void duomenu_skaitymas_failo(vector<studentas>& var);
 
 
 int main() {
@@ -42,56 +43,159 @@ int main() {
 srand(time(nullptr));                                       /// inicializuoja atsitiktinių skaičių generatorių naudojant dabartinį laiką kaip pradinį numerį
 
 int meniu;
+int meniu_duomenu_ivedimui;
 int studSk;
 bool baigti = false;
+bool baigti_duom_ived = false;
 vector <studentas> var;                                      
 
 do
-{
-   cout<<"1 - ivedimas ranka"<<endl;
-   cout<<"2 - generuoti pazymius"<<endl;
-   cout<<"3 - generuoti ir pazymius ir studentu vardus, pavardes"<<endl;
-   cout<<"4 - baigti darba"<<endl;
-   cout<<"Iveskite pasirinkima: "<<endl;
-   cout<<"--------------------------------------------------------"<<endl;
-   cin>>meniu;
+{ 
+    cout<<"Pasirinkite kaip dirbsite su duomenimis:"<<endl;
+    cout<<"1 - domenu ivedimas"<<endl;
+    cout<<"2 - duomenu skaitymas is failo"<<endl;
+    cout<<"3 - baigti darba"<<endl;
+    cout<<"--------------------------------------------------------"<<endl;
+    cin>>meniu;
+    cout<<endl;
 
-    switch (meniu)                                                      ///meniu su pasirinkimais
+    switch (meniu)                                                                                  /// meniu skirtas v0.2
     {
-        case 1:
-            ivedimasRanka(var,studSk);
-            spausdinimas(var);
-            cout<<endl;
-            break;
-        case 2:
-            atsitiktiniaiPazymiai(var, studSk);
-            spausdinimas(var);
-            cout<<endl;            
-            break;
-        case 3:
-            atsitiktiniaiPazVar(var, studSk);
-            spausdinimas( var);
-            cout<<endl;
-            break;
-        case 4:
-            cout<<"Darbas baigiamas"<<endl;
-            baigti=true;
-            break;
-        default:
-            cout<< "Klaida! Iveskite nuo 1 iki 4 " << endl;
-
-            while (!(meniu) || (meniu<1 && meniu>4))
+    case 1:
+    
+        cout<<"Duomenu ivedimui pasirinkite buda: "<<endl;
+        do
             {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
-                break;
-            }
-            cout<<endl;
+            cout<<"1 - ivedimas ranka"<<endl;
+            cout<<"2 - generuoti pazymius"<<endl;
+            cout<<"3 - generuoti ir pazymius ir studentu vardus, pavardes"<<endl;
+            cout<<"4 - baigti darba"<<endl;
+            cout<<"Iveskite pasirinkima: "<<endl;
+            cout<<"--------------------------------------------------------"<<endl;
+            cin>>meniu_duomenu_ivedimui;
+
+                switch (meniu_duomenu_ivedimui)                                                      ///meniu skirtas v0.1
+                {
+                    case 1:
+                        ivedimasRanka(var,studSk);
+                        spausdinimas(var);
+                        cout<<endl;
+                        break;
+                    case 2:
+                        atsitiktiniaiPazymiai(var, studSk);
+                        spausdinimas(var);
+                        cout<<endl;            
+                        break;
+                    case 3:
+                        atsitiktiniaiPazVar(var, studSk);
+                        spausdinimas( var);
+                        cout<<endl;
+                        break;
+                    case 4:
+                        cout<<"Darbas su duomenu ivedimu baigtas\n"<<endl;
+                        baigti_duom_ived=true;
+                        break;
+                    default:
+                        cout<< "Klaida! Iveskite nuo 1 iki 4 " << endl;
+
+                        while (!(meniu_duomenu_ivedimui) || (meniu_duomenu_ivedimui<1 && meniu_duomenu_ivedimui>4))
+                        {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
+                            break;
+                        }
+                        cout<<endl;
+                }
+
+            } while (!baigti_duom_ived);
+        break;
+
+    case 2:
+        cout<<" Duomenu skaitymas is failo"<<endl;
+        break;
+    
+    case 3:
+        cout<<"Darbas su duomenu ivedimu baigtas\n"<<endl;
+        baigti=true;
+        break;
+
+    default:
+        cout<< "Klaida! Iveskite nuo 1 iki 2 " << endl;
+
+        while (!(meniu) || (meniu<1 && meniu>2))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
+            break;
+        }
+        cout<<endl;
+        break;
+    
     }
 
 } while (!baigti);
 
+
+
 }
+
+
+
+void duomenu_skaitymas_failo(vector<studentas>& var){
+
+int meniu;
+int studSk;
+bool baigti = false;
+
+
+cout<<"Pasirinkite kuri duomenu faila nauduosite: "<<endl;
+        do
+            {
+            cout<<"1 - is sugeneruoto duomenu failo"<<endl;
+            cout<<"2 - is testavimo failo su 10000 studentu duomenu"<<endl;
+            cout<<"3 - is testavimo failo su 100000 studentu duomenu"<<endl;
+            cout<<"4 - is testavimo failo su 10000 studentu duomenu"<<endl;
+            cout<<"Iveskite pasirinkima: "<<endl;
+            cout<<"--------------------------------------------------------"<<endl;
+            cin>>meniu;
+
+                switch (meniu)                                                      ///meniu skirtas v0.1
+                {
+                    case 1:
+                        
+                        break;
+                    case 2:
+                                   
+                        break;
+                    case 3:
+                        
+                        break;
+                    case 4:
+                        
+                        break;
+                    default:
+                        cout<< "Klaida! Iveskite nuo 1 iki 4 " << endl;
+
+                        while (!(meniu) || (meniu<1 && meniu>4))
+                        {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
+                            break;
+                        }
+                        cout<<endl;
+                }
+
+            } while (!baigti);    
+
+
+}
+
+
+
+
+
+
+
 
 void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk){
     
@@ -416,3 +520,4 @@ double vidurkis(vector<studentas>& var, int &k){
 
 
 }
+
