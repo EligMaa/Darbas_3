@@ -42,6 +42,7 @@ void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk);
 void duomenu_skaitymas_failo(vector<studentas>& var);
 void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND);
 void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &pasirinkimas);
+void failoKurimas(vector<studentas>& var, int &kiekND);
 
 
 int main() {
@@ -196,6 +197,70 @@ void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int
     failas.close();
 }
 
+void failoKurimas(vector<studentas>& var, int &kiekND){
+
+    ofstream failas ("kursiokai.txt");
+
+    failas<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(5)<<"ND1"<<setw(5)<<"ND2"<<setw(5)<<"ND3";
+    failas<<setw(5)<<"ND4"<<setw(5)<<"ND5"<<setw(5)<<"Egz."<<endl;
+
+    int m = (rand() % 15) + 1;                                                         ///atsitiktinai sugeneruoja kiek yra studentu
+    
+    while(m>0){
+            for (int i = 0; i<m; i++){
+        
+                bool lytis ;                                                           ///jeigu 0 - vyras, jeigu 1 - moteris  
+                lytis = rand() % 2;                                                    ///arba 0 arba 1
+
+                studentas naujasStudentas;                                     ///sukuria nauja objekta
+
+                if(lytis==0){
+
+                    int indeksas = rand() % (vyrV.size());                             ///atsitinktinai  istrenkamas vardas
+                    naujasStudentas.Vardas=vyrV[indeksas];
+                    indeksas = rand() % (vyrP.size());
+                    naujasStudentas.Pavarde=vyrP[indeksas];
+
+                    failas<<left <<setw(15)<<naujasStudentas.Vardas;
+                    failas<<left <<setw(15)<<naujasStudentas.Pavarde;               
+                
+                }
+
+                if(lytis==1){
+
+                    int indeksas = rand() % (motP.size());
+                    naujasStudentas.Vardas=motV[indeksas];
+
+                    indeksas = rand() % (motP.size());
+                    naujasStudentas.Pavarde=motP[indeksas];
+
+                    failas<<left <<setw(15)<<naujasStudentas.Vardas;
+                    failas<<left <<setw(15)<<naujasStudentas.Pavarde;
+                }
+ 
+
+                for(int j=0; j<kiekND;j++)
+                {
+                    int pazymys = ( rand()% 10+1);                                               ///generuoja atsitikstinius skaicius intervale nuo 1 iki 10
+
+                    failas<< left <<setw(5)<< pazymys;
+                    naujasStudentas.tarpiniai.push_back(pazymys);
+                }
+
+                naujasStudentas.egz_rez= rand()% 10+1;                                           ///generuoja atsitikstinius skaicius intervale nuo 1 iki 10
+                failas<< left <<setw(5)<<naujasStudentas.egz_rez<<endl;
+                var.push_back(naujasStudentas);
+                naujasStudentas.tarpiniai.clear();
+            }       
+
+
+        m--;
+    }
+    
+
+
+    failas.close();
+}
 
 void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &pasirinkimas){
 
@@ -209,7 +274,6 @@ void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &p
             ofstream print ("rez.txt");
             print<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Vid.) "<<endl;
             print<<"------------------------------------------------"<<endl;
-            // cout<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
             print<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
             
             double sum = 0;
@@ -231,7 +295,6 @@ void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &p
         else{
 
             ofstream print ("rez.txt", ios::app);
-            // cout<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
             print<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
 
             double sum = 0;
@@ -328,27 +391,29 @@ void duomenu_skaitymas_failo(vector<studentas>& var){
             {
                     case 1:
                         indeksas=0;                                             ///indeksas, kuris nurodo kelintas failo pavadinimas yra vektoriuje 
-                        // kiekND
-                        // skaitymas(var, failoPav, indeksas, kiekND);           
-                        // spausdinimas(var);
+                        kiekND = 5;
+                        var.clear();
+                        failoKurimas(var, kiekND);
+                        skaitymas(var, failoPav, indeksas, kiekND);           
+                    
                         break;
                     case 2:
                         indeksas=1;
                         kiekND = 15;
                         skaitymas(var, failoPav, indeksas, kiekND);
-                        // spausdinimas(var);          
+
                         break;
                     case 3:
                         indeksas=2;
                         kiekND = 20;
                         skaitymas(var, failoPav, indeksas, kiekND);
-                        // spausdinimas(var);                         
+
                         break;
                     case 4:
                         indeksas=3;
                         kiekND = 7;
                         skaitymas(var, failoPav, indeksas, kiekND);
-                        // spausdinimas(var);                       
+                        
                         break;
 
                     case 5:
@@ -371,16 +436,6 @@ void duomenu_skaitymas_failo(vector<studentas>& var){
         }while (!baigti); 
 
 }
-
-
-
-
-
-
-
-
-
-
 
 void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk){
     
@@ -420,7 +475,7 @@ void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk){
                 }
  
                 n= rand()% 10+1;                                                                 ///atsitiktinai sugeneruoja kiek namu darbu atliko studentas
-                cout<<" Studentas atliko "<<"n"<<" namu darbu uzduotis"<<endl;
+                cout<<" Studentas atliko "<<n<<" namu darbu uzduotis"<<endl;
 
                 naujasStudentas.pazKiekis=n;
                 naujasStudentas.tarpiniai.resize(n);
