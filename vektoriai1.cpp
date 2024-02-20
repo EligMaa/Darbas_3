@@ -40,9 +40,9 @@ void tikrinimas(int &pasirinkimas);
 void ivedimasRanka(vector<studentas>& var, int &studSk);
 void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk);
 void duomenu_skaitymas_failo(vector<studentas>& var);
-void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND);
+void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND);             ///nuskaito duomenis is failo ir iraso i kita faila
 void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &pasirinkimas);
-void failoKurimas(vector<studentas>& var, int &kiekND);
+void failoKurimas( int &kiekND);
 
 
 int main() {
@@ -120,7 +120,6 @@ do
     case 2:
         cout<<" Duomenu skaitymas is failo"<<endl;
         duomenu_skaitymas_failo(var);
-        spausdinimas(var);
         break;
     
     case 3:
@@ -148,7 +147,7 @@ do
 return 0;
 }
 
-void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND){
+void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND){
 
     studentas naujasStudentas;                                     ///sukuria nauja objekta
     int kiekMok=0;                                                 ///mokiniu skaicius
@@ -197,7 +196,7 @@ void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int
     failas.close();
 }
 
-void failoKurimas(vector<studentas>& var, int &kiekND){
+void failoKurimas( int &kiekND){
 
     ofstream failas ("kursiokai.txt");
 
@@ -248,8 +247,15 @@ void failoKurimas(vector<studentas>& var, int &kiekND){
                 }
 
                 naujasStudentas.egz_rez= rand()% 10+1;                                           ///generuoja atsitikstinius skaicius intervale nuo 1 iki 10
+                
+                if(m==1){
+
+                    failas<<naujasStudentas.egz_rez;                                             ///kad nesusidarytu papildoma eilute nededamas endl
+
+                }
+                else
                 failas<< left <<setw(5)<<naujasStudentas.egz_rez<<endl;
-                var.push_back(naujasStudentas);
+                
                 naujasStudentas.tarpiniai.clear();
             }       
 
@@ -392,27 +398,26 @@ void duomenu_skaitymas_failo(vector<studentas>& var){
                     case 1:
                         indeksas=0;                                             ///indeksas, kuris nurodo kelintas failo pavadinimas yra vektoriuje 
                         kiekND = 5;
-                        var.clear();
-                        failoKurimas(var, kiekND);
-                        skaitymas(var, failoPav, indeksas, kiekND);           
+                        failoKurimas( kiekND);
+                        skaitymas_isvedimas(var, failoPav, indeksas, kiekND);           
                     
                         break;
                     case 2:
                         indeksas=1;
                         kiekND = 15;
-                        skaitymas(var, failoPav, indeksas, kiekND);
+                        skaitymas_isvedimas(var, failoPav, indeksas, kiekND);
 
                         break;
                     case 3:
                         indeksas=2;
                         kiekND = 20;
-                        skaitymas(var, failoPav, indeksas, kiekND);
+                        skaitymas_isvedimas(var, failoPav, indeksas, kiekND);
 
                         break;
                     case 4:
                         indeksas=3;
                         kiekND = 7;
-                        skaitymas(var, failoPav, indeksas, kiekND);
+                        skaitymas_isvedimas(var, failoPav, indeksas, kiekND);
                         
                         break;
 
@@ -428,6 +433,7 @@ void duomenu_skaitymas_failo(vector<studentas>& var){
                         {
                             cin.clear();
                             cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
+                            continue;
                             break;
                         }
                         cout<<endl;
