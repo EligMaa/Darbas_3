@@ -8,6 +8,8 @@
 #include <random>
 #include <ctime>
 #include <sstream>
+#include <chrono>
+
 
 
 using namespace std;
@@ -21,6 +23,8 @@ struct studentas
     vector <int> tarpiniai; 
     double vidurkis;
     double mediana;
+    double gal_vid;
+    double gal_med;
 };
 
 /// ivairus vyriski vardai ir pavardes
@@ -39,10 +43,30 @@ void atsitiktiniaiPazymiai(vector<studentas>& var, int &studSk);
 void tikrinimas(int &pasirinkimas);
 void ivedimasRanka(vector<studentas>& var, int &studSk);
 void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk);
-void duomenu_skaitymas_failo(vector<studentas>& var);
-void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND);             ///nuskaito duomenis is failo ir iraso i kita faila
+void su_duomenimis_is_failu(vector<studentas>& kursiokai, vector<studentas>& var);
+void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND, double &laikas);             ///nuskaito duomenis is failo ir iraso i kita faila
 void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &pasirinkimas);
 void failoKurimas( int &kiekND);
+void rusiavimas(vector<studentas>& var);
+void spausdinami_surikiuoti(vector<studentas>& kursiokai);
+
+
+bool rikiuotiVarda(const studentas &a, const studentas &b) {
+    return a.Vardas < b.Vardas;
+}
+
+bool rikiuotiPavarde(const studentas &a, const studentas &b) {
+    return a.Pavarde < b.Pavarde;
+}
+
+bool rikiuotiVid(const studentas &a, const studentas &b) {
+    return a.gal_vid < b.gal_vid;
+}
+
+bool rikiuotiMed(const studentas &a, const studentas &b) {
+    return a.gal_med < b.gal_med;
+}
+
 
 
 int main() {
@@ -54,7 +78,7 @@ int meniu_duomenu_ivedimui;
 int studSk;
 bool baigti = false;
 bool baigti_duom_ived = false;
-vector <studentas> var;                                      
+vector <studentas> var, kursiokai;                                      
 
 do
 { 
@@ -119,7 +143,7 @@ do
 
     case 2:
         cout<<" Duomenu skaitymas is failo"<<endl;
-        duomenu_skaitymas_failo(var);
+        su_duomenimis_is_failu(kursiokai, var);
         break;
     
     case 3:
@@ -147,7 +171,124 @@ do
 return 0;
 }
 
-void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND){
+void rusiavimas(vector<studentas>& kursiokai){
+
+    kursiokai.clear();
+    ifstream failas("kursiokai.txt");
+    if(!failas.is_open())                                                    ///patikrina ar failas egzustuoja
+    {
+        cout<<"Klaida! Failas nerastas"<<endl;
+        return;
+    }
+
+    double vidurkis, medi;
+    int pasirinkimas, mok=5;
+
+    ///perskaitomi duomenys is failo
+    while (!failas.eof())
+    {   
+        studentas naujasStudentas;                                     ///sukuria nauja objekta
+
+        string line;
+        getline(failas, line);
+
+        failas>>naujasStudentas.Vardas>>naujasStudentas.Pavarde;
+   
+        double sum = 0;
+
+            for(int i = 0; i<5; i++){
+                int pazymys;
+                failas>>pazymys;
+                naujasStudentas.tarpiniai.push_back(pazymys);
+                sum+=pazymys;
+
+            }
+
+            failas>>naujasStudentas.egz_rez;
+
+            double vidurkis = sum / 5; 
+            naujasStudentas.gal_vid = vidurkis*0.4+0.6*naujasStudentas.egz_rez; 
+            double medi;
+            sort(naujasStudentas.tarpiniai.begin(), naujasStudentas.tarpiniai.end());
+
+            ///kadangi 5 pazymiai o 5 yra nelyginis skaicius
+            medi= ( naujasStudentas.tarpiniai[5/2]);
+            
+            naujasStudentas.gal_med = medi * 0.4 + 0.6 * naujasStudentas.egz_rez;
+
+
+        kursiokai.push_back(naujasStudentas);
+
+        naujasStudentas.tarpiniai.clear();
+    }
+
+    failas.close();
+
+    int meniu;
+    
+        cout<<"Pasirinkite kaip norite rusiuoti duomenimis:"<<endl;
+        cout<<"1 - pagal studento varda"<<endl;
+        cout<<"2 - pagal studento pavarde"<<endl;
+        cout<<"3 - pagal studento galutini ivertinima su vidurkiu"<<endl;
+        cout<<"4 - pagal studento galutini ivertinima su mediana"<<endl;
+
+        cout<<"--------------------------------------------------------"<<endl;
+        cin>>meniu;
+        cout<<endl;
+
+   
+
+        switch (meniu)                                                                                  /// meniu skirtas v0.2
+        {
+            case 1:
+                sort(kursiokai.begin(), kursiokai.end(), rikiuotiVarda);
+
+                break;
+            case 2:
+                sort(kursiokai.begin(), kursiokai.end(), rikiuotiPavarde);
+                break;
+            case 3:
+                sort(kursiokai.begin(), kursiokai.end(), rikiuotiVid);
+
+                break;
+            case 4:
+                sort(kursiokai.begin(), kursiokai.end(), rikiuotiMed);
+
+                break;
+
+            default:
+                cout<< "Klaida! Iveskite nuo 1 iki 4 " << endl;
+
+                while (!(meniu) || (meniu<1 && meniu>4))
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
+                    break;
+                }
+                cout<<endl;
+
+        }
+   
+
+}
+
+void spausdinami_surikiuoti(vector<studentas>& kursiokai){
+
+    ofstream print ("rez.txt");
+    print<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Vid.) "<<setw(15)<<"Galutinis (Med.) "<<endl;
+    print<<"-----------------------------------------------------------"<<endl;
+
+    for(int i=0; i<kursiokai.size(); i++){
+    
+        print<<left <<setw(15)<<kursiokai[i].Vardas<<setw(15)<<kursiokai[i].Pavarde;
+        print<<setw(15)<<fixed<<setprecision(2) << kursiokai[i].gal_vid << setw(20) << setprecision(2) << kursiokai[i].gal_med << endl;
+
+    }      
+
+    print.close();
+}
+
+void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND, double &laikas){
 
     studentas naujasStudentas;                                     ///sukuria nauja objekta
     int kiekMok=0;                                                 ///mokiniu skaicius
@@ -166,6 +307,8 @@ void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int in
     cout<<"\nJei norite spausdinti studentu galutini iverinima naudojant mediana iveskite: 1\n"<<endl;
 
     tikrinimas(pasirinkimas);                                                                          ///patikrina ar ivesta 0 arba 1
+    
+    auto start = chrono::high_resolution_clock::now();                                                 /// pradeti laiko skaiciavima
 
     while (!failas.eof())
     {   
@@ -192,7 +335,11 @@ void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int in
 
         var.clear();                                                                                   ///isvalomas vektorius
     }
-
+    auto end = chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
+    chrono::duration<double> time = end - start;                                                       /// laikas
+    laikas = time.count();
+    cout<<" Uztruko: "<< laikas<<"s."<<endl;
+    cout<<endl;
     failas.close();
 }
 
@@ -203,15 +350,15 @@ void failoKurimas( int &kiekND){
     failas<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(5)<<"ND1"<<setw(5)<<"ND2"<<setw(5)<<"ND3";
     failas<<setw(5)<<"ND4"<<setw(5)<<"ND5"<<setw(5)<<"Egz."<<endl;
 
-    int m = (rand() % 15) + 1;                                                         ///atsitiktinai sugeneruoja kiek yra studentu
+    int m = 10;                                                                       ///studentu skaicius
     
-    while(m>0){
+    
             for (int i = 0; i<m; i++){
         
                 bool lytis ;                                                           ///jeigu 0 - vyras, jeigu 1 - moteris  
                 lytis = rand() % 2;                                                    ///arba 0 arba 1
 
-                studentas naujasStudentas;                                     ///sukuria nauja objekta
+                studentas naujasStudentas;                                             ///sukuria nauja objekta
 
                 if(lytis==0){
 
@@ -248,20 +395,20 @@ void failoKurimas( int &kiekND){
 
                 naujasStudentas.egz_rez= rand()% 10+1;                                           ///generuoja atsitikstinius skaicius intervale nuo 1 iki 10
                 
-                if(m==1){
+                if(i==9){
 
                     failas<<naujasStudentas.egz_rez;                                             ///kad nesusidarytu papildoma eilute nededamas endl
 
                 }
                 else
-                failas<< left <<setw(5)<<naujasStudentas.egz_rez<<endl;
+                failas<<naujasStudentas.egz_rez<<endl;
                 
                 naujasStudentas.tarpiniai.clear();
             }       
 
 
-        m--;
-    }
+        
+    
     
 
 
@@ -326,7 +473,6 @@ void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &p
             ofstream print ("rez.txt");
             print<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Med.) "<<endl;
             print<<"------------------------------------------------"<<endl;
-            cout<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
             print<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
 
             double medi;
@@ -350,8 +496,6 @@ void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &p
         else{
 
             ofstream print ("rez.txt", ios::app);
-            cout<<kiekMok<<"  ..."<<endl;
-            cout<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
             print<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
             
             double medi;
@@ -374,9 +518,10 @@ void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &p
 
 }
 
-void duomenu_skaitymas_failo(vector<studentas>& var){
+void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var){                                                     ///jei pasirinko dirbti su duomenu failais
 
     int meniu;
+    double laikas;
     bool baigti = false;
     int kiekND, indeksas;
     vector<string> failoPav {"kursiokai.txt","studentai10000.txt", "studentai100000.txt","studentai1000000.txt"};            ///vektorius saugo failu pavadinimus
@@ -399,25 +544,26 @@ void duomenu_skaitymas_failo(vector<studentas>& var){
                         indeksas=0;                                             ///indeksas, kuris nurodo kelintas failo pavadinimas yra vektoriuje 
                         kiekND = 5;
                         failoKurimas( kiekND);
-                        skaitymas_isvedimas(var, failoPav, indeksas, kiekND);           
+                        rusiavimas(kursiokai);
+                        spausdinami_surikiuoti(kursiokai);
                     
                         break;
                     case 2:
                         indeksas=1;
                         kiekND = 15;
-                        skaitymas_isvedimas(var, failoPav, indeksas, kiekND);
+                        skaitymas_isvedimas(var, failoPav, indeksas, kiekND, laikas);
 
                         break;
                     case 3:
                         indeksas=2;
                         kiekND = 20;
-                        skaitymas_isvedimas(var, failoPav, indeksas, kiekND);
+                        skaitymas_isvedimas(var, failoPav, indeksas, kiekND, laikas);
 
                         break;
                     case 4:
                         indeksas=3;
                         kiekND = 7;
-                        skaitymas_isvedimas(var, failoPav, indeksas, kiekND);
+                        skaitymas_isvedimas(var, failoPav, indeksas, kiekND, laikas);
                         
                         break;
 
@@ -659,7 +805,7 @@ void ivedimasRanka(vector<studentas>& var, int &studSk){
 
 }
 
-void tikrinimas(int &pasirinkimas){
+void tikrinimas(int &pasirinkimas){                                                                      ///tikrina pasirinkima
 
     while (!(cin >> pasirinkimas) || (pasirinkimas!=0 && pasirinkimas!=1))
     {
