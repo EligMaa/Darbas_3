@@ -1,10 +1,14 @@
 #include <iostream>
 #include <iomanip>
+#include <fstream>
+#include <vector>
 #include <math.h>
 #include <string>
 #include <algorithm>
-#include <vector>
 #include <random>
+#include <ctime>
+#include <sstream>
+
 
 using namespace std;
 
@@ -36,6 +40,8 @@ void tikrinimas(int &pasirinkimas);
 void ivedimasRanka(vector<studentas>& var, int &studSk);
 void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk);
 void duomenu_skaitymas_failo(vector<studentas>& var);
+void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND);
+void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &pasirinkimas);
 
 
 int main() {
@@ -112,6 +118,8 @@ do
 
     case 2:
         cout<<" Duomenu skaitymas is failo"<<endl;
+        duomenu_skaitymas_failo(var);
+        spausdinimas(var);
         break;
     
     case 3:
@@ -136,47 +144,222 @@ do
 } while (!baigti);
 
 
+return 0;
+}
 
+void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND){
+
+    studentas naujasStudentas;                                     ///sukuria nauja objekta
+    int kiekMok=0;                                                 ///mokiniu skaicius
+    int pasirinkimas;
+    vector <int> skaiciams; 
+
+    ifstream failas(failoPav[indeksas]);
+    if(!failas.is_open())                                                    ///patikrina ar failas egzustuoja
+    {
+        cout<<"Klaida! Failas nerastas"<<endl;
+        return;
+    }
+ 
+    ///pasirenkama ar rezultatus spausdins su vidurkiu ar mediana
+    cout<<"Jei norite spausdinti studentu galutini iverinima naudojant vidurki iveskite: 0";
+    cout<<"\nJei norite spausdinti studentu galutini iverinima naudojant mediana iveskite: 1\n"<<endl;
+
+    tikrinimas(pasirinkimas);                                                                          ///patikrina ar ivesta 0 arba 1
+
+    while (!failas.eof())
+    {   
+        string line;
+        getline(failas, line);
+        failas>>naujasStudentas.Vardas>>naujasStudentas.Pavarde;
+        kiekMok++;
+       
+        for(int i=0; i<kiekND; i++){
+
+            int pazimys;
+            failas>>pazimys;
+            skaiciams.push_back(pazimys);
+        }
+        naujasStudentas.tarpiniai=skaiciams;
+
+        skaiciams.clear();                                                                              ///isvalomas vektorius
+        failas.ignore();
+        failas>>naujasStudentas.egz_rez;
+        var.push_back(naujasStudentas);
+
+        cout<<endl;
+        spausdinimasFailo(var, kiekMok, kiekND, pasirinkimas);
+
+        var.clear();                                                                                   ///isvalomas vektorius
+    }
+
+    failas.close();
 }
 
 
+void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &pasirinkimas){
+
+
+    studentas naujasStudentas = var[var.size()-1];                                     ///sukuria nauja objekta
+
+    ///jei pasirinko spausdinti galutini rezultata su viduriu
+    if(pasirinkimas==0){    
+
+        if(kiekMok==1){
+            ofstream print ("rez.txt");
+            print<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Vid.) "<<endl;
+            print<<"------------------------------------------------"<<endl;
+            // cout<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
+            print<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
+            
+            double sum = 0;
+
+            for(int i = 0; i<kiekND; i++){
+
+                sum+=naujasStudentas.tarpiniai[i];
+
+            }
+            double vidurkis = sum / kiekND; 
+            vidurkis = vidurkis*0.4+0.6*naujasStudentas.egz_rez; 
+
+            print<<setw(15) << fixed<< setprecision(2)<<vidurkis<<endl;
+
+            print.close();
+
+        }
+
+        else{
+
+            ofstream print ("rez.txt", ios::app);
+            // cout<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
+            print<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
+
+            double sum = 0;
+
+            for(int i = 0; i<kiekND; i++){
+
+                sum+=naujasStudentas.tarpiniai[i];
+
+            }
+            double vidurkis = sum / kiekND;
+            vidurkis = vidurkis*0.4+0.6*naujasStudentas.egz_rez; 
+            print<<setw(15) << fixed<< setprecision(2)<<vidurkis<<endl;
+            
+            print.close();
+        }
+    }
+
+    ///jei pasirinko spausdinti galutini rezultata su mediana
+    if(pasirinkimas==1){       
+
+
+        if(kiekMok==1){
+            ofstream print ("rez.txt");
+            print<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Med.) "<<endl;
+            print<<"------------------------------------------------"<<endl;
+            cout<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
+            print<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
+
+            double medi;
+            sort(naujasStudentas.tarpiniai.begin(), naujasStudentas.tarpiniai.end());
+
+            ///jei lyginis pazymiu skaicius
+            if((kiekND%2)==0){
+                medi= ( double(naujasStudentas.tarpiniai[kiekND/2-1]) + (naujasStudentas.tarpiniai[kiekND/2]) ) /2;
+            }
+
+            ///jei nelyginis pazymiu skaicius
+            else {
+                medi= ( naujasStudentas.tarpiniai[kiekND/2]);
+            }
+            medi = medi * 0.4 + 0.6 * naujasStudentas.egz_rez;
+            print<<setw(15) << fixed<< setprecision(2)<<medi<<endl;
+            print.close();
+
+        }
+
+        else{
+
+            ofstream print ("rez.txt", ios::app);
+            cout<<kiekMok<<"  ..."<<endl;
+            cout<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
+            print<<left <<setw(15)<<naujasStudentas.Vardas<<setw(15)<<naujasStudentas.Pavarde;
+            
+            double medi;
+            sort(naujasStudentas.tarpiniai.begin(), naujasStudentas.tarpiniai.end());
+
+            if((kiekND%2)==0){
+                medi= ( double(naujasStudentas.tarpiniai[kiekND/2-1]) + (naujasStudentas.tarpiniai[kiekND/2]) ) /2;
+            }
+
+            ///jei nelyginis pazymiu skaicius
+            else {
+                medi= ( naujasStudentas.tarpiniai[kiekND/2]);
+            }
+            medi = medi * 0.4 + 0.6 * naujasStudentas.egz_rez;
+
+            print<<setw(15) << fixed<< setprecision(2)<<medi<<endl;
+            print.close();
+        }
+    }
+
+}
 
 void duomenu_skaitymas_failo(vector<studentas>& var){
 
-int meniu;
-int studSk;
-bool baigti = false;
+    int meniu;
+    bool baigti = false;
+    int kiekND, indeksas;
+    vector<string> failoPav {"kursiokai.txt","studentai10000.txt", "studentai100000.txt","studentai1000000.txt"};            ///vektorius saugo failu pavadinimus
 
-
-cout<<"Pasirinkite kuri duomenu faila nauduosite: "<<endl;
+    cout<<"Pasirinkite kuri duomenu faila nauduosite: "<<endl;
         do
-            {
+        {
             cout<<"1 - is sugeneruoto duomenu failo"<<endl;
             cout<<"2 - is testavimo failo su 10000 studentu duomenu"<<endl;
             cout<<"3 - is testavimo failo su 100000 studentu duomenu"<<endl;
-            cout<<"4 - is testavimo failo su 10000 studentu duomenu"<<endl;
+            cout<<"4 - is testavimo failo su 1000000 studentu duomenu"<<endl;
+            cout<<"5 - baigti darba"<<endl;
             cout<<"Iveskite pasirinkima: "<<endl;
             cout<<"--------------------------------------------------------"<<endl;
             cin>>meniu;
 
-                switch (meniu)                                                      ///meniu skirtas v0.1
-                {
+            switch (meniu)                                                      ///meniu skirtas v0.1
+            {
                     case 1:
-                        
+                        indeksas=0;                                             ///indeksas, kuris nurodo kelintas failo pavadinimas yra vektoriuje 
+                        // kiekND
+                        // skaitymas(var, failoPav, indeksas, kiekND);           
+                        // spausdinimas(var);
                         break;
                     case 2:
-                                   
+                        indeksas=1;
+                        kiekND = 15;
+                        skaitymas(var, failoPav, indeksas, kiekND);
+                        // spausdinimas(var);          
                         break;
                     case 3:
-                        
+                        indeksas=2;
+                        kiekND = 20;
+                        skaitymas(var, failoPav, indeksas, kiekND);
+                        // spausdinimas(var);                         
                         break;
                     case 4:
-                        
+                        indeksas=3;
+                        kiekND = 7;
+                        skaitymas(var, failoPav, indeksas, kiekND);
+                        // spausdinimas(var);                       
                         break;
-                    default:
-                        cout<< "Klaida! Iveskite nuo 1 iki 4 " << endl;
 
-                        while (!(meniu) || (meniu<1 && meniu>4))
+                    case 5:
+                        cout<<"Darbas su duomenu ivedimu baigtas\n"<<endl;
+                        baigti=true;
+                        break;
+
+                    default:
+                        cout<< "Klaida! Iveskite nuo 1 iki 5 " << endl;
+
+                        while (!(meniu) || (meniu<1 && meniu>5))
                         {
                             cin.clear();
                             cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
@@ -185,10 +368,12 @@ cout<<"Pasirinkite kuri duomenu faila nauduosite: "<<endl;
                         cout<<endl;
                 }
 
-            } while (!baigti);    
-
+        }while (!baigti); 
 
 }
+
+
+
 
 
 
@@ -436,7 +621,7 @@ void spausdinimas(vector<studentas>& var){
     
     if(pasirinkimas==0){                                                       ///isvedama informacija apie studentus ir galutinis rezultatas apskaiciuotas su vidurkiu
 
-        cout<< left <<setw(15)<< "Pavarde"<<setw(15)<<"Vardas"<<setw(15)<<"Galutinis (Vid.) "<<endl;
+        cout<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Vid.) "<<endl;
         cout<<"------------------------------------------------"<<endl;
 
         for(int i=0;i<var.size(); i++){
@@ -447,7 +632,7 @@ void spausdinimas(vector<studentas>& var){
 
     else {                                                                      ///isvedama informacija apie studentus ir galutinis rezultatas apskaiciuotas su mediana
 
-        cout<< left <<setw(15)<< "Pavarde"<<setw(15)<<"Vardas"<<setw(15)<<"Galutinis (Med.) "<<endl;
+        cout<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Med.) "<<endl;
         cout<<"-------------------------------------------------------"<<endl;
 
         for(int i=0;i<var.size(); i++){
