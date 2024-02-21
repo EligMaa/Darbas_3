@@ -142,7 +142,7 @@ do
         break;
 
     case 2:
-        cout<<" Duomenu skaitymas is failo"<<endl;
+        cout<<" Duomenu skaitymas is failo 'kursiokai.txt' "<<endl;
         su_duomenimis_is_failu(kursiokai, var);
         break;
     
@@ -171,7 +171,7 @@ do
 return 0;
 }
 
-void rusiavimas(vector<studentas>& kursiokai){
+void rusiavimas(vector<studentas>& kursiokai){                                                        ///pagal pasirinktus kriterijus surusiuoja kursiokai vektoriu
 
     kursiokai.clear();
     ifstream failas("kursiokai.txt");
@@ -272,8 +272,7 @@ void rusiavimas(vector<studentas>& kursiokai){
 
 }
 
-void spausdinami_surikiuoti(vector<studentas>& kursiokai){
-
+void spausdinami_surikiuoti(vector<studentas>& kursiokai){                                            ///isspausdina i rezultatu faila surikiuota sarasa
     ofstream print ("rez.txt");
     print<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Vid.) "<<setw(15)<<"Galutinis (Med.) "<<endl;
     print<<"-----------------------------------------------------------"<<endl;
@@ -288,7 +287,7 @@ void spausdinami_surikiuoti(vector<studentas>& kursiokai){
     print.close();
 }
 
-void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND, double &laikas){
+void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND, double &laikas){  ///nuskaito pasirinkta faila pagal indeksa ir sukuria rezultatu faila
 
     studentas naujasStudentas;                                     ///sukuria nauja objekta
     int kiekMok=0;                                                 ///mokiniu skaicius
@@ -331,7 +330,7 @@ void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int in
         var.push_back(naujasStudentas);
 
         cout<<endl;
-        spausdinimasFailo(var, kiekMok, kiekND, pasirinkimas);
+        spausdinimasFailo(var, kiekMok, kiekND, pasirinkimas);                                         /// funkcija kuri ispausdina rezultatu faila
 
         var.clear();                                                                                   ///isvalomas vektorius
     }
@@ -343,7 +342,7 @@ void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int in
     failas.close();
 }
 
-void failoKurimas( int &kiekND){
+void failoKurimas( int &kiekND){                                                                              ///sukuria "kursiokai.txt" faila
 
     ofstream failas ("kursiokai.txt");
 
@@ -415,7 +414,7 @@ void failoKurimas( int &kiekND){
     failas.close();
 }
 
-void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &pasirinkimas){
+void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &pasirinkimas){        ///isspausdinami duomenys i rezultatu faila
 
 
     studentas naujasStudentas = var[var.size()-1];                                     ///sukuria nauja objekta
@@ -518,7 +517,7 @@ void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &p
 
 }
 
-void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var){                                                     ///jei pasirinko dirbti su duomenu failais
+void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var){                         ///jei pasirinko dirbti su duomenu failais
 
     int meniu;
     double laikas;
@@ -588,6 +587,7 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
         }while (!baigti); 
 
 }
+
 
 void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk){
     
