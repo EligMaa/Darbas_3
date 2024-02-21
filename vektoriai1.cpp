@@ -45,7 +45,7 @@ void ivedimasRanka(vector<studentas>& var, int &studSk);
 void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk);
 void su_duomenimis_is_failu(vector<studentas>& kursiokai, vector<studentas>& var);
 void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int indeksas,int &kiekND, double &laikas);             ///nuskaito duomenis is failo ir iraso i kita faila
-void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &pasirinkimas);
+void spausdinimasFailo(vector<studentas>& var,  int &kiekMok, int &pasirinkimas);
 void failoKurimas( int &kiekND);
 void rusiavimas(vector<studentas>& var);
 void spausdinami_surikiuoti(vector<studentas>& kursiokai);
@@ -142,7 +142,6 @@ do
         break;
 
     case 2:
-        cout<<" Duomenu skaitymas is failo 'kursiokai.txt' "<<endl;
         su_duomenimis_is_failu(kursiokai, var);
         break;
     
@@ -292,7 +291,7 @@ void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int in
     studentas naujasStudentas;                                     ///sukuria nauja objekta
     int kiekMok=0;                                                 ///mokiniu skaicius
     int pasirinkimas;
-    vector <int> skaiciams; 
+    var.clear();                                                                                   ///isvalomas vektorius
 
     ifstream failas(failoPav[indeksas]);
     if(!failas.is_open())                                                    ///patikrina ar failas egzustuoja
@@ -309,28 +308,34 @@ void skaitymas_isvedimas(vector<studentas>& var, vector<string>&failoPav, int in
     
     auto start = chrono::high_resolution_clock::now();                                                 /// pradeti laiko skaiciavima
 
+    vector <int> skaiciams; 
+    string line;
+
+    getline(failas, line);                       ///pirma eilute mums nereikalinga
+
     while (!failas.eof())
     {   
-        string line;
         getline(failas, line);
-        failas>>naujasStudentas.Vardas>>naujasStudentas.Pavarde;
         kiekMok++;
-       
-        for(int i=0; i<kiekND; i++){
+        istringstream dalijimas (line);              ///leidzia is eilutes skaityti kaip is failo
 
+        dalijimas>>naujasStudentas.Vardas>>naujasStudentas.Pavarde;
+
+        while (!dalijimas.eof()) {
             int pazimys;
-            failas>>pazimys;
+
+            dalijimas>>pazimys;
             skaiciams.push_back(pazimys);
+
         }
-        naujasStudentas.tarpiniai=skaiciams;
-
+        naujasStudentas.egz_rez=skaiciams.back();    ///paskutinis skaicius
+        skaiciams.pop_back();                        ///istrina paskutini skaiciu
+        naujasStudentas.tarpiniai = skaiciams;       
+        naujasStudentas.pazKiekis= skaiciams.size();
         skaiciams.clear();                                                                              ///isvalomas vektorius
-        failas.ignore();
-        failas>>naujasStudentas.egz_rez;
+        
         var.push_back(naujasStudentas);
-
-        cout<<endl;
-        spausdinimasFailo(var, kiekMok, kiekND, pasirinkimas);                                         /// funkcija kuri ispausdina rezultatu faila
+        spausdinimasFailo(var, kiekMok, pasirinkimas);                                         /// funkcija kuri ispausdina rezultatu faila
 
         var.clear();                                                                                   ///isvalomas vektorius
     }
@@ -414,7 +419,7 @@ void failoKurimas( int &kiekND){                                                
     failas.close();
 }
 
-void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &pasirinkimas){        ///isspausdinami duomenys i rezultatu faila
+void spausdinimasFailo(vector<studentas>& var,  int &kiekMok, int &pasirinkimas){        ///isspausdinami duomenys i rezultatu faila
 
 
     studentas naujasStudentas = var[var.size()-1];                                     ///sukuria nauja objekta
@@ -430,12 +435,12 @@ void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &p
             
             double sum = 0;
 
-            for(int i = 0; i<kiekND; i++){
+            for(int i = 0; i<naujasStudentas.pazKiekis; i++){
 
                 sum+=naujasStudentas.tarpiniai[i];
 
             }
-            double vidurkis = sum / kiekND; 
+            double vidurkis = sum / naujasStudentas.pazKiekis; 
             vidurkis = vidurkis*0.4+0.6*naujasStudentas.egz_rez; 
 
             print<<setw(15) << fixed<< setprecision(2)<<vidurkis<<endl;
@@ -451,12 +456,12 @@ void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &p
 
             double sum = 0;
 
-            for(int i = 0; i<kiekND; i++){
+            for(int i = 0; i<naujasStudentas.pazKiekis; i++){
 
                 sum+=naujasStudentas.tarpiniai[i];
 
             }
-            double vidurkis = sum / kiekND;
+            double vidurkis = sum / naujasStudentas.pazKiekis;
             vidurkis = vidurkis*0.4+0.6*naujasStudentas.egz_rez; 
             print<<setw(15) << fixed<< setprecision(2)<<vidurkis<<endl;
             
@@ -468,7 +473,7 @@ void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &p
     if(pasirinkimas==1){       
 
 
-        if(kiekMok==1){
+        if(naujasStudentas.pazKiekis==1){
             ofstream print ("rez.txt");
             print<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Med.) "<<endl;
             print<<"------------------------------------------------"<<endl;
@@ -478,13 +483,13 @@ void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &p
             sort(naujasStudentas.tarpiniai.begin(), naujasStudentas.tarpiniai.end());
 
             ///jei lyginis pazymiu skaicius
-            if((kiekND%2)==0){
-                medi= ( double(naujasStudentas.tarpiniai[kiekND/2-1]) + (naujasStudentas.tarpiniai[kiekND/2]) ) /2;
+            if((naujasStudentas.pazKiekis%2)==0){
+                medi= ( double(naujasStudentas.tarpiniai[naujasStudentas.pazKiekis/2-1]) + (naujasStudentas.tarpiniai[naujasStudentas.pazKiekis/2]) ) /2;
             }
 
             ///jei nelyginis pazymiu skaicius
             else {
-                medi= ( naujasStudentas.tarpiniai[kiekND/2]);
+                medi= ( naujasStudentas.tarpiniai[naujasStudentas.pazKiekis/2]);
             }
             medi = medi * 0.4 + 0.6 * naujasStudentas.egz_rez;
             print<<setw(15) << fixed<< setprecision(2)<<medi<<endl;
@@ -500,13 +505,13 @@ void spausdinimasFailo(vector<studentas>& var,  int &kiekMok,int &kiekND, int &p
             double medi;
             sort(naujasStudentas.tarpiniai.begin(), naujasStudentas.tarpiniai.end());
 
-            if((kiekND%2)==0){
-                medi= ( double(naujasStudentas.tarpiniai[kiekND/2-1]) + (naujasStudentas.tarpiniai[kiekND/2]) ) /2;
+            if((naujasStudentas.pazKiekis%2)==0){
+                medi= ( double(naujasStudentas.tarpiniai[naujasStudentas.pazKiekis/2-1]) + (naujasStudentas.tarpiniai[naujasStudentas.pazKiekis/2]) ) /2;
             }
 
             ///jei nelyginis pazymiu skaicius
             else {
-                medi= ( naujasStudentas.tarpiniai[kiekND/2]);
+                medi= ( naujasStudentas.tarpiniai[naujasStudentas.pazKiekis/2]);
             }
             medi = medi * 0.4 + 0.6 * naujasStudentas.egz_rez;
 
@@ -528,7 +533,7 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
     cout<<"Pasirinkite kuri duomenu faila nauduosite: "<<endl;
         do
         {
-            cout<<"1 - is sugeneruoto duomenu failo"<<endl;
+            cout<<"1 - is sugeneruoto duomenu failo 'kursiokai.txt'"<<endl;
             cout<<"2 - is testavimo failo su 10000 studentu duomenu"<<endl;
             cout<<"3 - is testavimo failo su 100000 studentu duomenu"<<endl;
             cout<<"4 - is testavimo failo su 1000000 studentu duomenu"<<endl;
@@ -549,19 +554,16 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
                         break;
                     case 2:
                         indeksas=1;
-                        kiekND = 15;
                         skaitymas_isvedimas(var, failoPav, indeksas, kiekND, laikas);
 
                         break;
                     case 3:
                         indeksas=2;
-                        kiekND = 20;
                         skaitymas_isvedimas(var, failoPav, indeksas, kiekND, laikas);
 
                         break;
                     case 4:
                         indeksas=3;
-                        kiekND = 7;
                         skaitymas_isvedimas(var, failoPav, indeksas, kiekND, laikas);
                         
                         break;
