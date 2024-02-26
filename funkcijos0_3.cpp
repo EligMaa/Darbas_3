@@ -350,9 +350,11 @@ bool rikiuotiMed(const studentas &a, const studentas &b) {
     return a.gal_med < b.gal_med;
 }
 
+
 void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk){
     
     int n;
+    var.clear();
     int m = (rand() % 10) + 1;                                                         ///atsitiktinai sugeneruoja kiek yra studentu
     studSk=m;
     do{
@@ -427,6 +429,7 @@ void atsitiktiniaiPazymiai(vector<studentas>& var, int &studSk){
 
     int n;                                                                          ///namu darbu kiekis
     bool pasirinkimas;
+    var.clear();
     int i=0;
     do
     {   if(i!=0){
@@ -490,7 +493,7 @@ void atsitiktiniaiPazymiai(vector<studentas>& var, int &studSk){
 void ivedimasRanka(vector<studentas>& var, int& studSk) {
     int i = 0;
     bool pasirinkimas;
-
+    var.clear();
 
     do 
     {

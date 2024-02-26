@@ -85,16 +85,19 @@ int main() {
                 switch (meniu)                                                      ///meniu skirtas v0.1
                         {
                             case 1:
+                                var.clear();
                                 ivedimasRanka(var,studSk);
                                 spausdinimas(var);
                                 cout<<endl;
                                 break;
                             case 2:
+                                var.clear();
                                 atsitiktiniaiPazymiai(var, studSk);
                                 spausdinimas(var);
                                 cout<<endl;            
                                 break;
                             case 3:
+                                var.clear();
                                 atsitiktiniaiPazVar(var, studSk);
                                 spausdinimas( var);
                                 cout<<endl;
