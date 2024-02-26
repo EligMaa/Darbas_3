@@ -9,6 +9,7 @@
 #include <ctime>
 #include <sstream>
 #include <chrono>
+#include <stdexcept>
 
 
 
@@ -43,6 +44,7 @@ void atsitiktiniaiPazymiai(vector<studentas>& var, int &studSk);
 void tikrinimas(int &pasirinkimas);
 void ivedimasRanka(vector<studentas>& var, int &studSk);
 void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk);
+
 void su_duomenimis_is_failu(vector<studentas>& kursiokai, vector<studentas>& var);
 void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas, double &laikas);             ///nuskaito duomenis is failo ir iraso i kita faila
 void failoKurimas( int &kiekND);
@@ -256,13 +258,21 @@ void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas, do
     studentas naujasStudentas;                                     ///sukuria nauja objekta
     int kiekMok=0;                                                 ///mokiniu skaicius
     int pasirinkimas;
-
     ifstream failas(failoPav[indeksas]);
-    if(!failas.is_open())                                                    ///patikrina ar failas egzustuoja
-    {
-        cout<<"Klaida! Failas nerastas"<<endl;
-        return;
+
+    try{
+        if(!failas.is_open())                                                    ///patikrina ar failas egzustuoja
+        {
+            throw runtime_error ("Failas nerastas");
+        }
+
     }
+
+    catch ( const exception & e){
+        cerr<<"Klaida: "<<e.what()<<endl;
+        return ;
+    }
+
 
     vector <int> skaiciams; 
     string line;
@@ -295,6 +305,7 @@ void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas, do
 
     }
     failas.close();
+    rusiavimas(var);
 
     auto end = chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
     chrono::duration<double> time = end - start;                                                       /// laikas
@@ -398,7 +409,6 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
                         kiekND = 5;
                         failoKurimas( kiekND);
                         skaitymas(kursiokai, failoPav, indeksas, laikas);
-                        rusiavimas(kursiokai);
                         spausdinami_surikiuoti(kursiokai, laikas);
 
                     
@@ -406,7 +416,6 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
                     case 2:
                         indeksas=1;
                         skaitymas(var, failoPav, indeksas, laikas);
-                        rusiavimas(var);
                         spausdinami_surikiuoti(var, laikas);
 
 
@@ -414,14 +423,12 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
                     case 3:
                         indeksas=2;
                         skaitymas(var, failoPav, indeksas, laikas);
-                        rusiavimas(var);
                         spausdinami_surikiuoti(var, laikas);
 
                         break;
                     case 4:
                         indeksas=3;
                         skaitymas(var, failoPav, indeksas, laikas);
-                        rusiavimas(var);
                         spausdinami_surikiuoti(var, laikas);
                         
                         break;
