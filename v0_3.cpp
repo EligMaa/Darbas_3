@@ -104,7 +104,6 @@ do
                 throw invalid_argument("Klaida! Iveskite nuo 1 iki 4 ");
             }
                         
-            cout << endl;
         } 
                     
         catch (const invalid_argument & e) {
@@ -116,70 +115,69 @@ do
 
     switch (meniu)                                                                                  /// meniu skirtas v0.2
     {
-    case 1:
-    
-        cout<<"Duomenu ivedimui pasirinkite buda: "<<endl;
-        do
-            {
-            cout<<"1 - ivedimas ranka"<<endl;
-            cout<<"2 - generuoti pazymius"<<endl;
-            cout<<"3 - generuoti ir pazymius ir studentu vardus, pavardes"<<endl;
-            cout<<"4 - baigti darba"<<endl;
-            cout<<"--------------------------------------------------------"<<endl;
-            
-            
-            try {
-                cout << "Iveskite pasirinkima: " << endl;
-                string input;
-                cin >> input;
-
-                if (input.find_first_not_of("0123456789") != string::npos) {                                  ///tikrina ar ivestas skaicius naturalusis
-                throw invalid_argument("Netinkamas pasirinkimas");
-                }
-
-                meniu = stoi(input);
-
-                if (meniu < 1 || meniu > 4) {
-                    throw invalid_argument("Iveskite nuo 1 iki 4 ");
-                }
-                            
-            } 
-                    
-            catch (const invalid_argument & e) {
-                cerr << "Klaida: " << e.what() << endl;
-                cout << endl;
-
-                continue;
-            }
-            
-                switch (meniu_duomenu_ivedimui)                                                      ///meniu skirtas v0.1
+        case 1:
+        
+            cout<<"Duomenu ivedimui pasirinkite buda: "<<endl;
+            do
                 {
-                    case 1:
-                        ivedimasRanka(var,studSk);
-                        spausdinimas(var);
-                        cout<<endl;
-                        break;
-                    case 2:
-                        atsitiktiniaiPazymiai(var, studSk);
-                        spausdinimas(var);
-                        cout<<endl;            
-                        break;
-                    case 3:
-                        atsitiktiniaiPazVar(var, studSk);
-                        spausdinimas( var);
-                        cout<<endl;
-                        break;
-                    case 4:
-                        cout<<"Darbas su duomenu ivedimu baigtas\n"<<endl;
-                        baigti_duom_ived=true;
-                        break;
-                    default:
-                        cout<< "Iveskite nuo 1 iki 4 " << endl;
+                cout<<"1 - ivedimas ranka"<<endl;
+                cout<<"2 - generuoti pazymius"<<endl;
+                cout<<"3 - generuoti ir pazymius ir studentu vardus, pavardes"<<endl;
+                cout<<"4 - baigti darba"<<endl;
+                cout<<"--------------------------------------------------------"<<endl;
+                
+                
+                try {
+                    cout << "Iveskite pasirinkima: " << endl;
+                    string input;
+                    cin >> input;
 
-                        break;
+                    if (input.find_first_not_of("0123456789") != string::npos) {                                  ///tikrina ar ivestas skaicius naturalusis
+                    throw invalid_argument("Netinkamas pasirinkimas");
+                    }
+
+                    meniu = stoi(input);
+
+                    if (meniu < 1 || meniu > 4) {
+                        throw invalid_argument("Iveskite nuo 1 iki 4 ");
+                    }
+                                
+                } 
+                        
+                catch (const invalid_argument & e) {
+                    cerr << "Klaida: " << e.what() << endl;
+                    cout << endl;
+                    continue;
                 }
+                
+            switch (meniu)                                                      ///meniu skirtas v0.1
+                    {
+                        case 1:
+                            ivedimasRanka(var,studSk);
+                            spausdinimas(var);
+                            cout<<endl;
+                            break;
+                        case 2:
+                            atsitiktiniaiPazymiai(var, studSk);
+                            spausdinimas(var);
+                            cout<<endl;            
+                            break;
+                        case 3:
+                            atsitiktiniaiPazVar(var, studSk);
+                            spausdinimas( var);
+                            cout<<endl;
+                            break;
+                        case 4:
+                            cout<<"Darbas su duomenu ivedimu baigtas\n"<<endl;
+                            baigti=true;
+                            break;
+                        default:
+                            cout<< "Iveskite nuo 1 iki 4 " << endl;
 
-            } while (!baigti_duom_ived);
+                            break;
+                    }
+
+                } while (!baigti);
         break;
 
     case 2:
@@ -686,7 +684,7 @@ void ivedimasRanka(vector<studentas>& var, int& studSk) {
         cout << "--------------------------------------------------------" << endl;
         cout << " Jei norite irasyti studenta iveskite 1, o jei norite baigti vedima - 0" << endl;
 
-        try {
+        try {                                                                                      ///tikrina ivedima
             
             cin>> pasirinkimas;
 
@@ -729,7 +727,6 @@ void ivedimasRanka(vector<studentas>& var, int& studSk) {
             vector<int> skaiciams;
 
             while (true) {
-                cout << "Iveskite pazymi (0 - baigti ivedima): ";
                 while (!(cin >> pazimys) || pazimys < 0 || pazimys > 10) {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -758,7 +755,6 @@ void ivedimasRanka(vector<studentas>& var, int& studSk) {
         
     } while (true);
 }
-
 
 void tikrinimas(int &pasirinkimas){                                                                      ///tikrina pasirinkima
 
