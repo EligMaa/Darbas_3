@@ -689,8 +689,8 @@ void ivedimasRanka(vector<studentas>& var, int& studSk) {
             cin>> pasirinkimas;
 
             if (cin.fail()) {
-                cin.clear(); // Clear the error flag
-                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+                cin.clear(); 
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                 throw invalid_argument("Netinkamas pasirinkimas");
             }
 
@@ -702,7 +702,7 @@ void ivedimasRanka(vector<studentas>& var, int& studSk) {
 
         catch (const invalid_argument& e) {
             cerr << "Klaida: " << e.what() << endl;
-            continue; // Skip to the next iteration of the loop
+            continue; 
         }
 
             if (pasirinkimas == false && i == 0) {
@@ -723,31 +723,91 @@ void ivedimasRanka(vector<studentas>& var, int& studSk) {
             cout << " Iveskite studento namu darbu rezultatus (noredami baigti ivedima iveskite 0): " << endl;
 
             int pazimys;
+            string input;
             int kiek = 0;  // Pazymiu sk
             vector<int> skaiciams;
 
             while (true) {
-                while (!(cin >> pazimys) || pazimys < 0 || pazimys > 10) {
+
+                try{
+                    cin>>input;
+
+                    if (input.find('.') != string::npos) {                                   /// tikrina ar string yra "." , jei yra, ismes klaida
+                        cerr << "Klaida! Iveskite skaiciu nuo 0 iki 10\n";
+                        continue; 
+                    }
+                    
+                    pazimys = stoi (input);                                                  /// jei string ivestas skaicius yra sveikasis pavercia ji i int tipo kintamaji
+
+
+                    if(cin.fail()){
+                        throw invalid_argument ("Netinkami duomenys");
+                    }
+
+                    if(pazimys < 0 || pazimys > 10){
+                        throw invalid_argument ("Iveskite skaiciu nuo 0 iki 10\n");
+                    }
+
+                    
+                    if(pazimys != static_cast<int>(pazimys)){
+                        throw invalid_argument ("Iveskite sveikaji skaiciu");
+                    }
+
+
+                    if(pazimys ==0) break;
+
+                    
+                        skaiciams.push_back(pazimys);
+                        kiek++;
+                    
+                }
+                catch (const invalid_argument& e) {
+                    cerr<<"Klaida: "<<e.what()<<endl;
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cout << " Klaida. Iveskite skaiciu nuo 0 iki 10" << endl;
+                    
                 }
 
-                if (pazimys == 0) break;  // Jei iveda 0 nutraukiamas ciklas
 
-                skaiciams.push_back(pazimys);
-                kiek++;
             }
 
             naujasStudentas.pazKiekis = kiek;
             naujasStudentas.tarpiniai = skaiciams;
 
+        
             cout << " Iveskite " << i << " studento egzamino rezultata: ";
-            while (!(cin >> naujasStudentas.egz_rez) || naujasStudentas.egz_rez < 0 || naujasStudentas.egz_rez > 10) {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Iveskite skaiciu nuo 0 iki 10: ";
+
+
+            while(true){
+
+                try{
+                    cin>>input;
+
+                    if (input.find('.') != string::npos) {                                   /// tikrina ar string yra "." , jei yra, ismes klaida
+                        cerr << "Klaida! Iveskite skaiciu nuo 0 iki 10\t";
+                        continue; 
+                    }
+                    
+                    naujasStudentas.egz_rez = stoi (input);                    
+                   
+                    if(cin.fail()){
+                        throw invalid_argument ("Netinkami duomenys");
+                    }
+
+                    if(pazimys < 0 || pazimys > 10){
+                        throw invalid_argument ("Iveskite skaiciu nuo 0 iki 10\t");
+                    }
+                    break;
+
+                }
+                catch (const invalid_argument& e){
+                   cerr<<"Klaida: "<<e.what()<<endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                     
+                }
             }
+
             cout << endl;
 
             var.push_back(naujasStudentas);
@@ -864,5 +924,4 @@ double vidurkis(vector<studentas>& var, int &k){
 
 
 }
-
 
