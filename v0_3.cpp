@@ -125,7 +125,6 @@ do
             cout<<"2 - generuoti pazymius"<<endl;
             cout<<"3 - generuoti ir pazymius ir studentu vardus, pavardes"<<endl;
             cout<<"4 - baigti darba"<<endl;
-            cout<<"Iveskite pasirinkima: "<<endl;
             cout<<"--------------------------------------------------------"<<endl;
             
             
@@ -677,84 +676,89 @@ void atsitiktiniaiPazymiai(vector<studentas>& var, int &studSk){
     }while(pasirinkimas==true);
 }
 
-void ivedimasRanka(vector<studentas>& var, int &studSk){
-
+void ivedimasRanka(vector<studentas>& var, int& studSk) {
+    int i = 0;
     bool pasirinkimas;
-    int i=0;
-    do
+
+
+    do 
     {
-        if(i!=0){
-        cout<<"--------------------------------------------------------"<<endl;
-        cout<<" Jei norite irasyti studenta iveskite 1, o jei norite baigti vedima - 0"<<endl;
-    
-        while (!(cin >> pasirinkimas) || (pasirinkimas!=0 && pasirinkimas!=1))
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
-            cout << "Iveskite 1 arba 0: " << endl;
+        cout << "--------------------------------------------------------" << endl;
+        cout << " Jei norite irasyti studenta iveskite 1, o jei norite baigti vedima - 0" << endl;
+
+        try {
+            
+            cin>> pasirinkimas;
+
+            if (cin.fail()) {
+                cin.clear(); // Clear the error flag
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+                throw invalid_argument("Netinkamas pasirinkimas");
+            }
+
+            if (pasirinkimas != 0 && pasirinkimas != 1) {
+                throw invalid_argument("Netinkamas pasirinkimas");
+            }        
+
         } 
+
+        catch (const invalid_argument& e) {
+            cerr << "Klaida: " << e.what() << endl;
+            continue; // Skip to the next iteration of the loop
         }
 
-        if(pasirinkimas==false && i==0){
-
-            cout<<"Reikia ivesti nors viena studenta "<<endl;
-        }
-        if(pasirinkimas==false && i>0) break;
-
-        i++;
-        studentas naujasStudentas;                                     ///sukuria nauja objekta
-        cout<<"--------------------------------------------------------"<<endl;
-        cout<<" Iveskite "<<i<<" studento varda: ";
-        cin>>naujasStudentas.Vardas;
-        cout<<" Iveskite "<<i<<" studento pavarde: ";
-        cin>>naujasStudentas.Pavarde;
-        
-        cout<<" Iveskite studento namu darbu rezultatus (noredami baigti ivedima iveskite 0): "<<endl;
-        
-        int pazimys;
-        int kiek=0;                                                                 /// pazymiu sk
-        vector <int> skaiciams;
-
-        while (true)
-        {
-            while (!(cin >> pazimys) || pazimys<0 || pazimys>10)                      ///tikrina ar pazimys yra intervale nuo 1 iki 10
-            {
-               cin.clear();
-               cin.ignore(numeric_limits<streamsize>::max(), '\n');
-               cout << " Klaida. Iveskite skaiciu nuo 1 iki 10" << endl;
-            }            
-
-            if(pazimys==0)break;                                                      ///jei iveda 0 nutraukiamas ciklas
-
-            else{
-            skaiciams.push_back(pazimys);
-            kiek++;
+            if (pasirinkimas == false && i == 0) {
+                cout << "Reikia ivesti nors viena studenta " << endl;
+                continue;
             }
-        }
 
-        naujasStudentas.pazKiekis = kiek;
-        naujasStudentas.tarpiniai = skaiciams;
+            if (pasirinkimas == false && i > 0) break;
 
-        cout<<"\n Iveskite "<<i<<" studento ezamino rezultata: "<<endl;
+            i++;
+            studentas naujasStudentas;  // Sukuria nauja objekta
+            cout << "--------------------------------------------------------" << endl;
+            cout << " Iveskite " << i << " studento varda: ";
+            cin >> naujasStudentas.Vardas;
+            cout << " Iveskite " << i << " studento pavarde: ";
+            cin >> naujasStudentas.Pavarde;
 
-            while (!(cin>>naujasStudentas.egz_rez) || (naujasStudentas.egz_rez<0 || naujasStudentas.egz_rez>10))
-            {
+            cout << " Iveskite studento namu darbu rezultatus (noredami baigti ivedima iveskite 0): " << endl;
+
+            int pazimys;
+            int kiek = 0;  // Pazymiu sk
+            vector<int> skaiciams;
+
+            while (true) {
+                cout << "Iveskite pazymi (0 - baigti ivedima): ";
+                while (!(cin >> pazimys) || pazimys < 0 || pazimys > 10) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << " Klaida. Iveskite skaiciu nuo 0 iki 10" << endl;
+                }
+
+                if (pazimys == 0) break;  // Jei iveda 0 nutraukiamas ciklas
+
+                skaiciams.push_back(pazimys);
+                kiek++;
+            }
+
+            naujasStudentas.pazKiekis = kiek;
+            naujasStudentas.tarpiniai = skaiciams;
+
+            cout << " Iveskite " << i << " studento egzamino rezultata: ";
+            while (!(cin >> naujasStudentas.egz_rez) || naujasStudentas.egz_rez < 0 || naujasStudentas.egz_rez > 10) {
                 cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
-                cout << "Iveskite nuo 1 iki 10: " << endl;
-
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Iveskite skaiciu nuo 0 iki 10: ";
             }
-        cout<<endl;
+            cout << endl;
 
-        var.push_back(naujasStudentas);
-        pasirinkimas=true;
-        studSk=i;
-
-
-    }while (pasirinkimas == true);
-
-
+            var.push_back(naujasStudentas);
+            studSk = i;
+        
+    } while (true);
 }
+
 
 void tikrinimas(int &pasirinkimas){                                                                      ///tikrina pasirinkima
 
