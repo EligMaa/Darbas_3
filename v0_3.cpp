@@ -88,8 +88,31 @@ do
     cout<<"2 - duomenu skaitymas is failo"<<endl;
     cout<<"3 - baigti darba"<<endl;
     cout<<"--------------------------------------------------------"<<endl;
-    cin>>meniu;
-    cout<<endl;
+    
+        try {
+            cout << "Iveskite pasirinkima: " << endl;
+            string input;
+            cin >> input;
+
+            if (input.find_first_not_of("0123456789") != string::npos) {                                  ///tikrina ar ivestas skaicius naturalusis
+            throw invalid_argument("Netinkamas pasirinkimas");
+            }
+
+            meniu = stoi(input);
+
+            if (meniu < 1 || meniu > 4) {
+                throw invalid_argument("Klaida! Iveskite nuo 1 iki 4 ");
+            }
+                        
+            cout << endl;
+        } 
+                    
+        catch (const invalid_argument & e) {
+            cerr << "Klaida: " << e.what() << endl;
+            cout << endl;
+
+            continue;
+        }    
 
     switch (meniu)                                                                                  /// meniu skirtas v0.2
     {
@@ -104,8 +127,32 @@ do
             cout<<"4 - baigti darba"<<endl;
             cout<<"Iveskite pasirinkima: "<<endl;
             cout<<"--------------------------------------------------------"<<endl;
-            cin>>meniu_duomenu_ivedimui;
+            
+            
+            try {
+                cout << "Iveskite pasirinkima: " << endl;
+                string input;
+                cin >> input;
 
+                if (input.find_first_not_of("0123456789") != string::npos) {                                  ///tikrina ar ivestas skaicius naturalusis
+                throw invalid_argument("Netinkamas pasirinkimas");
+                }
+
+                meniu = stoi(input);
+
+                if (meniu < 1 || meniu > 4) {
+                    throw invalid_argument("Iveskite nuo 1 iki 4 ");
+                }
+                            
+            } 
+                    
+            catch (const invalid_argument & e) {
+                cerr << "Klaida: " << e.what() << endl;
+                cout << endl;
+
+                continue;
+            }
+            
                 switch (meniu_duomenu_ivedimui)                                                      ///meniu skirtas v0.1
                 {
                     case 1:
@@ -128,15 +175,9 @@ do
                         baigti_duom_ived=true;
                         break;
                     default:
-                        cout<< "Klaida! Iveskite nuo 1 iki 4 " << endl;
+                        cout<< "Iveskite nuo 1 iki 4 " << endl;
 
-                        while (!(meniu_duomenu_ivedimui) || (meniu_duomenu_ivedimui<1 && meniu_duomenu_ivedimui>4))
-                        {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
-                            break;
-                        }
-                        cout<<endl;
+                        break;
                 }
 
             } while (!baigti_duom_ived);
@@ -152,15 +193,8 @@ do
         break;
 
     default:
-        cout<< "Klaida! Iveskite nuo 1 iki 2 " << endl;
+        cout<< "Iveskite nuo 1 iki 3 " << endl;
 
-        while (!(meniu) || (meniu<1 && meniu>2))
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
-            break;
-        }
-        cout<<endl;
         break;
     
     }
@@ -174,7 +208,10 @@ return 0;
 void rusiavimas(vector<studentas>& var){                                                        ///pagal pasirinktus kriterijus surusiuoja kursiokai vektoriu
 
     int meniu;
+    bool baigti = false;
     int pasirinkimas=0;
+
+    do{
 
         cout<<"Pasirinkite kaip norite rusiuoti duomenimis:"<<endl;
         cout<<"1 - pagal studento varda"<<endl;
@@ -183,8 +220,31 @@ void rusiavimas(vector<studentas>& var){                                        
         cout<<"4 - pagal studento galutini ivertinima su mediana"<<endl;
 
         cout<<"--------------------------------------------------------"<<endl;
-        cin>>meniu;
-        cout<<endl;
+
+        try {
+            cout << "Iveskite pasirinkima: " << endl;
+            string input;
+            cin >> input;
+
+            if (input.find_first_not_of("0123456789") != string::npos) {                                  ///tikrina ar ivestas skaicius naturalusis
+            throw invalid_argument("Netinkamas pasirinkimas");
+            }
+
+            meniu = stoi(input);
+
+            if (meniu < 1 || meniu > 4) {
+                throw invalid_argument("Iveskite nuo 1 iki 4 ");
+            }
+                        
+            cout << endl;
+        } 
+                    
+        catch (const invalid_argument & e) {
+            cerr << "Klaida: " << e.what() << endl;
+            cout << endl;
+            continue;
+        }
+
 
         for(int i=0;i<var.size(); i++){
             pasirinkimas=0;
@@ -194,39 +254,41 @@ void rusiavimas(vector<studentas>& var){                                        
             var[i].gal_med=galutinis(var,i,pasirinkimas);
         }
 
+
         switch (meniu)                                                                                  /// meniu skirtas v0.2
         {
             case 1:
                 sort(var.begin(), var.end(), rikiuotiVarda);
+                baigti = true;
 
                 break;
             case 2:
                 sort(var.begin(), var.end(), rikiuotiPavarde);
+                baigti = true;
+
                 break;
             case 3:
                 sort(var.begin(), var.end(), rikiuotiVid);
+                baigti = true;
 
                 break;
             case 4:
                 sort(var.begin(), var.end(), rikiuotiMed);
+                baigti = true;
 
                 break;
 
             default:
-                cout<< "Klaida! Iveskite nuo 1 iki 4 " << endl;
+                cout<< "Iveskite nuo 1 iki 4 " << endl;
 
-                while (!(meniu) || (meniu<1 && meniu>4))
-                {
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
-                    break;
-                }
-                cout<<endl;
+                break;
 
         }
-   
 
-}
+        }while (!baigti);
+
+
+    }
 
 void spausdinami_surikiuoti(vector<studentas>& var,double &laikas){                                            ///isspausdina i rezultatu faila surikiuota sarasa
    
@@ -270,6 +332,7 @@ void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas, do
 
     catch ( const exception & e){
         cerr<<"Klaida: "<<e.what()<<endl;
+        cout << endl;
         return ;
     }
 
@@ -392,8 +455,6 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
 
     cout<<"Pasirinkite kuri duomenu faila nauduosite: "<<endl;
 
- 
-
         do
         {
             cout<<"1 - is sugeneruoto duomenu failo 'kursiokai.txt'"<<endl;
@@ -403,17 +464,28 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
             cout<<"5 - baigti darba"<<endl;
             cout<<"--------------------------------------------------------"<<endl;
            
-            try                                                          /// tikrina ivestus duomenis
-            {
-                cout<<"Iveskite pasirinkima: "<<endl;
-                cin>>meniu;       
+            try {
+                        cout << "Iveskite pasirinkima: " << endl;
+                        string input;
+                        cin >> input;
 
-                if(cin.fail()) {
+                        if (input.find_first_not_of("0123456789") != string::npos) {                                  ///tikrina ar ivestas skaicius naturalusis
+                            throw invalid_argument("Netinkamas pasirinkimas");
+                        }
 
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                throw invalid_argument("Iveskite sveikiuosius skaicius");  
-                }
+                        meniu = stoi(input);
+
+                        if (meniu < 1 || meniu > 5) {
+                            throw invalid_argument("Iveskite nuo 1 iki 5 ");
+                        }
+                        cout << endl;
+                    } 
+                    
+                    catch (const invalid_argument & e) {
+                        cerr << "Klaida: " << e.what() << endl;
+                        cout << endl;
+                        continue;
+                    }
 
                 switch (meniu)                                                      ///meniu skirtas v0.1
                 {
@@ -452,22 +524,13 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
                             break;
 
                         default:
-                            cout<< "Klaida! Iveskite nuo 1 iki 5 " << endl;
-                            break;
 
-                            // while (!(meniu) || (meniu<1 && meniu>5))
-                            // {
-                            //     cin.clear();
-                            //     cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
-                            //     continue;
-                            //     break;
-                            // }
-                            cout<<endl;
+                            cout << "Iveskite nuo 1 iki 5 " << endl;
+                            
+
                     }
 
-                } catch (const invalid_argument & e){
-                    cerr<<"Klaida: "<<e.what()<<endl;
-                }
+               
                 
 
         }while (!baigti); 
@@ -564,7 +627,7 @@ void atsitiktiniaiPazymiai(vector<studentas>& var, int &studSk){
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
-            cout << "Klaida! Iveskite 1 arba 0: " << endl;
+            cout << " Iveskite 1 arba 0: " << endl;
         } 
         }
 
@@ -585,7 +648,7 @@ void atsitiktiniaiPazymiai(vector<studentas>& var, int &studSk){
             {
              cin.clear();
               cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos+
-              cout << "Klaida! Iveskite nuo 1 iki 100: " << endl;
+              cout << "Iveskite nuo 1 iki 100: " << endl;
             }
 
             naujasStudentas.pazKiekis=n;
@@ -628,13 +691,13 @@ void ivedimasRanka(vector<studentas>& var, int &studSk){
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
-            cout << "Klaida! Iveskite 1 arba 0: " << endl;
+            cout << "Iveskite 1 arba 0: " << endl;
         } 
         }
 
         if(pasirinkimas==false && i==0){
 
-            cout<<" Klaida! Reikia ivesti nors viena studenta "<<endl;
+            cout<<"Reikia ivesti nors viena studenta "<<endl;
         }
         if(pasirinkimas==false && i>0) break;
 
@@ -678,7 +741,7 @@ void ivedimasRanka(vector<studentas>& var, int &studSk){
             {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
-                cout << "Klaida! Iveskite nuo 1 iki 10: " << endl;
+                cout << "Iveskite nuo 1 iki 10: " << endl;
 
             }
         cout<<endl;
@@ -699,7 +762,7 @@ void tikrinimas(int &pasirinkimas){                                             
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
-        cout << "Klaida! Iveskite 1 arba 0: " << endl;
+        cout << "Iveskite 1 arba 0: " << endl;
     }
 }
 
