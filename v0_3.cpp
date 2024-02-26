@@ -391,6 +391,9 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
     vector<string> failoPav {"kursiokai.txt","studentai10000.txt", "studentai100000.txt","studentai1000000.txt"};            ///vektorius saugo failu pavadinimus
 
     cout<<"Pasirinkite kuri duomenu faila nauduosite: "<<endl;
+
+ 
+
         do
         {
             cout<<"1 - is sugeneruoto duomenu failo 'kursiokai.txt'"<<endl;
@@ -398,60 +401,78 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
             cout<<"3 - is testavimo failo su 100000 studentu duomenu"<<endl;
             cout<<"4 - is testavimo failo su 1000000 studentu duomenu"<<endl;
             cout<<"5 - baigti darba"<<endl;
-            cout<<"Iveskite pasirinkima: "<<endl;
             cout<<"--------------------------------------------------------"<<endl;
-            cin>>meniu;
-
-            switch (meniu)                                                      ///meniu skirtas v0.1
+           
+            try                                                          /// tikrina ivestus duomenis
             {
-                    case 1:
-                        indeksas=0;                                             ///indeksas, kuris nurodo kelintas failo pavadinimas yra vektoriuje 
-                        kiekND = 5;
-                        failoKurimas( kiekND);
-                        skaitymas(kursiokai, failoPav, indeksas, laikas);
-                        spausdinami_surikiuoti(kursiokai, laikas);
+                cout<<"Iveskite pasirinkima: "<<endl;
+                cin>>meniu;       
 
-                    
-                        break;
-                    case 2:
-                        indeksas=1;
-                        skaitymas(var, failoPav, indeksas, laikas);
-                        spausdinami_surikiuoti(var, laikas);
+                if(cin.fail()) {
 
-
-                        break;
-                    case 3:
-                        indeksas=2;
-                        skaitymas(var, failoPav, indeksas, laikas);
-                        spausdinami_surikiuoti(var, laikas);
-
-                        break;
-                    case 4:
-                        indeksas=3;
-                        skaitymas(var, failoPav, indeksas, laikas);
-                        spausdinami_surikiuoti(var, laikas);
-                        
-                        break;
-
-                    case 5:
-                        cout<<"Darbas su duomenu ivedimu baigtas\n"<<endl;
-                        baigti=true;
-                        break;
-
-                    default:
-                        cout<< "Klaida! Iveskite nuo 1 iki 5 " << endl;
-
-                        while (!(meniu) || (meniu<1 && meniu>5))
-                        {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
-                            continue;
-                            break;
-                        }
-                        cout<<endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                throw invalid_argument("Iveskite sveikiuosius skaicius");  
                 }
 
+                switch (meniu)                                                      ///meniu skirtas v0.1
+                {
+                        case 1:
+                            indeksas=0;                                             ///indeksas, kuris nurodo kelintas failo pavadinimas yra vektoriuje 
+                            kiekND = 5;
+                            failoKurimas( kiekND);
+                            skaitymas(kursiokai, failoPav, indeksas, laikas);
+                            spausdinami_surikiuoti(kursiokai, laikas);
+
+                        
+                            break;
+                        case 2:
+                            indeksas=1;
+                            skaitymas(var, failoPav, indeksas, laikas);
+                            spausdinami_surikiuoti(var, laikas);
+
+
+                            break;
+                        case 3:
+                            indeksas=2;
+                            skaitymas(var, failoPav, indeksas, laikas);
+                            spausdinami_surikiuoti(var, laikas);
+
+                            break;
+                        case 4:
+                            indeksas=3;
+                            skaitymas(var, failoPav, indeksas, laikas);
+                            spausdinami_surikiuoti(var, laikas);
+                            
+                            break;
+
+                        case 5:
+                            cout<<"Darbas su duomenu ivedimu baigtas\n"<<endl;
+                            baigti=true;
+                            break;
+
+                        default:
+                            cout<< "Klaida! Iveskite nuo 1 iki 5 " << endl;
+                            break;
+
+                            // while (!(meniu) || (meniu<1 && meniu>5))
+                            // {
+                            //     cin.clear();
+                            //     cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
+                            //     continue;
+                            //     break;
+                            // }
+                            cout<<endl;
+                    }
+
+                } catch (const invalid_argument & e){
+                    cerr<<"Klaida: "<<e.what()<<endl;
+                }
+                
+
         }while (!baigti); 
+
+
 
 }
 
