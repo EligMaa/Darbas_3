@@ -46,7 +46,7 @@ void ivedimasRanka(vector<studentas>& var, int &studSk);
 void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk);
 
 void su_duomenimis_is_failu(vector<studentas>& kursiokai, vector<studentas>& var);
-void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas, double &laikas);             ///nuskaito duomenis is failo ir iraso i kita faila
+void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas, double &laikas,int laboras);             ///nuskaito duomenis is failo ir iraso i kita faila
 void failoKurimas(vector<string>&failoPav, int indeksas, int &kiekND,int &studSk, double &laikas);
 void rusiavimas(vector<studentas>& var);
 void spausdinami_surikiuoti(vector<studentas>& var,double &laikas);
@@ -57,7 +57,9 @@ bool rikiuotiPavarde(const studentas &a, const studentas &b);
 bool rikiuotiVid(const studentas &a, const studentas &b);
 bool rikiuotiMed(const studentas &a, const studentas &b);
 
-void testavimui();
+void testavimui(vector<studentas>& var);
+void rusiavimasTest(vector<studentas>& var,vector<string> pav);
+void spausdinimasTest(vector<studentas>& var,vector<string> pav);
 
 
 int main() {
@@ -179,7 +181,7 @@ int main() {
             break;
 
         case 3:
-            testavimui();
+            testavimui(var);
             break;
         
         case 4:
@@ -312,12 +314,13 @@ void spausdinami_surikiuoti(vector<studentas>& var,double &laikas){             
     print.close();
 }
 
-void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas, double &laikas){  ///nuskaito pasirinkta faila pagal indeksa ir sukuria rezultatu faila
+void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas, double &laikas,int laboras){  ///nuskaito pasirinkta faila pagal indeksa ir sukuria rezultatu faila
 
     studentas naujasStudentas;                                     ///sukuria nauja objekta
     int kiekMok=0;                                                 ///mokiniu skaicius
     int pasirinkimas;
     ifstream failas(failoPav[indeksas]);
+    var.clear();
 
     try{
         if(!failas.is_open())                                                    ///patikrina ar failas egzustuoja
@@ -365,11 +368,12 @@ void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas, do
 
     }
     failas.close();
-    rusiavimas(var);
+    if(laboras==3)    rusiavimas(var);                                                                  /// 3 labaratoriniam skirtas rusiavimas
 
     auto end = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
     std::chrono::duration<double> time = end - start;                                                       /// laikas
     laikas = time.count();
+
 
 }
 
@@ -430,7 +434,7 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
     int meniu;
     double laikas;
     bool baigti = false;
-    int kiekND, indeksas,studSk;
+    int kiekND, indeksas, studSk, laboras=3;
     vector<string> failoPav {"kursiokai.txt","studentai10000.txt", "studentai100000.txt","studentai1000000.txt"};            ///vektorius saugo failu pavadinimus
 
     cout<<"Pasirinkite kuri duomenu faila nauduosite: "<<endl;
@@ -474,27 +478,27 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
                             kiekND = 5;
                             studSk = 10;
                             failoKurimas( failoPav, indeksas, kiekND, studSk, laikas);
-                            skaitymas(kursiokai, failoPav, indeksas, laikas);
+                            skaitymas(kursiokai, failoPav, indeksas, laikas, laboras);
                             spausdinami_surikiuoti(kursiokai, laikas);
 
                         
                             break;
                         case 2:
                             indeksas=1;
-                            skaitymas(var, failoPav, indeksas, laikas);
+                            skaitymas(var, failoPav, indeksas, laikas,laboras);
                             spausdinami_surikiuoti(var, laikas);
 
 
                             break;
                         case 3:
                             indeksas=2;
-                            skaitymas(var, failoPav, indeksas, laikas);
+                            skaitymas(var, failoPav, indeksas, laikas,laboras);
                             spausdinami_surikiuoti(var, laikas);
 
                             break;
                         case 4:
                             indeksas=3;
-                            skaitymas(var, failoPav, indeksas, laikas);
+                            skaitymas(var, failoPav, indeksas, laikas,laboras);
                             spausdinami_surikiuoti(var, laikas);
                             
                             break;
@@ -522,14 +526,18 @@ void su_duomenimis_is_failu(vector<studentas>& kursiokai,vector<studentas>& var)
 
 
 
-void testavimui(){
+void testavimui(vector<studentas>& var){
 
     int meniu;
     double laikas;
     bool baigti = false;
-    int kiekND, indeksas, studSk;
+    int kiekND, indeksas, studSk, laboras = 4;
     vector<string> failoPav {"test1000.txt","test10000.txt", "test100000.txt","test1000000.txt","test10000000.txt"};            ///vektorius saugo failu pavadinimus
-
+    vector<string> pav1 {"v1000.txt","g1000.txt" };
+    vector<string> pav2 {"v10000.txt","g10000.txt"};
+    vector<string> pav3 {"v100000.txt","g100000.txt"};
+    vector<string> pav4 {"v1000000.txt","g1000000.txt"};
+    vector<string> pav5 {"v10000000.txt","g10000000.txt"};
 
     cout<<"Pasirinkite kiek vartotoju duomenu generuosite: "<<endl;
 
@@ -573,50 +581,84 @@ void testavimui(){
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');                                           /// Ignoruojama visą eilutę iki naujos
                     cout << "Iveskite nuo 1 iki 20: " << endl;
                 }
-
+            cout<<endl;
                 switch (meniu)                                                      ///meniu skirtas v0.1
                 {
                     case 1:
                         indeksas=0;                                             ///indeksas, kuris nurodo kelintas failo pavadinimas yra vektoriuje 
                         studSk = 1000;
+                        
+                        cout<<"Testavimo laikai su 1000 duomenu:"<<endl;
                         failoKurimas(failoPav, indeksas, kiekND, studSk,laikas);
-                        cout<<"Failo sukurimas su 1000 duomenu uztruko "<<laikas<<"s."<<endl;
-                        // skaitymas(kursiokai, failoPav, indeksas, laikas);
+                        cout<<"Failo sukurimas uztruko "<<laikas<<"s."<<endl;
+
+                        skaitymas(var, failoPav, indeksas, laikas, laboras);
+                        cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
+
+                        rusiavimasTest(var, pav1);
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
+
+    
                         // spausdinami_surikiuoti(kursiokai, laikas);
 
                         break;
                     case 2:
                         indeksas=1;
-                        studSk = 10000; 
+                        studSk = 10000;
+                        cout<<"Testavimo laikai su 10000 duomenu:"<<endl; 
                         failoKurimas(failoPav, indeksas, kiekND, studSk, laikas);
-                        cout<<"Failo sukurimas su 10000 duomenu uztruko "<<laikas<<"s."<<endl;                       
-                        // skaitymas(var, failoPav, indeksas, laikas);
+                        cout<<"Failo sukurimas uztruko "<<laikas<<"s."<<endl;
+
+                        skaitymas(var, failoPav, indeksas, laikas,laboras);
+                        cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
+
+                        rusiavimasTest(var, pav2);
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
                         // spausdinami_surikiuoti(var, laikas);
 
                         break;
                     case 3:
                         indeksas=2;
-                        studSk = 100000;   
+                        studSk = 100000;
+                        cout<<"Testavimo laikai su 100000 duomenu:"<<endl;   
                         failoKurimas(failoPav, indeksas, kiekND, studSk, laikas);
-                        cout<<"Failo sukurimas su 100000 duomenu uztruko "<<laikas<<"s."<<endl;                     
-                        // skaitymas(var, failoPav, indeksas, laikas);
+                        cout<<"Failo sukurimas uztruko "<<laikas<<"s."<<endl; 
+
+                        skaitymas(var, failoPav, indeksas, laikas,laboras);
+                        cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
+
+                        rusiavimasTest(var, pav3);
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
                         // spausdinami_surikiuoti(var, laikas);
 
                         break;
                     case 4:
                         indeksas=3;
                         studSk = 1000000;
+                        cout<<"Testavimo laikai su 1000000 duomenu:"<<endl;
                         failoKurimas(failoPav, indeksas, kiekND, studSk, laikas);
-                        cout<<"Failo sukurimas su 1000000 duomenu uztruko "<<laikas<<"s."<<endl;
-                        // skaitymas(var, failoPav, indeksas, laikas);
+                        cout<<"Failo sukurimas uztruko "<<laikas<<"s."<<endl;
+
+                        skaitymas(var, failoPav, indeksas, laikas,laboras);
+                        cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
+
+                        rusiavimasTest(var, pav4);
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
                         // spausdinami_surikiuoti(var, laikas);
                                 
                         break;
                     case 5:
                         indeksas=4;
                         studSk = 10000000;
+                        cout<<"Testavimo laikai su 10000000 duomenu:"<<endl;
                         failoKurimas(failoPav, indeksas, kiekND, studSk, laikas);
-                        cout<<"Failo sukurimas su 10000000 duomenu uztruko "<<laikas<<"s."<<endl;
+                        cout<<"Failo sukurimas uztruko "<<laikas<<"s."<<endl;
+
+                        skaitymas(var, failoPav, indeksas, laikas,laboras);
+                        cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
+
+                        rusiavimasTest(var, pav5);
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
                         break;
 
                     case 6:
@@ -633,6 +675,45 @@ void testavimui(){
 
 }
 
+void rusiavimasTest(vector<studentas>& var, vector<string> pav){
+}
+
+void spausdinimasTest(vector<studentas>& var, vector<string> pav){
+
+    double laikas;
+    int pasirinkimas = 0;
+    
+    auto start = std::chrono::high_resolution_clock::now();                                                 /// pradeti laiko skaiciavima
+
+    ofstream print_vargsiukai (pav[0]);
+    ofstream print_galvociai (pav[1]);
+
+    print_galvociai<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Vid.) "<<endl;
+    print_galvociai<<"------------------------------------------------"<<endl;
+
+    print_vargsiukai<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Vid.) "<<endl;
+    print_vargsiukai<<"------------------------------------------------"<<endl;
+
+    for( int i = var.size()-1; i>=0; i--){
+
+        
+        if( (galutinis(var, i, pasirinkimas)) < 5.0){ 
+
+            print_vargsiukai<<left<<setw(15)<<var[i].Vardas<<setw(15)<<var[i].Pavarde;
+            print_vargsiukai<<setw(15) << fixed<< setprecision(2)<<galutinis(var,i,pasirinkimas)<<endl;
+        
+        }
+        else {
+            print_galvociai<<left<<setw(15)<<var[i].Vardas<<setw(15)<<var[i].Pavarde;
+            print_galvociai<<setw(15) << fixed<< setprecision(2)<<galutinis(var,i,pasirinkimas)<<endl;
+                    
+        }
+    }
+
+    auto end = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
+    std::chrono::duration<double> time = end - start;                                                       /// laikas
+    laikas = time.count();
+}
 
 
 
