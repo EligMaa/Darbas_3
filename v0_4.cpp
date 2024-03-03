@@ -554,7 +554,7 @@ void testavimui(vector<studentas>& var){
 
         do
         {
-            cout<<"1 - su 1000 studentu duomenu'"<<endl;
+            cout<<"1 - su 1000 studentu duomenu"<<endl;
             cout<<"2 - su 10000 studentu duomenu"<<endl;
             cout<<"3 - su 100000 studentu duomenu"<<endl;
             cout<<"4 - su 1000000 studentu duomenu"<<endl;
@@ -607,9 +607,10 @@ void testavimui(vector<studentas>& var){
                         galutinis+=laikas;
 
                         spausdinimasTest(vargsai, galvociai, pav3, laikas);
-                        cout<<"Isvedimas i failus vargsiukai ir gudruoliai uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
                         cout<<"Is viso darbas su 1000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+
+                        
 
                         break;
                     case 2:
@@ -630,14 +631,14 @@ void testavimui(vector<studentas>& var){
                         galutinis+=laikas;
 
                         spausdinimasTest(vargsai, galvociai, pav3, laikas);
-                        cout<<"Isvedimas i failus vargsiukai ir gudruoliai uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 1000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        cout<<"Is viso darbas su 10000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
 
                         break;
                     case 3:
                         indeksas=2;
                         studSk = 100000;
+                        galutinis = 0;
                         cout<<"Testavimo laikai su 100000 duomenu:"<<endl;   
                         failoKurimas(failoPav, indeksas, kiekND, studSk, laikas);
                         cout<<"Failo sukurimas uztruko "<<laikas<<"s."<<endl; 
@@ -652,15 +653,16 @@ void testavimui(vector<studentas>& var){
                         galutinis+=laikas;
 
                         spausdinimasTest( vargsai, galvociai, pav3,laikas);
-                        cout<<"Isvedimas i failus vargsiukai ir gudruoliai uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 1000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        cout<<"Is viso darbas su 100000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
 
                         break;
                     case 4:
                         indeksas=3;
                         studSk = 1000000;
+                        galutinis = 0;
                         cout<<"Testavimo laikai su 1000000 duomenu:"<<endl;
+
                         failoKurimas(failoPav, indeksas, kiekND, studSk, laikas);
                         cout<<"Failo sukurimas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
@@ -674,15 +676,16 @@ void testavimui(vector<studentas>& var){
                         galutinis+=laikas;
 
                         spausdinimasTest(vargsai, galvociai, pav5, laikas);
-                        cout<<"Isvedimas i failus vargsiukai ir gudruoliai uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 1000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        cout<<"Is viso darbas su 1000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
                                 
                         break;
                     case 5:
                         indeksas=4;
                         studSk = 10000000;
+                        galutinis = 0;
                         cout<<"Testavimo laikai su 10000000 duomenu:"<<endl;
+
                         failoKurimas(failoPav, indeksas, kiekND, studSk, laikas);
                         cout<<"Failo sukurimas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
@@ -696,9 +699,8 @@ void testavimui(vector<studentas>& var){
                         galutinis+=laikas;
 
                         spausdinimasTest(vargsai, galvociai, pav5, laikas);
-                        cout<<"Isvedimas i failus vargsiukai ir gudruoliai uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 1000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
                         break;
 
                     case 6:
@@ -718,10 +720,11 @@ void testavimui(vector<studentas>& var){
 void rusiavimasTest(vector<studentas>& var, vector<studentas>& vargsai,vector<studentas>& galvociai, double &laikas){
 
     int pasirinkimas =0;
+    double temp_laikas=0;
     vargsai.clear();
     galvociai.clear();
 
-    auto start = std::chrono::high_resolution_clock::now();                                                 /// pradeti laiko skaiciavima
+    auto start_1 = std::chrono::high_resolution_clock::now();                                                 /// pradeti laiko skaiciavima
 
 
     for( int i = var.size()-1; i>=0; i--){
@@ -734,24 +737,25 @@ void rusiavimasTest(vector<studentas>& var, vector<studentas>& vargsai,vector<st
             galvociai.push_back(var[i]);
         }
     }    
-    auto end = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
-    std::chrono::duration<double> time = end - start;                                                       /// laikas
-    laikas = time.count();    
 
+    auto end_1 = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
+    std::chrono::duration<double> time_1 = end_1 - start_1;                                                       /// laikas
+    temp_laikas = time_1.count();    
+    laikas+=temp_laikas;
+
+    rusiavimas(vargsai);
+    rusiavimas(galvociai);
 }
 
 void spausdinimasTest(vector<studentas>& vargsai, vector<studentas>& galvociai, vector<string> pav, double &laikas){
 
     int pasirinkimas = 0;
+    double temp_laikas=0;
     
-    auto start = std::chrono::high_resolution_clock::now();                                                 /// pradeti laiko skaiciavima
+    auto start_1 = std::chrono::high_resolution_clock::now();                                                 /// pradeti laiko skaiciavima
 
     ofstream print_vargsiukai (pav[0]);
-    ofstream print_galvociai (pav[1]);
-
-    print_galvociai<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Vid.) "<<endl;
-    print_galvociai<<"------------------------------------------------"<<endl;
-
+    
     print_vargsiukai<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Vid.) "<<endl;
     print_vargsiukai<<"------------------------------------------------"<<endl;
 
@@ -761,6 +765,21 @@ void spausdinimasTest(vector<studentas>& vargsai, vector<studentas>& galvociai, 
         print_vargsiukai<<setw(15) << fixed<< setprecision(2)<<galutinis(vargsai,i,pasirinkimas)<<endl;
 
     }
+    print_vargsiukai.close();
+
+    auto end = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
+    std::chrono::duration<double> time = end - start_1;                                                       /// laikas
+    temp_laikas = time.count();
+    laikas+=temp_laikas;
+
+    cout<<"Vargsiuku irasymas i faila uztruko: "<<temp_laikas<<"s.\n";
+
+
+
+    auto start_2 = std::chrono::high_resolution_clock::now(); 
+    ofstream print_galvociai (pav[1]);
+    print_galvociai<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15)<<"Galutinis (Vid.) "<<endl;
+    print_galvociai<<"------------------------------------------------"<<endl;
 
     for( int i = galvociai.size()-1; i>=0; i--){
 
@@ -768,10 +787,15 @@ void spausdinimasTest(vector<studentas>& vargsai, vector<studentas>& galvociai, 
         print_galvociai<<setw(15) << fixed<< setprecision(2)<<galutinis(galvociai,i,pasirinkimas)<<endl;
 
     }
+    print_galvociai.close();
+    
 
-    auto end = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
-    std::chrono::duration<double> time = end - start;                                                       /// laikas
-    laikas = time.count();
+    auto end_2 = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
+    std::chrono::duration<double> time_2 = end_2 - start_2;                                                       /// laikas
+    temp_laikas = time_2.count();
+    laikas+=temp_laikas;
+    cout<<"Galvociu irasymas i faila uztruko: "<<temp_laikas<<"s.\n";
+
 }
 
 
