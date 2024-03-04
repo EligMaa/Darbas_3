@@ -13,6 +13,5 @@
 ![image](https://github.com/EligMaa/Darbas_1/assets/151032480/25bf78be-e2eb-4376-8516-5496cb1b973e)
 ![image](https://github.com/EligMaa/Darbas_1/assets/151032480/079612b8-6d75-41f0-960b-e4cf5c2d31f8)
 ![image](https://github.com/EligMaa/Darbas_1/assets/151032480/112ff2f9-b933-49fc-ba78-d6e1f19bf94d)
-
-
+#### Testavimas su 10 000 000 įrašų nepavyko, kadangi kompiuteris nepakelia tokio dydžio vektoriaus sukūrimo. 
 
