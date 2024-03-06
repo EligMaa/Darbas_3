@@ -7,21 +7,22 @@
 #### • surūšiuotų studentų išvedimas į du naujus failus
 #### • visos programos veikimo laikas
 #### 
-#### Tyrimas buvo atliktas su 1 000, 10 000, 100 000, 1 000 000, 10 000 000 įrašų. Sugeneruota po 20 namų darbų, o galutinis pažymys skaičiuojamas su vidurkiu.
-![image](https://github.com/EligMaa/Darbas_1/assets/151032480/98e3febe-5ff2-4af2-89fe-42911d8a822b)
-![image](https://github.com/EligMaa/Darbas_1/assets/151032480/38469017-a4c1-42e2-99d4-6c9840376208)
-![image](https://github.com/EligMaa/Darbas_1/assets/151032480/25bf78be-e2eb-4376-8516-5496cb1b973e)
-![image](https://github.com/EligMaa/Darbas_1/assets/151032480/079612b8-6d75-41f0-960b-e4cf5c2d31f8)
-![image](https://github.com/EligMaa/Darbas_1/assets/151032480/112ff2f9-b933-49fc-ba78-d6e1f19bf94d)
+#### Tyrimas buvo atliktas su 1 000, 10 000, 100 000, 1 000 000, 10 000 000 įrašų. Sugeneruota po 20 namų darbų. 
+#### Failų generavimai užtruko:
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/aa882ff7-5c20-44db-ba06-6ece35c3ef28)
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/2af8e4d0-7bea-48c8-931b-1f0f4780ab31)
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/649b1138-dfb1-49cc-834f-6021a02c009b)
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/9185a6fd-6308-490d-aa1c-973488876f5e)
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/259fc05a-34b0-4eec-abe9-a284f5f77bd2)
+#### Failų rūšiavimas:
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/41885c6a-63c9-4788-a7fe-e1633d10ba4c)
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/f7d95f08-2b2a-4014-81ad-5d0a7049c3ad)
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/b58e8811-fffa-4de5-b2ae-044b470d29cb)
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/b86050d2-e886-4879-8b3a-d41af0f2bd6a)
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/38875546-5e2b-4266-949c-e3bccdc7a97d)
 #### Testavimas su 10 000 000 įrašų nepavyko, kadangi kompiuteris nepakelia tokio dydžio vektoriaus sukūrimo. 
 
-| Failų  dydžiai |Failų sukūrimas | Failų skaitymas | Rūšiavimas į konteinerius | Vargšų  įrašymas į failą | Galvočių  įrašymas į failą | Iš viso užtruko  |
-|-----------|----------|-----------|----------------|------------------|------------------|----------|
-|      1 000| 0.018764 | 0.009964  |    0.001932    |     0.014498     |     0.003988     | 0.048846 |
-|     10 000| 0.090841 | 0.103651  |    0.031795    |     0.04195      |     0.035881     | 0.304118 |
-|    100 000| 0.753351 |  1.0625   |    0.36946     |     0.290834     |     0.409702     | 2.88585  |
-|  1 000 000| 6.60534  |   9.89    |    4.61572     |     2.54418      |     4.12193      | 27.7772  |
-| 10 000 000| 61.9845  |     -     |        -       |        -         |        -         |     -    |
+
 #### Laiko vidurkiai atlikus testavimus su visais įrašais po 5 kartus:
 #### • 1 000 - 0.03 s.
 #### • 10 000 - 0.28 s.
