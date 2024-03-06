@@ -23,8 +23,3 @@
 #### Testavimas su 10 000 000 įrašų nepavyko, kadangi kompiuteris nepakelia tokio dydžio vektoriaus sukūrimo. 
 
 
-#### Laiko vidurkiai atlikus testavimus su visais įrašais po 5 kartus:
-#### • 1 000 - 0.03 s.
-#### • 10 000 - 0.28 s.
-#### • 100 000 - 2.78 s.
-#### • 1 000 000 - 27.85 s.
