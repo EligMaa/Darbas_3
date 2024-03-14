@@ -8,9 +8,11 @@ int main() {
     int meniu_duomenu_ivedimui;
     int studSk;
     bool baigti = false;
-    bool baigti_duom_ived = false;
+    bool baigti_duom_ived ,baigti_testa = false;
     vector <studentas> var, kursiokai; 
     list <studentas> varList, kursiokaiList; 
+    deque <studentas> varDeque, kursiokaiDeque; 
+
                                       
 
     do
@@ -126,9 +128,38 @@ int main() {
             break;
 
         case 4:
-            // testFail(var);
-            testFail_list(varList);
 
+            do
+            {
+
+                cout<<"Pasirinkite su kokiais duomenu konteineriais norite testuoti programa: "<<endl;
+                cout<<"1 - vektor\n";
+                cout<<"2 - list\n";
+                cout<<"3 - deque\n";
+                cout<<"4 - baigti darba\n";
+                cout<<"--------------------------------------------------------"<<endl;
+                switch (meniu)                                                      ///meniu skirtas v0.1
+                    {
+                        case 1 :
+                            testFail(var);
+                            break;
+
+                        case 2 :
+                            testFail_list(varList);
+                            break;
+
+                        case 3 : 
+                            testFail_deque(varDeque);
+                            break;
+
+                        default:
+                            cout<< "Iveskite nuo 1 iki 3 " << endl;
+                            break;
+                        
+                    }
+            } while(!baigti_testa);
+            
+            
         
         case 5:
             cout<<"Darbas su duomenu ivedimu baigtas\n"<<endl;
