@@ -1,4 +1,4 @@
-# V1
+# V1 pradinė
 Programa apdoroja pasirinktus studentų failus ir skaičiuoja veikimo spartą naudojant skirtingus konteinerius: vector, list, deque.<br>
 Testas atliekamas su CPU Intel Core i5, Tiger lake 11-a karta, 6 branduoliai, dažnis 2.7. GHz. Maksimalus operatyviosios (RAM) atminties kiekis 32 GB, taktinis dažnis	3200 MHz. Kietasis diskas	SSD (samsung mzalq512hblu-00bl2) M.2 2242 NVMe PCIE 3, talpa	512 GB. <br>
 
