@@ -128,12 +128,52 @@ int main() {
             break;
 
         case 4:
-            cout<<"Vector:\n";
-            testFail(var);
-            cout<<"List:\n";
-            testFail_list(varList);
-            cout<<"Deque:\n";       
-            testFail_deque(varDeque);
+
+            cout<<"\n1 - VECTOR\n";
+            cout<<"2 - LIST\n";
+            cout<<"3 - DEQUE\n";
+            
+
+            try {
+                    cout << "Iveskite pasirinkima: " << endl;
+                    string input;
+                    cin >> input;
+
+                    if (input.find_first_not_of("0123456789") != string::npos) {                                  ///tikrina ar ivestas skaicius naturalusis
+                        throw invalid_argument("Netinkamas pasirinkimas");
+                    }
+
+                    meniu_testas = stoi(input);
+
+                    if (meniu_testas < 1 || meniu_testas > 3) {                                                                ///tikrina ar ivestas skaicius yra nuo 1 iki 4
+                        throw invalid_argument("Iveskite nuo 1 iki 3 ");
+                    }
+                                    
+                } 
+                            
+            catch (const invalid_argument & e) {
+                cerr << "Klaida: " << e.what() << endl;
+                cout << endl;
+                continue;
+            }
+
+            switch (meniu_testas)
+            {
+                case 1:
+                    testFail(var);
+                    break;
+
+                case 2:
+                    testFail_list(varList);
+                    break;
+
+                case 3:
+                    testFail_deque(varDeque);
+                    break;
+                
+                default:
+                    break;
+            }
                     
             break;
         

@@ -15,6 +15,8 @@
 #include <stdexcept>
 #include <limits>
 #include <list>
+#include <deque>
+#include <iterator>
 
 
 using std::cout;
@@ -34,6 +36,8 @@ using std::setprecision;
 using std::ifstream;
 using std::istringstream;
 using std::list;
+using std::deque;
+using std::sort;
 
 
 #endif
