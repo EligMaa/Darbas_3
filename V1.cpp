@@ -4,7 +4,7 @@ int main() {
 
     srand(time(nullptr));                                       /// inicializuoja atsitiktinių skaičių generatorių naudojant dabartinį laiką kaip pradinį numerį
 
-    int meniu;
+    int meniu, meniu_testas;
     int meniu_duomenu_ivedimui;
     int studSk;
     bool baigti = false;
@@ -21,7 +21,7 @@ int main() {
         cout<<"1 - domenu ivedimas"<<endl;
         cout<<"2 - duomenu skaitymas is failo"<<endl;
         cout<<"3 - programos laiko testavimas naudojant failu generavima"<<endl;
-        cout<<"4 - failu rusiavimas"<<endl;
+        cout<<"4 - programos laiko testavimas naudojant failu rusiavimas"<<endl;
         cout<<"5 - baigti darba"<<endl;
         cout<<"--------------------------------------------------------"<<endl;
         
@@ -55,7 +55,7 @@ int main() {
             
                 cout<<"Duomenu ivedimui pasirinkite buda: "<<endl;
                 do
-                    {
+                {
                     cout<<"1 - ivedimas ranka"<<endl;
                     cout<<"2 - generuoti pazymius"<<endl;
                     cout<<"3 - generuoti ir pazymius ir studentu vardus, pavardes"<<endl;
@@ -86,7 +86,7 @@ int main() {
                         continue;
                     }
                     
-                switch (meniu)                                                      ///meniu skirtas v0.1
+                    switch (meniu)                                                      ///meniu skirtas v0.1
                         {
                             case 1:
                                 var.clear();
@@ -116,8 +116,8 @@ int main() {
                                 break;
                         }
 
-                    } while (!baigti);
-            break;
+                } while (!baigti);
+                break;
 
         case 2:
             su_duomenimis_is_failu(kursiokai, var);
@@ -128,38 +128,14 @@ int main() {
             break;
 
         case 4:
-
-            do
-            {
-
-                cout<<"Pasirinkite su kokiais duomenu konteineriais norite testuoti programa: "<<endl;
-                cout<<"1 - vektor\n";
-                cout<<"2 - list\n";
-                cout<<"3 - deque\n";
-                cout<<"4 - baigti darba\n";
-                cout<<"--------------------------------------------------------"<<endl;
-                switch (meniu)                                                      ///meniu skirtas v0.1
-                    {
-                        case 1 :
-                            testFail(var);
-                            break;
-
-                        case 2 :
-                            testFail_list(varList);
-                            break;
-
-                        case 3 : 
-                            testFail_deque(varDeque);
-                            break;
-
-                        default:
-                            cout<< "Iveskite nuo 1 iki 3 " << endl;
-                            break;
-                        
-                    }
-            } while(!baigti_testa);
-            
-            
+            cout<<"Vector:\n";
+            testFail(var);
+            cout<<"List:\n";
+            testFail_list(varList);
+            cout<<"Deque:\n";       
+            testFail_deque(varDeque);
+                    
+            break;
         
         case 5:
             cout<<"Darbas su duomenu ivedimu baigtas\n"<<endl;

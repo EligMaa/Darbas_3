@@ -7,7 +7,7 @@
 void testFail_list(list<studentas>& var){
 
     int meniu,pasirinkimas;
-    double laikas=0.0, galutinis=0;
+    double laikas=0.0, galutinis=0,suskirstymas=0.0;
     bool baigti = false;
     int kiekND, indeksas, studSk, laboras = 4;
 
@@ -71,13 +71,20 @@ void testFail_list(list<studentas>& var){
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
-                        rusiavimasTest_list(var,  vargsai, galvociai,laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
-                        galutinis+=laikas;
+                        didejimo_list(var, laikas);
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+                        galutinis +=laikas;
 
-                        spausdinimasTest_list(vargsai, galvociai, pav1, laikas, pasirinkimas);
+                        rusiavimasTest_list(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 1000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        suskirstymas+=laikas;
+
+                        spausdinimasTest_list(vargsai, galvociai, pav5, laikas, pasirinkimas);
+                        galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
+                        cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
 
                         
 
@@ -92,13 +99,20 @@ void testFail_list(list<studentas>& var){
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
-                        rusiavimasTest_list(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
-                        galutinis+=laikas;
+                        didejimo_list(var, laikas);
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+                        galutinis +=laikas;
 
-                        spausdinimasTest_list(vargsai, galvociai, pav2, laikas, pasirinkimas);
+                        rusiavimasTest_list(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 10000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        suskirstymas+=laikas;
+
+                        spausdinimasTest_list(vargsai, galvociai, pav5, laikas, pasirinkimas);
+                        galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
+                        cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
 
                         break;
                     case 3:
@@ -111,13 +125,20 @@ void testFail_list(list<studentas>& var){
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
-                        rusiavimasTest_list(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
-                        galutinis+=laikas;
+                        didejimo_list(var, laikas);
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+                        galutinis +=laikas;
 
-                        spausdinimasTest_list( vargsai, galvociai, pav3,laikas, pasirinkimas);
+                        rusiavimasTest_list(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 100000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        suskirstymas+=laikas;
+
+                        spausdinimasTest_list(vargsai, galvociai, pav5, laikas, pasirinkimas);
+                        galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
+                        cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
 
                         break;
                     case 4:
@@ -130,13 +151,20 @@ void testFail_list(list<studentas>& var){
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
-                        rusiavimasTest_list(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
-                        galutinis+=laikas;
+                        didejimo_list(var, laikas);
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+                        galutinis +=laikas;
 
-                        spausdinimasTest_list(vargsai, galvociai, pav4, laikas, pasirinkimas);
+                        rusiavimasTest_list(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 1000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        suskirstymas+=laikas;
+
+                        spausdinimasTest_list(vargsai, galvociai, pav5, laikas, pasirinkimas);
+                        galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
+                        cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
                                 
                         break;
                     case 5:
@@ -149,12 +177,19 @@ void testFail_list(list<studentas>& var){
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
+                        didejimo_list(var, laikas);
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+                        galutinis +=laikas;
+
                         rusiavimasTest_list(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
+                        suskirstymas+=laikas;
 
                         spausdinimasTest_list(vargsai, galvociai, pav5, laikas, pasirinkimas);
                         galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
                         cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
                         break;
 
@@ -221,7 +256,6 @@ void rusiavimasTest_list(list<studentas>& var, list<studentas>& vargsai, list<st
 
 void spausdinimasTest_list(list<studentas> &vargsai, list<studentas> &galvociai, vector<string> pav, double &laikas, int &pasirinkimas)
 {
-    double temp_laikas = 0;
     laikas = 0;
 
     auto start_1 = std::chrono::high_resolution_clock::now(); /// pradeti laiko skaiciavima
@@ -242,14 +276,7 @@ void spausdinimasTest_list(list<studentas> &vargsai, list<studentas> &galvociai,
     }
     print_vargsiukai.close();
 
-    auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
-    std::chrono::duration<double> time = end - start_1;   /// laikas
-    temp_laikas = time.count();
-    laikas += temp_laikas;
 
-    cout << "Vargsiuku irasymas i faila uztruko: " << temp_laikas << "s.\n";
-
-    auto start_2 = std::chrono::high_resolution_clock::now();
     ofstream print_galvociai(pav[1]);
     print_galvociai << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(15);
     
@@ -266,11 +293,11 @@ void spausdinimasTest_list(list<studentas> &vargsai, list<studentas> &galvociai,
     }
     print_galvociai.close();
 
-    auto end_2 = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
-    std::chrono::duration<double> time_2 = end_2 - start_2; /// laikas
-    temp_laikas = time_2.count();
-    laikas += temp_laikas;
-    cout << "Galvociu irasymas i faila uztruko: " << temp_laikas << "s.\n";
+
+    auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
+    std::chrono::duration<double> time = end - start_1;   /// laikas
+    laikas = time.count();
+ 
 
     vargsai.erase(vargsai.begin(), vargsai.end());
     galvociai.erase(galvociai.begin(), galvociai.end());
@@ -328,6 +355,18 @@ void skaitymas_list(list<studentas>& var, vector<string>& failoPav, int indeksas
     auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
     std::chrono::duration<double> time = end - start;     /// laikas
     laikas = time.count();
+}
+
+void didejimo_list (list<studentas>& var, double &laikas){
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    var.sort(rikiuotiVid);
+
+    auto end = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
+    std::chrono::duration<double> time = end - start;                                                       /// laikas
+    laikas = time.count();
+
 }
 
 double galutinis_list(list<studentas>& var, list<studentas>::iterator it ,int &pasirinkimas){                                     ///galutinio rezultato skaiciavimas
@@ -399,7 +438,7 @@ double vidurkis_list(list<studentas>& var, list<studentas>::iterator it){
 void testFail_deque(deque<studentas>& var){
 
     int meniu,pasirinkimas;
-    double laikas=0.0, galutinis=0;
+    double laikas=0.0, galutinis=0, suskirstymas=0.0;
     bool baigti = false;
     int kiekND, indeksas, studSk, laboras = 4;
 
@@ -463,14 +502,20 @@ void testFail_deque(deque<studentas>& var){
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
-                        rusiavimasTest_deque(var,  vargsai, galvociai,laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
-                        galutinis+=laikas;
+                        didejimo_deque(var, laikas);
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+                        galutinis +=laikas;
 
-                        spausdinimasTest_deque(vargsai, galvociai, pav1, laikas, pasirinkimas);
+                        rusiavimasTest_deque(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 1000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        suskirstymas+=laikas;
 
+                        spausdinimasTest_deque(vargsai, galvociai, pav5, laikas, pasirinkimas);
+                        galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
+                        cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
                         
 
                         break;
@@ -484,14 +529,21 @@ void testFail_deque(deque<studentas>& var){
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
+                        didejimo_deque(var, laikas);
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+                        galutinis +=laikas;
+
                         rusiavimasTest_deque(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
+                        suskirstymas+=laikas;
 
-                        spausdinimasTest_deque(vargsai, galvociai, pav2, laikas, pasirinkimas);
+                        spausdinimasTest_deque(vargsai, galvociai, pav5, laikas, pasirinkimas);
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 10000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        suskirstymas+=laikas;
 
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
+                        cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        
                         break;
                     case 3:
                         indeksas=2;
@@ -503,14 +555,21 @@ void testFail_deque(deque<studentas>& var){
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
+                        didejimo_deque(var, laikas);
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+                        galutinis +=laikas;
+
                         rusiavimasTest_deque(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
+                        suskirstymas+=laikas;
 
-                        spausdinimasTest_deque( vargsai, galvociai, pav3,laikas, pasirinkimas);
+                        spausdinimasTest_deque(vargsai, galvociai, pav5, laikas, pasirinkimas);
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 100000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        suskirstymas+=laikas;
 
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
+                        cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        
                         break;
                     case 4:
                         indeksas=3;
@@ -522,14 +581,21 @@ void testFail_deque(deque<studentas>& var){
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
-                        rusiavimasTest_deque(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
-                        galutinis+=laikas;
+                        didejimo_deque(var, laikas);
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+                        galutinis +=laikas;
 
-                        spausdinimasTest_deque(vargsai, galvociai, pav4, laikas, pasirinkimas);
+                        rusiavimasTest_deque(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 1000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
-                                
+                        suskirstymas+=laikas;
+
+                        spausdinimasTest_deque(vargsai, galvociai, pav5, laikas, pasirinkimas);
+                        galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
+                        cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                               
                         break;
                     case 5:
                         indeksas=4;
@@ -541,15 +607,21 @@ void testFail_deque(deque<studentas>& var){
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
+                        didejimo_deque(var, laikas);
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+                        galutinis +=laikas;
+
                         rusiavimasTest_deque(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
+                        suskirstymas+=laikas;
 
                         spausdinimasTest_deque(vargsai, galvociai, pav5, laikas, pasirinkimas);
                         galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
                         cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
                         break;
-
                     case 6:
                         cout<<"Darbas baigtas\n"<<endl;
                         baigti=true;
@@ -722,6 +794,17 @@ void skaitymas_deque(deque<studentas>& var, vector<string>& failoPav, int indeks
     laikas = time.count();
 }
 
+void didejimo_deque (deque<studentas>& var, double &laikas){
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    sort(var.begin(), var.end(), rikiuotiVid);
+
+    auto end = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
+    std::chrono::duration<double> time = end - start;                                                       /// laikas
+    laikas = time.count();
+}
+
 double galutinis_deque(deque<studentas>& var, deque<studentas>::iterator it ,int &pasirinkimas){                                     ///galutinio rezultato skaiciavimas
 
     double gal=0.0;
@@ -790,7 +873,7 @@ double vidurkis_deque(deque<studentas>& var, deque<studentas>::iterator it){
 void testFail(vector<studentas>& var){
 
 int meniu,pasirinkimas;
-    double laikas=0.0, galutinis=0;
+    double laikas=0.0, galutinis=0, suskirstymas=0.0;
     bool baigti = false;
     int kiekND, indeksas, studSk, laboras = 4;
 
@@ -849,22 +932,26 @@ int meniu,pasirinkimas;
                         studSk = 1000;
                         galutinis=0;
                         cout<<"Testavimo laikai su 1000 duomenu:"<<endl;
-                        // failoKurimas(failoPav, indeksas, kiekND, studSk,laikas);
-                        // cout<<"Failo sukurimas uztruko "<<laikas<<"s."<<endl;
-                        // galutinis+=laikas;
 
                         skaitymas(var, failoPav, indeksas, laikas, laboras);
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
-                        rusiavimasTest(var,  vargsai, galvociai,laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
-                        galutinis+=laikas;
+                        didejimo(var, laikas);
 
-                        spausdinimasTest(vargsai, galvociai, pav1, laikas, pasirinkimas);
-                        galutinis+=laikas;
-                        cout<<"Is viso darbas su 1000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+                        galutinis +=laikas;
 
+                        rusiavimasTest(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
+                        galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        spausdinimasTest(vargsai, galvociai, pav5, laikas, pasirinkimas);
+                        galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
+                        cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
                         
 
                         break;
@@ -873,43 +960,57 @@ int meniu,pasirinkimas;
                         studSk = 10000;
                         galutinis=0;
                         cout<<"Testavimo laikai su 10000 duomenu:"<<endl; 
-                        // failoKurimas(failoPav, indeksas, kiekND, studSk, laikas);
-                        // cout<<"Failo sukurimas uztruko "<<laikas<<"s."<<endl;
-                        // galutinis+=laikas;
 
                         skaitymas(var, failoPav, indeksas, laikas,laboras);
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
-                        rusiavimasTest(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
-                        galutinis+=laikas;
+                        didejimo(var, laikas);
 
-                        spausdinimasTest(vargsai, galvociai, pav2, laikas, pasirinkimas);
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+
+                        galutinis +=laikas;
+
+                        rusiavimasTest(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 10000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        suskirstymas+=laikas;
+
+                        spausdinimasTest(vargsai, galvociai, pav5, laikas, pasirinkimas);
+                        galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
+                        cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        
 
                         break;
                     case 3:
                         indeksas=2;
                         studSk = 100000;
                         galutinis = 0;
-                        cout<<"Testavimo laikai su 100000 duomenu:"<<endl;   
-                        // failoKurimas(failoPav, indeksas, kiekND, studSk, laikas);
-                        // cout<<"Failo sukurimas uztruko "<<laikas<<"s."<<endl; 
-                        // galutinis+=laikas;
+                        cout<<"Testavimo laikai su 100000 duomenu:"<<endl;
 
                         skaitymas(var, failoPav, indeksas, laikas,laboras);
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
-                        rusiavimasTest(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
-                        galutinis+=laikas;
+                        didejimo(var, laikas);
 
-                        spausdinimasTest( vargsai, galvociai, pav3,laikas, pasirinkimas);
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+
+                        galutinis +=laikas;
+
+                        rusiavimasTest(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 100000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        suskirstymas+=laikas;
+
+                        spausdinimasTest(vargsai, galvociai, pav5, laikas, pasirinkimas);
+                        galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
+                        cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        
 
                         break;
                     case 4:
@@ -918,22 +1019,28 @@ int meniu,pasirinkimas;
                         galutinis = 0;
                         cout<<"Testavimo laikai su 1000000 duomenu:"<<endl;
 
-                        // failoKurimas(failoPav, indeksas, kiekND, studSk, laikas);
-                        // cout<<"Failo sukurimas uztruko "<<laikas<<"s."<<endl;
-                        // galutinis+=laikas;
-
                         skaitymas(var, failoPav, indeksas, laikas,laboras);
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
-                        rusiavimasTest(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
-                        galutinis+=laikas;
+                        didejimo(var, laikas);
 
-                        spausdinimasTest(vargsai, galvociai, pav4, laikas, pasirinkimas);
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+
+                        galutinis +=laikas;
+
+                        rusiavimasTest(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
                         galutinis+=laikas;
-                        cout<<"Is viso darbas su 1000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
-                                
+                        suskirstymas+=laikas;
+
+                        spausdinimasTest(vargsai, galvociai, pav5, laikas, pasirinkimas);
+                        galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
+                        cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        
+  
                         break;
                     case 5:
                         indeksas=4;
@@ -941,21 +1048,27 @@ int meniu,pasirinkimas;
                         galutinis = 0;
                         cout<<"Testavimo laikai su 10000000 duomenu:"<<endl;
 
-                        // failoKurimas(failoPav, indeksas, kiekND, studSk, laikas);
-                        // cout<<"Failo sukurimas uztruko "<<laikas<<"s."<<endl;
-                        // galutinis+=laikas;
-
                         skaitymas(var, failoPav, indeksas, laikas,laboras);
                         cout<<"Failo skaitymas uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
 
+                        didejimo(var, laikas);
+
+                        cout<<"Failo rusiavimas didejimo tvarka uztruko "<<laikas<<"s."<<endl;
+
+                        galutinis +=laikas;
+
                         rusiavimasTest(var,  vargsai, galvociai, laikas, pasirinkimas, indeksas);
-                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<laikas<<"s."<<endl;
                         galutinis+=laikas;
+                        suskirstymas+=laikas;
 
                         spausdinimasTest(vargsai, galvociai, pav5, laikas, pasirinkimas);
                         galutinis+=laikas;
+                        suskirstymas+=laikas;
+
+                        cout<<"Failo suskirstymas i vargsiukus ir gudruolius uztruko "<<suskirstymas<<"s."<<endl;
                         cout<<"Is viso darbas su 10000000 duomenu uztruko: "<<galutinis <<"s.\n"<<endl;
+                        
                         break;
 
                     case 6:
@@ -970,6 +1083,17 @@ int meniu,pasirinkimas;
 
             }while (!baigti);    
 
+}
+
+void didejimo (vector<studentas>& var, double &laikas){
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    sort(var.begin(), var.end(), rikiuotiVid);
+
+    auto end = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
+    std::chrono::duration<double> time = end - start;                                                       /// laikas
+    laikas = time.count();
 }
 
 void testavimui(vector<studentas>& var){
@@ -1106,7 +1230,6 @@ void rusiavimasTest(vector<studentas>& var, vector<studentas>& vargsai,vector<st
 
     vargsai.clear();
     galvociai.clear();
-    double laikas;
 
 
     if(indeksas == 5 )
@@ -1149,13 +1272,6 @@ void rusiavimasTest(vector<studentas>& var, vector<studentas>& vargsai,vector<st
     }    
     var.clear();
 
-    auto end = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
-    std::chrono::duration<double> time = end - start;                                                       /// laikas
-    laikas = time.count();  
-
-    galutinisLaikas +=laikas;
-
-    auto start1 = std::chrono::high_resolution_clock::now();
     if(pasirinkimas==0){
         sort(vargsai.begin(), vargsai.end(), rikiuotiVid);
         sort(galvociai.begin(), galvociai.end(), rikiuotiVid);
@@ -1165,17 +1281,14 @@ void rusiavimasTest(vector<studentas>& var, vector<studentas>& vargsai,vector<st
         sort(galvociai.begin(), galvociai.end(), rikiuotiMed);
     }
 
-    auto end1 = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
-    std::chrono::duration<double> time1 = end1 - start1;                                                       /// laikas
-    laikas = time1.count();  
-    cout<<"Surikiavimas i vargsiukus ir galvocius uztruko: "<<laikas<<endl;
-    galutinisLaikas +=laikas;
+        auto end = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
+    std::chrono::duration<double> time = end - start;                                                       /// laikas
+    galutinisLaikas = time.count();                                                       /// laikas
       
 }
 
 void spausdinimasTest(vector<studentas>& vargsai, vector<studentas>& galvociai, vector<string> pav, double &laikas, int &pasirinkimas){
 
-    double temp_laikas=0;
     laikas=0;
     
     auto start_1 = std::chrono::high_resolution_clock::now();                                                 /// pradeti laiko skaiciavima
@@ -1196,16 +1309,6 @@ void spausdinimasTest(vector<studentas>& vargsai, vector<studentas>& galvociai, 
     }
     print_vargsiukai.close();
 
-    auto end = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
-    std::chrono::duration<double> time = end - start_1;                                                       /// laikas
-    temp_laikas = time.count();
-    laikas+=temp_laikas;
-
-    cout<<"Vargsiuku irasymas i faila uztruko: "<<temp_laikas<<"s.\n";
-
-
-
-    auto start_2 = std::chrono::high_resolution_clock::now(); 
     ofstream print_galvociai (pav[1]);
     print_galvociai<< left <<setw(15)<< "Vardas"<<setw(15)<<"Pavarde"<<setw(15);
     if(pasirinkimas==0) print_galvociai<<"Galutinis (Vid.) "<<endl;
@@ -1222,11 +1325,10 @@ void spausdinimasTest(vector<studentas>& vargsai, vector<studentas>& galvociai, 
     print_galvociai.close();
     
 
-    auto end_2 = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
-    std::chrono::duration<double> time_2 = end_2 - start_2;                                                       /// laikas
-    temp_laikas = time_2.count();
-    laikas+=temp_laikas;
-    cout<<"Galvociu irasymas i faila uztruko: "<<temp_laikas<<"s.\n";
+    auto end_1 = std::chrono::high_resolution_clock::now();                                                   /// baigti laiko skaiciavima
+    std::chrono::duration<double> time_1 = end_1 - start_1;                                                       /// laikas
+    laikas = time_1.count();
+
 
     vargsai.clear();
     galvociai.clear();
