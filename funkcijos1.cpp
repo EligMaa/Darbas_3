@@ -25,7 +25,7 @@ void testFail_list_2strategija(list<studentas> &var)
     studSk = 1000;
     galutinis = 0;
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 4; i++)
     {
 
         cout << "Testavimo laikai su " << studSk << " duomenu:" << endl;
@@ -62,21 +62,19 @@ void rusiavimasTest_list_2strategija(list<studentas> &var, list<studentas> &varg
 
     auto start = std::chrono::high_resolution_clock::now(); /// pradeti laiko skaiciavima
 
-    for (list<studentas>::iterator it = var.begin(); it != var.end(); ++it)
+    for (auto it = var.begin(); it != var.end();)
     {
-        if (pasirinkimas == 0)
-            it->gal_vid = galutinis_list(var, it, pasirinkimas);
-        else
-            it->gal_med = galutinis_list(var, it, pasirinkimas);
-
         if (galutinis_list(var, it, pasirinkimas) < 5.0)
         {
-            vargsai.push_back(*it);
-            var.erase(it);
+            vargsai.push_back(*it); // Push the element to vargsai
+            it = var.erase(it); // Erase the element from var and get the iterator to the next element
+        }
+        else
+        {
+            ++it; // Move to the next element
         }
     }
-    var.clear();
-
+    
     auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
     std::chrono::duration<double> time = end - start;     /// laikas
     laikas = time.count();
@@ -147,11 +145,6 @@ void rusiavimasTest_list(list<studentas> &var, list<studentas> &vargsai, list<st
 
     for (list<studentas>::iterator it = var.begin(); it != var.end(); ++it)
     {
-        if (pasirinkimas == 0)
-            it->gal_vid = galutinis_list(var, it, pasirinkimas);
-        else
-            it->gal_med = galutinis_list(var, it, pasirinkimas);
-
         if (galutinis_list(var, it, pasirinkimas) < 5.0)
         {
             vargsai.push_back(*it);
@@ -167,23 +160,6 @@ void rusiavimasTest_list(list<studentas> &var, list<studentas> &vargsai, list<st
     std::chrono::duration<double> time = end - start;     /// laikas
     laikas = time.count();
 
-    galutinisLaikas += laikas;
-
-    auto start1 = std::chrono::high_resolution_clock::now();
-    if (pasirinkimas == 0)
-    {
-        vargsai.sort(rikiuotiVid);
-        galvociai.sort(rikiuotiVid);
-    }
-    else
-    {
-        vargsai.sort(rikiuotiMed);
-        galvociai.sort(rikiuotiMed);
-    }
-
-    auto end1 = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
-    std::chrono::duration<double> time1 = end1 - start1;   /// laikas
-    laikas = time1.count();
     galutinisLaikas += laikas;
 }
 
@@ -296,6 +272,16 @@ void skaitymas_list(list<studentas> &var, vector<string> &failoPav, int indeksas
         naujasStudentas.tarpiniai = skaiciams;
         naujasStudentas.pazKiekis = skaiciams.size();
         skaiciams.clear(); /// isvalomas vektorius
+
+        double sum =0.0;
+        for (int j = 0; j < naujasStudentas.pazKiekis; j++)
+        { /// pazymiu suma
+            sum += naujasStudentas.tarpiniai[j];
+        }
+        naujasStudentas.vidurkis = sum / naujasStudentas.pazKiekis;
+
+        naujasStudentas.gal_vid = naujasStudentas.vidurkis * 0.4 + 0.6 * naujasStudentas.egz_rez;
+        
 
         var.push_back(naujasStudentas);
     }
@@ -410,7 +396,7 @@ void testFail_deque_2strategija(deque<studentas> &var)
     studSk = 1000;
     galutinis = 0;
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 4; i++)
     {
         cout << "Testavimo laikai su " << studSk << " duomenu:" << endl;
 
@@ -430,11 +416,11 @@ void testFail_deque_2strategija(deque<studentas> &var)
         // suskirstymas+=laikas;
 
         cout << "Failo suskirstymas i vargsiukus ir gudruolius uztruko " << suskirstymas << "s." << endl;
-        cout << "Is viso darbas su " << studSk << " duomenu uztruko: " << galutinis << "s.\n"
-             << endl;
+        cout << "Is viso darbas su " << studSk << " duomenu uztruko: " << galutinis << "s.\n"<< endl;
 
         studSk *= 10;
         spausdinimasTest_deque(vargsai, var, pav, laikas, pasirinkimas, indeksas);
+        cout<<"-------\n";
 
         indeksas++;
     }
@@ -444,22 +430,19 @@ void rusiavimasTest_deque_2strategija(deque<studentas> &var, deque<studentas> &v
 {
     vargsai.clear();
     double laikas;
+    int k=0;
 
     auto start = std::chrono::high_resolution_clock::now(); /// pradeti laiko skaiciavima
 
-    for (deque<studentas>::iterator it = var.begin(); it != var.end(); ++it)
-    {
-        if (pasirinkimas == 0)
-            it->gal_vid = galutinis_deque(var, it, pasirinkimas);
-        else
-            it->gal_med = galutinis_deque(var, it, pasirinkimas);
-
-        if (galutinis_deque(var, it, pasirinkimas) < 5.0)
-        {
-            vargsai.push_back(*it);
-            var.erase(it);
+    var.erase(std::remove_if(var.begin(), var.end(), [&](const studentas &a) {
+        double galutinis_vid = galutinis_deque(var, var.begin() + k, pasirinkimas);
+        ++k; 
+        if (galutinis_vid < 5.0) {
+            vargsai.push_back(a);
+            return true;
         }
-    }
+        return false;
+    }), var.end());
 
     auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
     std::chrono::duration<double> time = end - start;     /// laikas
@@ -586,13 +569,13 @@ void spausdinimasTest_deque(deque<studentas> &vargsai, deque<studentas> &galvoci
     auto start_1 = std::chrono::high_resolution_clock::now(); /// pradeti laiko skaiciavima
 
     ofstream print_vargsiukai(pav[numeris]);
-
     print_vargsiukai << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(15);
     if (pasirinkimas == 0)
         print_vargsiukai << "Galutinis (Vid.) " << endl;
     else
         print_vargsiukai << "Galutinis (Med.) " << endl;
     print_vargsiukai << "------------------------------------------------" << endl;
+
 
     ofstream print_galvociai(pav[numeris + 1]);
     print_galvociai << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(15);
@@ -603,30 +586,25 @@ void spausdinimasTest_deque(deque<studentas> &vargsai, deque<studentas> &galvoci
 
     print_galvociai << "------------------------------------------------" << endl;
 
+
     for (deque<studentas>::iterator it = vargsai.begin(); it != vargsai.end(); ++it)
     {
         print_vargsiukai << left << setw(15) << it->Vardas << setw(15) << it->Pavarde;
         print_vargsiukai << setw(15) << fixed << setprecision(2) << galutinis_deque(vargsai, it, pasirinkimas) << endl;
     }
-    print_vargsiukai.close();
 
-    auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
-    std::chrono::duration<double> time = end - start_1;   /// laikas
-    temp_laikas = time.count();
-    laikas += temp_laikas;
-
-    auto start_2 = std::chrono::high_resolution_clock::now();
 
     for (deque<studentas>::iterator it = galvociai.begin(); it != galvociai.end(); ++it)
     {
         print_galvociai << left << setw(15) << it->Vardas << setw(15) << it->Pavarde;
-        print_galvociai << setw(15) << fixed << setprecision(2) << galutinis_deque(vargsai, it, pasirinkimas) << endl;
+        print_galvociai << setw(15) << fixed << setprecision(2) << galutinis_deque(galvociai, it, pasirinkimas) << endl;
     }
+    print_vargsiukai.close();
     print_galvociai.close();
 
-    auto end_2 = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
-    std::chrono::duration<double> time_2 = end_2 - start_2; /// laikas
-    temp_laikas = time_2.count();
+    auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
+    std::chrono::duration<double> time = end - start_1;   /// laikas
+    temp_laikas = time.count();
     laikas += temp_laikas;
 
     vargsai.erase(vargsai.begin(), vargsai.end());
@@ -682,6 +660,16 @@ void skaitymas_deque(deque<studentas> &var, vector<string> &failoPav, int indeks
         naujasStudentas.tarpiniai = skaiciams;
         naujasStudentas.pazKiekis = skaiciams.size();
         skaiciams.clear(); /// isvalomas vektorius
+
+        double sum =0.0;
+        for (int j = 0; j < naujasStudentas.pazKiekis; j++)
+        { /// pazymiu suma
+            sum += naujasStudentas.tarpiniai[j];
+        }
+        naujasStudentas.vidurkis = sum / naujasStudentas.pazKiekis;
+
+        naujasStudentas.gal_vid = naujasStudentas.vidurkis * 0.4 + 0.6 * naujasStudentas.egz_rez;
+        
 
         var.push_back(naujasStudentas);
     }
@@ -793,7 +781,7 @@ void testFail_2strategija(vector<studentas> &var)
 
     studSk = 1000;
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 4; i++)
     {
         cout << "Testavimo laikai su " << studSk << " duomenu:" << endl;
 
@@ -809,9 +797,6 @@ void testFail_2strategija(vector<studentas> &var)
         rusiavimasTest_2strategija(var, vargsai, laikas, pasirinkimas, indeksas);
         galutinis += laikas;
         suskirstymas += laikas;
-
-        // galutinis+=laikas;
-        // suskirstymas+=laikas;
 
         cout << "Failo suskirstymas i vargsiukus ir gudruolius uztruko " << suskirstymas << "s." << endl;
         cout << "Is viso darbas su " << studSk << " duomenu uztruko: " << galutinis << "s.\n"
@@ -832,18 +817,19 @@ void rusiavimasTest_2strategija(vector<studentas> &var, vector<studentas> &vargs
     vargsai.reserve(var.size());
 
     int k = 0;
-    auto it = std::remove_if(var.begin(), var.end(), [&](const studentas &a)
-                             {
-
-        double galutinis_vid = galutinis(var, k, pasirinkimas);
+    for (auto it = var.begin(); it != var.end(); ++it)
+    {
+        double galutinis_vid = galutinis(var, k, pasirinkimas); // Corrected: Pass the studentas object directly
         ++k; 
-        if(galutinis_vid < 5.0 ){
-            vargsai.push_back(a);
-            return true;
+        if (galutinis_vid < 5.0)
+        {
+            vargsai.push_back(*it); // Move the element to vargsai
+            it = var.erase(it);      // Erase the element from var and get the iterator to the next element
+            if (it == var.end())     // Check if we've reached the end of var
+                break;
         }
-        return false; });
+    }
 
-    var.erase(it, var.end());
 
     auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
     std::chrono::duration<double> time = end - start;     /// laikas
@@ -1189,14 +1175,6 @@ void skaitymas(vector<studentas> &var, vector<string> &failoPav, int indeksas, d
     int pasirinkimas;
     ifstream failas(failoPav[indeksas]);
     var.clear();
-    if (indeksas == 5)
-        var.reserve(10000001);
-    if (indeksas == 4)
-        var.reserve(1000001);
-    if (indeksas == 3)
-        var.reserve(100001);
-    if (indeksas == 2)
-        var.reserve(10001);
 
     try
     {
@@ -1240,6 +1218,14 @@ void skaitymas(vector<studentas> &var, vector<string> &failoPav, int indeksas, d
         naujasStudentas.pazKiekis = skaiciams.size();
         skaiciams.clear(); /// isvalomas vektorius
 
+        double sum =0.0;
+        for (int j = 0; j < naujasStudentas.pazKiekis; j++)
+        { /// pazymiu suma
+            sum += naujasStudentas.tarpiniai[j];
+        }
+        naujasStudentas.vidurkis = sum / naujasStudentas.pazKiekis;
+
+        naujasStudentas.gal_vid = naujasStudentas.vidurkis * 0.4 + 0.6 * naujasStudentas.egz_rez;
         var.push_back(naujasStudentas);
     }
     failas.close();
