@@ -12,20 +12,20 @@ Programos testavimas su DEQUE:<br>
 <br>
 **Antra strategija:**<br>
 Programos testavimas su VECTOR:<br>
-
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/a51d086a-1ca1-47cd-9963-07641ca27103)<br>
 Programos testavimas su LIST:<br>
-
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/09d34863-8ce1-4165-9fc5-91edcaa4df53)<br>
 Programos testavimas su DEQUE:<br>
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/d51f5859-031c-4367-8bd3-fd485590a3cc)<br>
 <br>
 **Trečia strategija:**<br>
 Programos testavimas su VECTOR:<br>
-
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/52457ce0-9550-4a32-a9d9-4f088211664c)<br>
 Programos testavimas su LIST:<br>
-
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/bd6d4822-565b-4587-9564-9a147f90d829)<br>
 Programos testavimas su DEQUE:<br>
-
-
-
+![Uploading image.png…]()<br>
+<br>
 ## Naudojimo instrukcija
 Paleidus programą egzistuoja meniu, kur vartotojas gali pasirinkti kaip nori dirbti su duomenimis:<br>
 1 - duomenų įvedimas<br>
