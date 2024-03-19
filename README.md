@@ -34,6 +34,16 @@ Programos spartos palyginimas atsižvelgiant į rūšiavimo laiką su VECTOR kon
 | 3 strategija | 0.000998 | 0.007093 | 0.067696 | 0.711148 |
 
 Akivaizdu, kad rūšiavimas atliekamas žymiai greičiau naudojant trečią strategiją, kuri naudoja greitus rūšiavimo algoritmus, tokius kaip remove_if.<br>
+
+## Programos paleidimas
+1. Parsisiųskite failus iš pateikto linko: https://github.com/EligMaa/Darbas_1/releases/tag/V0.1 naudodami instrukciją pateiktą šiame linke: https://blog.hubspot.com/website/download-from-github <br>
+2. Susiinstaliuokite VisualStudioCode pagal pateiktą linką: https://www.youtube.com/watch?v=DMWD7wfhgNY <br>
+3. Parsisiųstą aplankalą atsidarykite VisualStudioCode. Įrankių juostoje paspauskite 'Terminal' -> 'New terminal' ir įveskite pateiktas eilutes: <br>
+make pagrindine <br>
+make funkcijos <br>
+make prog <br>
+./prog <br>
+Programa jau paruošta naudoti.
 ## Naudojimo instrukcija
 Paleidus programą egzistuoja meniu, kur vartotojas gali pasirinkti kaip nori dirbti su duomenimis:<br>
 1 - duomenų įvedimas<br>
@@ -74,12 +84,3 @@ Pasirinkus **4** variantą vartotojas gali testuoti programos laiką, rūšiuoja
 2 - list<br>
 3 - deque<br>
 4 - baigti darbą<br>
-## Programos paleidimas
-Parsisiųskite failus iš pateikto linko: https://github.com/EligMaa/Darbas_1/releases/tag/V0.1 naudodami instrukciją pateiktą šiame linke: https://blog.hubspot.com/website/download-from-github <br>
-Susiinstaliuokite VisualStudioCode pagal pateiktą linką: https://www.youtube.com/watch?v=DMWD7wfhgNY <br>
-Parsisiųstą aplankalą atsidarykite VisualStudioCode. Įrankių juostoje paspauskite 'Terminal' -> 'New terminal' ir įveskite pateiktas eilutes: <br>
-make pagrindine <br>
-make funkcijos <br>
-make prog <br>
-./prog <br>
-Programa jau paruošta naudoti.
