@@ -42,7 +42,7 @@ Pasirinkus **1** variantą vartotojas gali pasirinkti kaip įvesti studentų duo
 Gaunami duomenys yra įrašomi programos pabaigoje į lentelė su studentų vardais, pavardėmis ir jų galutiniais įvertinimais (jie skaičiuojami pasirinkus medianą ar vidurkį).<br>
 <br>
 Pasirinkus **2** variantą vartotojas gali pasirinkti su kuriuo duomenų failu nori dirbti:<br>
-1 - iš sugeneruoto duomenu failo 'kursiokai.txt'
+1 - iš sugeneruoto duomenu failo 'kursiokai.txt'<br>
 2 - iš testavimo failo su 10000 studentų duomenų<br>
 3 - iš testavimo failo su 100000 studentų duomenų<br>
 4 - iš testavimo failo su 1000000 studentų duomenų<br>
