@@ -74,7 +74,7 @@ Pasirinkus **4** variantą vartotojas gali testuoti programos laiką, rūšiuoja
 2 - list<br>
 3 - deque<br>
 4 - baigti darbą<br>
-##Programos paleidimas
+## Programos paleidimas
 Parsisiųskite failus iš pateikto linko: https://github.com/EligMaa/Darbas_1/releases/tag/V0.1 naudodami instrukciją pateiktą šiame linke: https://blog.hubspot.com/website/download-from-github <br>
 Susiinstaliuokite VisualStudioCode pagal pateiktą linką: https://www.youtube.com/watch?v=DMWD7wfhgNY <br>
 Parsisiųstą aplankalą atsidarykite VisualStudioCode. Įrankių juostoje paspauskite 'Terminal' -> 'New terminal' ir įveskite pateiktas eilutes: <br>
