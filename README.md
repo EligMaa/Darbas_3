@@ -20,12 +20,17 @@ Programos testavimas su DEQUE:<br>
 <br>
 **Trečia strategija:**<br>
 Programos testavimas su VECTOR:<br>
-![image](https://github.com/EligMaa/Darbas_1/assets/151032480/52457ce0-9550-4a32-a9d9-4f088211664c)<br>
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/1da665d9-e74c-40e8-b22c-7ce9c4601e92)<br>
 Programos testavimas su LIST:<br>
-![image](https://github.com/EligMaa/Darbas_1/assets/151032480/bd6d4822-565b-4587-9564-9a147f90d829)<br>
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/78e93a47-1c09-4a25-a296-5d2f3bb9cf18)<br>
 Programos testavimas su DEQUE:<br>
-![Uploading image.png…]()<br>
+![image](https://github.com/EligMaa/Darbas_1/assets/151032480/6cf25d18-86e9-4b6f-9f6c-af1a33b0e548)<br>
 <br>
+Programos spartos palyginimas atsižvelgiant į rūšiavimo laiką su VECTOR konteineriais:<br>
+|              |   1000   |   10000  |  100000  | 1000000  |
+| 1 strategija | 0.012241 | 0.108126 |  1.19830 | 13.0926  |
+| 2 strategija | 0.035067 | 3.25702  |  322.892 | 33768.4  | 
+| 3 strategija | 0.000998 | 0.007093 | 0.067696 | 0.711148 |
 ## Naudojimo instrukcija
 Paleidus programą egzistuoja meniu, kur vartotojas gali pasirinkti kaip nori dirbti su duomenimis:<br>
 1 - duomenų įvedimas<br>
