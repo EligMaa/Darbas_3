@@ -61,7 +61,7 @@ Duomenys yra nuskaitomi iš pasirinkto failo. Vartotojas taip pat turi galimybę
 3 - pagal studento galutinį įvertinimą su vidurkiu<br>
 4 - pagal studento galutinį įvertinimą su mediana<br>
 <br>
-Pasirinkus **3** variantą vartotojas gali testuoti pogramos laiką, kuriant pasirinkto dydžio failus:<br>
+Pasirinkus **3** variantą vartotojas gali testuoti programos laiką, kuriant pasirinkto dydžio failus:<br>
 1 - su 1000 studentų duomenų<br>
 2 - su 10000 studentų duomenų<br>
 3 - su 100000 studentų duomenų<br>
@@ -69,8 +69,17 @@ Pasirinkus **3** variantą vartotojas gali testuoti pogramos laiką, kuriant pas
 5 - su 10000000 studentų duomenų<br>
 6 - baigti darbą<br>
 <br>
-Pasirinkus **4** variantą vartotojas gali testuoti pogramos laiką, rūšiuojant failus su pasirinktu konteineriu:<br>
+Pasirinkus **4** variantą vartotojas gali testuoti programos laiką, rūšiuojant failus su pasirinktu konteineriu:<br>
 1 - vector<br>
 2 - list<br>
 3 - deque<br>
 4 - baigti darbą<br>
+##Programos paleidimas
+Parsisiųskite failus iš pateikto linko: https://github.com/EligMaa/Darbas_1/releases/tag/V0.1 naudodami instrukciją pateiktą šiame linke: https://blog.hubspot.com/website/download-from-github <br>
+Susiinstaliuokite VisualStudioCode pagal pateiktą linką: https://www.youtube.com/watch?v=DMWD7wfhgNY <br>
+Parsisiųstą aplankalą atsidarykite VisualStudioCode. Įrankių juostoje paspauskite 'Terminal' -> 'New terminal' ir įveskite pateiktas eilutes: <br>
+make pagrindine <br>
+make funkcijos <br>
+make prog <br>
+./prog <br>
+Programa jau paruošta naudoti.
