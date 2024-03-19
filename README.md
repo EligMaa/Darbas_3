@@ -39,11 +39,11 @@ Akivaizdu, kad rūšiavimas atliekamas žymiai greičiau naudojant trečią stra
 1. Parsisiųskite failus iš pateikto linko: https://github.com/EligMaa/Darbas_1/releases/tag/V0.1 naudodami instrukciją pateiktą šiame linke: https://blog.hubspot.com/website/download-from-github <br>
 2. Susiinstaliuokite VisualStudioCode pagal pateiktą linką: https://www.youtube.com/watch?v=DMWD7wfhgNY <br>
 3. Parsisiųstą aplankalą atsidarykite VisualStudioCode. Įrankių juostoje paspauskite 'Terminal' -> 'New terminal' ir įveskite pateiktas eilutes: <br>
-make pagrindine <br>
-make funkcijos <br>
-make prog <br>
-./prog <br>
-Programa jau paruošta naudoti.
+ + make pagrindine <br>
+ + make funkcijos <br>
+ + make prog <br>
+ + ./prog <br>
+<br>Programa jau paruošta naudoti.
 ## Naudojimo instrukcija
 Paleidus programą egzistuoja meniu, kur vartotojas gali pasirinkti kaip nori dirbti su duomenimis:<br>
 1 - duomenų įvedimas<br>
@@ -71,7 +71,7 @@ Duomenys yra nuskaitomi iš pasirinkto failo. Vartotojas taip pat turi galimybę
 3 - pagal studento galutinį įvertinimą su vidurkiu<br>
 4 - pagal studento galutinį įvertinimą su mediana<br>
 <br>
-Pasirinkus **3** variantą vartotojas gali testuoti programos laiką, kuriant pasirinkto dydžio failus:<br>
+Pasirinkus **3** variantą vartotojas gali pasirinkti kokio dydžio failus jis nori sukurti:<br>
 1 - su 1000 studentų duomenų<br>
 2 - su 10000 studentų duomenų<br>
 3 - su 100000 studentų duomenų<br>
