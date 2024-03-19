@@ -129,53 +129,79 @@ int main() {
 
         case 4:
 
-            cout<<"\n1 - VECTOR\n";
-            cout<<"2 - LIST\n";
-            cout<<"3 - DEQUE\n";
-            
+            do{
 
-            try {
-                    cout << "Iveskite pasirinkima: " << endl;
-                    string input;
-                    cin >> input;
-
-                    if (input.find_first_not_of("0123456789") != string::npos) {                                  ///tikrina ar ivestas skaicius naturalusis
-                        throw invalid_argument("Netinkamas pasirinkimas");
-                    }
-
-                    meniu_testas = stoi(input);
-
-                    if (meniu_testas < 1 || meniu_testas > 3) {                                                                ///tikrina ar ivestas skaicius yra nuo 1 iki 4
-                        throw invalid_argument("Iveskite nuo 1 iki 3 ");
-                    }
-                                    
-                } 
-                            
-            catch (const invalid_argument & e) {
-                cerr << "Klaida: " << e.what() << endl;
-                cout << endl;
-                continue;
-            }
-
-            switch (meniu_testas)
-            {
-                case 1:
-                    testFail(var);
-                    break;
-
-                case 2:
-                    testFail_list(varList);
-                    break;
-
-                case 3:
-                    testFail_deque(varDeque);
-                    break;
+                cout<<"\n1 - VECTOR\n";
+                cout<<"2 - LIST\n";
+                cout<<"3 - DEQUE\n";
+                cout<<"4 - BAIGTI DARBA\n";
                 
-                default:
-                    break;
-            }
+
+                try {
+                        cout << "\nIveskite pasirinkima: " << endl;
+                        string input;
+                        cin >> input;
+
+                        if (input.find_first_not_of("0123456789") != string::npos) {                                  ///tikrina ar ivestas skaicius naturalusis
+                            throw invalid_argument("Netinkamas pasirinkimas");
+                        }
+
+                        meniu_testas = stoi(input);
+
+                        if (meniu_testas < 1 || meniu_testas > 3) {                                                                ///tikrina ar ivestas skaicius yra nuo 1 iki 4
+                            throw invalid_argument("Iveskite nuo 1 iki 3 ");
+                        }
+                                        
+                    } 
+                                
+                catch (const invalid_argument & e) {
+                    cerr << "Klaida: " << e.what() << endl;
+                    cout << endl;
+                    continue;
+                }
+
+            
+                switch (meniu_testas)
+                {
+                    case 1:
+                        cout<<"\nPirma strategija:\n";
+                        // testFail(var);
+                        cout<<"\nAntra strategija:\n";
+                        // testFail_2strategija(var);
+                        cout<<"\nTrecia strategija:\n";
+                        testFail_3strategija(var);
+
+                        break;
+
+                    case 2:
+                        cout<<"\nPirma strategija:\n";
+                        // testFail_list(varList);
+                        cout<<"\nAntra strategija:\n";
+                        // testFail_list_2strategija(varList);
+                        cout<<"\nTrecia strategija:\n";
+                        testFail_list_3strategija(varList);
+
+                        break;
+
+                    case 3:
+                        cout<<"\nPirma strategija:\n";
+                        // testFail_deque(varDeque);
+                        cout<<"\nAntra strategija:\n";
+                        // testFail_deque_2strategija(varDeque);
+                        cout<<"\nTrecia strategija:\n";
+                        testFail_deque_3strategija(varDeque);
+
+                        break;
+
+                    case 4: 
+                        baigti_testa = true;
                     
-            break;
+                    default:
+                        break;
+                }
+                        
+                // break;
+            }while(!baigti_testa);
         
         case 5:
             cout<<"Darbas su duomenu ivedimu baigtas\n"<<endl;

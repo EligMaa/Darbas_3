@@ -32,14 +32,11 @@ void atsitiktiniaiPazymiai(vector<studentas>& var, int &studSk);
 void tikrinimas(int &pasirinkimas);
 void ivedimasRanka(vector<studentas>& var, int &studSk);
 void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk);
-
 void su_duomenimis_is_failu(vector<studentas>& kursiokai, vector<studentas>& var);
 void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas, double &laikas,int laboras);             ///nuskaito duomenis is failo ir iraso i kita faila
 void failoKurimas(vector<string>&failoPav, int indeksas, int &kiekND,int &studSk, double &laikas);
 void rusiavimas(vector<studentas>& var);
 void spausdinami_surikiuoti(vector<studentas>& var,double &laikas);
-
-
 bool rikiuotiVarda(const studentas &a, const studentas &b);
 bool rikiuotiPavarde(const studentas &a, const studentas &b);
 bool rikiuotiVid(const studentas &a, const studentas &b);
@@ -48,12 +45,21 @@ void didejimo (vector<studentas>& var, double &laikas);
 
 void testavimui(vector<studentas>& var);
 void rusiavimasTest(vector<studentas>& var, vector<studentas>& vargsai,vector<studentas>& galvociai, double &laikas, int &pasirinkimas,int indeksas);
-void spausdinimasTest(vector<studentas>& vargsai, vector<studentas>& galvociai, vector<string> pav, double &laikas,int &pasirinkimas);
+void spausdinimasTest(vector<studentas>& vargsai, vector<studentas>& galvociai, vector<string> pav, double &laikas,int &pasirinkimas, int indeksas);
 void testFail(vector<studentas>& var);
+void testFail_3strategija(vector<studentas> &var);
+void rusiavimasTest_3strategija(vector<studentas> &var, vector<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas);
+void testFail_2strategija(vector<studentas> &var);
+void rusiavimasTest_2strategija(vector<studentas> &var, vector<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas);
 
 /// funkcijos su list
+
+void testFail_list_3strategija(list<studentas> &var);
+void rusiavimasTest_list_3strategija(list<studentas> &var, list<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas);
+void testFail_list_2strategija(list<studentas> &var);
+void rusiavimasTest_list_2strategija(list<studentas> &var, list<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas);
 void rusiavimasTest_list(list<studentas>& var, list<studentas>& vargsai,list<studentas>& galvociai, double &laikas, int &pasirinkimas,int indeksas);
-void spausdinimasTest_list(list<studentas>& vargsai, list<studentas>& galvociai, vector<string> pav, double &laikas,int &pasirinkimas);
+void spausdinimasTest_list(list<studentas>& vargsai, list<studentas>& galvociai, vector<string> pav, double &laikas,int &pasirinkimas,int indeksas);
 void testFail_list(list<studentas>& var);
 double mediana_list(list<studentas>& var,list<studentas>::iterator it);
 double vidurkis_list(list<studentas>& var,list<studentas>::iterator it);
@@ -64,9 +70,13 @@ void didejimo_list (list<studentas>& var, double &laikas);
 
 
 /// funkcijos su deque
+void testFail_deque_3strategija(deque<studentas> &var);
+void rusiavimasTest_deque_3strategija(deque<studentas> &var, deque<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas);
+void testFail_deque_2strategija(deque<studentas> &var);
+void rusiavimasTest_deque_2strategija(deque<studentas> &var, deque<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas);
 void testFail_deque(deque<studentas>& var);
 void rusiavimasTest_deque(deque<studentas>& var, deque<studentas>& vargsai, deque<studentas>& galvociai, double& galutinisLaikas, int& pasirinkimas, int indeksas);
-void spausdinimasTest_deque(deque<studentas> &vargsai, deque<studentas> &galvociai, vector<string> pav, double &laikas, int &pasirinkimas);
+void spausdinimasTest_deque(deque<studentas> &vargsai, deque<studentas> &galvociai, vector<string> pav, double &laikas, int &pasirinkimas, int &indeksas);
 void skaitymas_deque(deque<studentas>& var, vector<string>& failoPav, int indeksas, double& laikas, int laboras);
 void rusiavimas_deque(deque<studentas>& var);
 double galutinis_deque(deque<studentas>& var, deque<studentas>::iterator it ,int &pasirinkimas);

@@ -2,6 +2,84 @@
 
 /// funkcijos su list konteineriais
 
+void testFail_list_3strategija(list<studentas> &var)
+{
+
+    int meniu, pasirinkimas;
+    double laikas = 0.0, galutinis = 0, suskirstymas = 0.0;
+    bool baigti = false;
+    int kiekND, indeksas, studSk, laboras = 4;
+
+    list<studentas> vargsai, galvociai;
+
+    vector<string> failoPav{"test1000.txt", "test10000.txt", "test100000.txt", "test1000000.txt", "test10000000.txt"}; /// vektorius saugo failu pavadinimus
+    vector<string> pav{"v1000.txt", "g1000.txt", "v10000.txt", "g10000.txt", "v100000.txt", "g100000.txt", "v1000000.txt", "g1000000.txt", "v10000000.txt", "g10000000.txt"};
+
+    cout << endl;
+    cout << "Iveskite kaip norite rusiuoti vargsus ir galvocius (0 - pagal vidurki, 1 - pagal mediana): " << endl;
+    tikrinimas(pasirinkimas);
+    cout << endl;
+    cout << "LIST" << endl;
+
+    indeksas = 0; /// indeksas, kuris nurodo kelintas failo pavadinimas yra vektoriuje
+    studSk = 1000;
+    galutinis = 0;
+
+    for (int i = 0; i < 4; i++)
+    {
+
+        cout << "Testavimo laikai su " << studSk << " duomenu:" << endl;
+
+        skaitymas_list(var, failoPav, indeksas, laikas, laboras);
+        cout << "Failo skaitymas uztruko " << laikas << "s." << endl;
+        galutinis += laikas;
+
+        didejimo_list(var, laikas);
+        cout << "Failo rusiavimas didejimo tvarka uztruko " << laikas << "s." << endl;
+        galutinis += laikas;
+
+        rusiavimasTest_list_3strategija(var, vargsai, laikas, pasirinkimas, indeksas);
+        galutinis += laikas;
+        suskirstymas += laikas;
+
+        // galutinis+=laikas;
+        // suskirstymas+=laikas;
+
+        cout << "Failo suskirstymas i vargsiukus ir gudruolius uztruko " << suskirstymas << "s." << endl;
+        cout << "Is viso darbas su " << studSk << " duomenu uztruko: " << galutinis << "s.\n"
+             << endl;
+
+        studSk *= 10;
+        spausdinimasTest_list(vargsai, var, pav, laikas, pasirinkimas, indeksas);
+        indeksas++;
+    }
+}
+
+void rusiavimasTest_list_3strategija(list<studentas> &var, list<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas)
+{
+    vargsai.clear();
+    double laikas;
+
+    auto start = std::chrono::high_resolution_clock::now(); /// pradeti laiko skaiciavima
+
+    var.remove_if([&](const studentas &a) {
+        if (a.gal_vid < 5.0)
+        {
+            vargsai.push_back(a);
+            return true; // grazina true jei reikia istrinti elementa
+        }
+        return false; // grazina false jei elemento nereikia istrinti
+    });
+    // cout << "Size of vargsai: " << vargsai.size() << endl; // Check if vargsai is empty
+    // cout << "Size of gud: " << var.size() << endl; // Check if var is empty
+    
+    auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
+    std::chrono::duration<double> time = end - start;     /// laikas
+    laikas = time.count();
+
+    galutinisLaikas += laikas;
+}
+
 void testFail_list_2strategija(list<studentas> &var)
 {
 
@@ -66,12 +144,12 @@ void rusiavimasTest_list_2strategija(list<studentas> &var, list<studentas> &varg
     {
         if (galutinis_list(var, it, pasirinkimas) < 5.0)
         {
-            vargsai.push_back(*it); // Push the element to vargsai
-            it = var.erase(it); // Erase the element from var and get the iterator to the next element
+            vargsai.push_back(*it); // pridedamas elementas prie vargsu
+            it = var.erase(it); // istrinamas elementas ir gaunamas iteratorius i kita elementa
         }
         else
         {
-            ++it; // Move to the next element
+            ++it; // keliauti prie kito elemento
         }
     }
     
@@ -376,6 +454,85 @@ double vidurkis_list(list<studentas> &var, list<studentas>::iterator it)
 
 /// funkcijos su deque konteineriais
 
+
+void testFail_deque_3strategija(deque<studentas> &var)
+{
+
+    double laikas = 0.0, galutinis = 0, suskirstymas = 0.0;
+    int kiekND, indeksas, studSk, laboras = 4, pasirinkimas;
+
+    deque<studentas> vargsai, galvociai;
+
+    vector<string> failoPav{"test1000.txt", "test10000.txt", "test100000.txt", "test1000000.txt", "test10000000.txt"}; /// vektorius saugo failu pavadinimus
+    vector<string> pav{"v1000.txt", "g1000.txt", "v10000.txt", "g10000.txt", "v100000.txt", "g100000.txt", "v1000000.txt", "g1000000.txt", "v10000000.txt", "g10000000.txt"};
+
+    cout << endl;
+    cout << "Iveskite kaip norite rusiuoti vargsus ir galvocius (0 - pagal vidurki, 1 - pagal mediana): " << endl;
+    tikrinimas(pasirinkimas);
+    cout << "DEQUE" << endl;
+
+    indeksas = 0; /// indeksas, kuris nurodo kelintas failo pavadinimas yra vektoriuje
+    studSk = 1000;
+    galutinis = 0;
+
+    for (int i = 0; i < 4; i++)
+    {
+        cout << "Testavimo laikai su " << studSk << " duomenu:" << endl;
+
+        skaitymas_deque(var, failoPav, indeksas, laikas, laboras);
+        cout << "Failo skaitymas uztruko " << laikas << "s." << endl;
+        galutinis += laikas;
+
+        didejimo_deque(var, laikas);
+        cout << "Failo rusiavimas didejimo tvarka uztruko " << laikas << "s." << endl;
+        galutinis += laikas;
+
+        rusiavimasTest_deque_3strategija(var, vargsai, laikas, pasirinkimas, indeksas);
+        galutinis += laikas;
+        suskirstymas += laikas;
+
+        // galutinis+=laikas;
+        // suskirstymas+=laikas;
+
+        cout << "Failo suskirstymas i vargsiukus ir gudruolius uztruko " << suskirstymas << "s." << endl;
+        cout << "Is viso darbas su " << studSk << " duomenu uztruko: " << galutinis << "s.\n"<< endl;
+
+        studSk *= 10;
+        spausdinimasTest_deque(vargsai, var, pav, laikas, pasirinkimas, indeksas);
+
+        indeksas++;
+    }
+}
+
+void rusiavimasTest_deque_3strategija(deque<studentas> &var, deque<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas)
+{
+    vargsai.clear();
+    double laikas;
+    int k=0;
+
+    auto start = std::chrono::high_resolution_clock::now(); /// pradeti laiko skaiciavima
+
+    var.erase(std::remove_if(var.begin(), var.end(), [&](const studentas &a) {
+        double galutinis_vid = galutinis_deque(var, var.begin() + k, pasirinkimas);
+        ++k; 
+        if (galutinis_vid < 5.0) {
+            vargsai.push_back(a);
+            return true;
+        }
+        return false;
+    }), var.end());
+
+
+    // cout<<"size of varg"<<vargsai.size()<<endl;
+    // cout<<"size of ger"<<var.size()<<endl;
+
+    auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
+    std::chrono::duration<double> time = end - start;     /// laikas
+    laikas = time.count();
+
+    galutinisLaikas += laikas;
+}
+
 void testFail_deque_2strategija(deque<studentas> &var)
 {
 
@@ -420,7 +577,6 @@ void testFail_deque_2strategija(deque<studentas> &var)
 
         studSk *= 10;
         spausdinimasTest_deque(vargsai, var, pav, laikas, pasirinkimas, indeksas);
-        cout<<"-------\n";
 
         indeksas++;
     }
@@ -434,15 +590,23 @@ void rusiavimasTest_deque_2strategija(deque<studentas> &var, deque<studentas> &v
 
     auto start = std::chrono::high_resolution_clock::now(); /// pradeti laiko skaiciavima
 
-    var.erase(std::remove_if(var.begin(), var.end(), [&](const studentas &a) {
-        double galutinis_vid = galutinis_deque(var, var.begin() + k, pasirinkimas);
-        ++k; 
+    // var.erase(std::remove_if(var.begin(), var.end(), [&](const studentas &a) {
+    //     double galutinis_vid = galutinis_deque(var, var.begin() + k, pasirinkimas);
+    //     ++k; 
+    //     if (galutinis_vid < 5.0) {
+    //         vargsai.push_back(a);
+    //         return true;
+    //     }
+    //     return false;
+    // }), var.end());
+
+    for (auto it = var.begin(); it != var.end(); ++it) {
+        double galutinis_vid = galutinis_deque(var, it, pasirinkimas);
         if (galutinis_vid < 5.0) {
-            vargsai.push_back(a);
-            return true;
+            vargsai.push_back(*it);
+            it = var.erase(it); // istrina elementa ir nurodo i kita iteratoriu
         }
-        return false;
-    }), var.end());
+    }
 
     auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
     std::chrono::duration<double> time = end - start;     /// laikas
@@ -763,6 +927,76 @@ double vidurkis_deque(deque<studentas> &var, deque<studentas>::iterator it)
 
 /// funkcijos su vector konteineriais
 
+void testFail_3strategija(vector<studentas> &var)
+{
+
+    double laikas = 0.0, galutinis = 0, suskirstymas = 0.0;
+    int kiekND, indeksas = 0, studSk, laboras = 4, pasirinkimas;
+
+    vector<studentas> vargsai;
+
+    vector<string> failoPav{"test1000.txt", "test10000.txt", "test100000.txt", "test1000000.txt", "test10000000.txt"}; /// vektorius saugo failu pavadinimus
+    vector<string> pav{"v1000.txt", "g1000.txt", "v10000.txt", "g10000.txt", "v100000.txt", "g100000.txt", "v1000000.txt", "g1000000.txt", "v10000000.txt", "g10000000.txt"};
+
+    cout << endl;
+    cout << "Iveskite kaip norite rusiuoti vargsus ir galvocius (0 - pagal vidurki, 1 - pagal mediana): " << endl;
+    tikrinimas(pasirinkimas);
+    cout << "VECTOR" << endl;
+
+    studSk = 1000;
+
+    for (int i = 0; i < 4; i++)
+    {
+        cout << "Testavimo laikai su " << studSk << " duomenu:" << endl;
+
+        skaitymas(var, failoPav, indeksas, laikas, laboras);
+        cout << "Failo skaitymas uztruko " << laikas << "s." << endl;
+        galutinis += laikas;
+
+        didejimo(var, laikas);
+
+        cout << "Failo rusiavimas didejimo tvarka uztruko " << laikas << "s." << endl;
+        galutinis += laikas;
+
+        rusiavimasTest_3strategija(var, vargsai, laikas, pasirinkimas, indeksas);
+        galutinis += laikas;
+        suskirstymas += laikas;
+
+        cout << "Failo suskirstymas i vargsiukus ir gudruolius uztruko " << suskirstymas << "s." << endl;
+        cout << "Is viso darbas su " << studSk << " duomenu uztruko: " << galutinis << "s.\n"
+             << endl;
+        studSk *= 10;
+        spausdinimasTest(vargsai, var, pav, laikas, pasirinkimas, indeksas);
+
+        indeksas++;
+    }
+}
+
+void rusiavimasTest_3strategija(vector<studentas> &var, vector<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas)
+{
+
+    vargsai.clear();
+
+    auto start = std::chrono::high_resolution_clock::now(); /// pradeti laiko skaiciavima
+    vargsai.reserve(var.size());
+
+    var.erase(std::remove_if(var.begin(), var.end(), [&](const studentas &s) {
+        int k = &s - &var[0]; // Calculate the index of the current element
+        if (galutinis(var, k, pasirinkimas) < 5.0) {
+            vargsai.push_back(s); // Add the element to vargsai
+            return true;           // Indicate that the element should be removed from var
+        }
+        return false; // Indicate that the element should not be removed
+    }), var.end());
+
+    // cout<<"size of varg"<<vargsai.size()<<endl;
+    // cout<<"size of ger"<<var.size()<<endl;
+
+    auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
+    std::chrono::duration<double> time = end - start;
+    galutinisLaikas = time.count();
+}
+
 void testFail_2strategija(vector<studentas> &var)
 {
 
@@ -819,21 +1053,21 @@ void rusiavimasTest_2strategija(vector<studentas> &var, vector<studentas> &vargs
     int k = 0;
     for (auto it = var.begin(); it != var.end(); ++it)
     {
-        double galutinis_vid = galutinis(var, k, pasirinkimas); // Corrected: Pass the studentas object directly
+        double galutinis_vid = galutinis(var, k, pasirinkimas);
         ++k; 
         if (galutinis_vid < 5.0)
         {
-            vargsai.push_back(*it); // Move the element to vargsai
-            it = var.erase(it);      // Erase the element from var and get the iterator to the next element
-            if (it == var.end())     // Check if we've reached the end of var
+            vargsai.push_back(*it); // prideda elementa prie vargsiu
+            it = var.erase(it);      // istrina elementa ir nurodo nauja iteratoriu
+            if (it == var.end())     // tikrina ar jau pabaiga
                 break;
         }
     }
 
 
     auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
-    std::chrono::duration<double> time = end - start;     /// laikas
-    galutinisLaikas = time.count();                       /// laikas
+    std::chrono::duration<double> time = end - start;     
+    galutinisLaikas = time.count();
 }
 
 void testFail(vector<studentas> &var)
@@ -1093,7 +1327,7 @@ void rusiavimasTest(vector<studentas> &var, vector<studentas> &vargsai, vector<s
     galutinisLaikas = time.count();                       /// laikas
 }
 
-void spausdinimasTest(vector<studentas> &vargsai, vector<studentas> &galvociai, vector<string> pav, double &laikas, int &pasirinkimas, int &indeksas)
+void spausdinimasTest(vector<studentas> &vargsai, vector<studentas> &galvociai, vector<string> pav, double &laikas, int &pasirinkimas, int indeksas)
 {
 
     laikas = 0;
