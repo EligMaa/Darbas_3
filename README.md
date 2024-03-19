@@ -28,9 +28,11 @@ Programos testavimas su DEQUE:<br>
 <br>
 Programos spartos palyginimas atsižvelgiant į rūšiavimo laiką su VECTOR konteineriais:<br>
 |              |   1000   |   10000  |  100000  | 1000000  |
+| ------------ | -------- | -------- | -------- | -------- |
 | 1 strategija | 0.012241 | 0.108126 |  1.19830 | 13.0926  |
-| 2 strategija | 0.035067 | 3.25702  |  322.892 | 33768.4  | 
+| 2 strategija | 0.035067 | 3.25702  |  322.892 | 33768.4  |
 | 3 strategija | 0.000998 | 0.007093 | 0.067696 | 0.711148 |
+Akivaizdu, kad rūšiavimas atliekamas žymiai greičiau naudojant trečią strategiją, kuri naudoja greitus rūšiavimo algoritmus, tokius kaip remove_if.<br>
 ## Naudojimo instrukcija
 Paleidus programą egzistuoja meniu, kur vartotojas gali pasirinkti kaip nori dirbti su duomenimis:<br>
 1 - duomenų įvedimas<br>
