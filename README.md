@@ -38,7 +38,11 @@ Akivaizdu, kad rūšiavimas atliekamas žymiai greičiau naudojant trečią stra
 ## Programos paleidimas
 1. Parsisiųskite failus iš pateikto linko: https://github.com/EligMaa/Darbas_1/releases/tag/V0.1 naudodami instrukciją pateiktą šiame linke: https://blog.hubspot.com/website/download-from-github <br>
 2. Susiinstaliuokite VisualStudioCode pagal pateiktą linką: https://www.youtube.com/watch?v=DMWD7wfhgNY <br>
-3. Parsisiųstą aplankalą atsidarykite VisualStudioCode. Įrankių juostoje paspauskite 'Terminal' -> 'New terminal' ir įveskite pateiktas eilutes: <br>
+3. Atidarykite parsisiųstą dokumentą iš github ir paspauskite dešiniu klavišu ant juostos su dokumento pavadinimu:<br>
+   ![image](https://github.com/EligMaa/Darbas_1/assets/151032480/6177c4ce-f06c-4caf-8a94-6c3132fbf582)<br>
+Paspauskite 'Kopijuoti adresą kaip tekstą'.<br>
+5. Parsisiųstą aplankalą atsidarykite VisualStudioCode. Įrankių juostoje paspauskite 'Terminal' -> 'New terminal' ir įveskite pateiktas eilutes: <br>
+ + cd 'jūsų nukopijuotas adresas' <br>
  + make pagrindine <br>
  + make funkcijos <br>
  + make prog <br>
