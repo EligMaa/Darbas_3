@@ -70,8 +70,8 @@ void rusiavimasTest_list_3strategija(list<studentas> &var, list<studentas> &varg
         }
         return false; // grazina false jei elemento nereikia istrinti
     });
-    // cout << "Size of vargsai: " << vargsai.size() << endl; // Check if vargsai is empty
-    // cout << "Size of gud: " << var.size() << endl; // Check if var is empty
+    // cout << "Size of vargsai: " << vargsai.size() << endl; 
+    // cout << "Size of gud: " << var.size() << endl;
     
     auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
     std::chrono::duration<double> time = end - start;     /// laikas
@@ -981,12 +981,12 @@ void rusiavimasTest_3strategija(vector<studentas> &var, vector<studentas> &vargs
     vargsai.reserve(var.size());
 
     var.erase(std::remove_if(var.begin(), var.end(), [&](const studentas &s) {
-        int k = &s - &var[0]; // Calculate the index of the current element
+        int k = &s - &var[0]; // skaiciuoja dabartinio elemento indeksa
         if (galutinis(var, k, pasirinkimas) < 5.0) {
-            vargsai.push_back(s); // Add the element to vargsai
-            return true;           // Indicate that the element should be removed from var
+            vargsai.push_back(s); // pideda elementa prie vargsai
+            return true;           // nurodo kad elementas turi buti istrinamas is var
         }
-        return false; // Indicate that the element should not be removed
+        return false;
     }), var.end());
 
     // cout<<"size of varg"<<vargsai.size()<<endl;
