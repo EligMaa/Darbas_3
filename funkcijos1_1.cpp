@@ -338,7 +338,9 @@ void skaitymas_list(list<studentas> &var, vector<string> &failoPav, int indeksas
 
         dalijimas >> vardas >> pavarde;
 
-        studentas naujasStudentas(vardas, pavarde, skaiciams, 0, 0.0);
+        studentas naujasStudentas;
+        naujasStudentas.set_Vardas (vardas);
+        naujasStudentas.set_Pavarde(pavarde);
 
 
         while (!dalijimas.eof())
@@ -820,7 +822,9 @@ void skaitymas_deque(deque<studentas> &var, vector<string> &failoPav, int indeks
         string vardas, pavarde;
         dalijimas >> vardas >> pavarde;
 
-        studentas naujasStudentas(vardas, pavarde, skaiciams, 0, 0.0);
+        studentas naujasStudentas;
+        naujasStudentas.set_Vardas(vardas);
+        naujasStudentas.set_Pavarde(pavarde);
 
         while (!dalijimas.eof())
         {
@@ -1312,9 +1316,9 @@ void rusiavimasTest(vector<studentas> &var, vector<studentas> &vargsai, vector<s
     {
 
         if (pasirinkimas == 0)
-            var[i].gal_vid = galutinis(var, i, pasirinkimas);
+            var[i].set_gal_v_m(0, galutinis(var, i, pasirinkimas) ) ;
         else
-            var[i].gal_med = galutinis(var, i, pasirinkimas);
+            var[i].set_gal_v_m(0, galutinis(var, i, pasirinkimas) ) ;
 
         if ((galutinis(var, i, pasirinkimas)) < 5.0)
         {
@@ -1385,12 +1389,12 @@ void spausdinimasTest(vector<studentas> &vargsai, vector<studentas> &galvociai, 
     {
 
         if (pasirinkimas == 0)
-            vargsai[i].gal_vid = galutinis(vargsai, i, pasirinkimas);
+            vargsai[i].set_gal_v_m(0, galutinis(vargsai, i, pasirinkimas) ) ;
 
         else
-            vargsai[i].gal_med = galutinis(vargsai, i, pasirinkimas);
+            vargsai[i].set_gal_v_m(0, galutinis(vargsai, i, pasirinkimas) ) ;
 
-        print_vargsiukai << left << setw(15) << vargsai[i].Vardas << setw(15) << vargsai[i].Pavarde;
+        print_vargsiukai << left << setw(15) << vargsai[i].get_Vardas() << setw(15) << vargsai[i].get_Pavarde();
         print_vargsiukai << setw(15) << fixed << setprecision(2) << galutinis(vargsai, i, pasirinkimas) << endl;
     }
     print_vargsiukai.close();
@@ -1399,12 +1403,12 @@ void spausdinimasTest(vector<studentas> &vargsai, vector<studentas> &galvociai, 
     {
 
         if (pasirinkimas == 0)
-            galvociai[i].gal_vid = galutinis(galvociai, i, pasirinkimas);
+            galvociai[i].set_gal_v_m(0, galutinis(galvociai, i, pasirinkimas) ) ;
 
         else
-            galvociai[i].gal_med = galutinis(galvociai, i, pasirinkimas);
+            galvociai[i].set_gal_v_m(0, galutinis(galvociai, i, pasirinkimas) ) ;
 
-        print_galvociai << left << setw(15) << galvociai[i].Vardas << setw(15) << galvociai[i].Pavarde;
+        print_galvociai << left << setw(15) << galvociai[i].get_Vardas() << setw(15) << galvociai[i].get_Pavarde();
         print_galvociai << setw(15) << fixed << setprecision(2) << galutinis(galvociai, i, pasirinkimas) << endl;
     }
 
@@ -1460,7 +1464,9 @@ void skaitymas(vector<studentas> &var, vector<string> &failoPav, int indeksas, d
 
         dalijimas >> vardas >> pavarde;
 
-        studentas naujasStudentas(vardas, pavarde, skaiciams, 0, 0.0); /// sukuria nauja objekta
+        studentas naujasStudentas;
+        naujasStudentas.set_Vardas(vardas);
+        naujasStudentas.set_Pavarde (pavarde);
 
         while (!dalijimas.eof())
         {
@@ -1548,10 +1554,10 @@ void rusiavimas(vector<studentas> &var)
         for (int i = 0; i < var.size(); i++)
         {
             pasirinkimas = 0;
-            var[i].gal_vid = galutinis(var, i, pasirinkimas);
+            var[i].set_gal_v_m(1 , galutinis(var, i, pasirinkimas)) ;
 
             pasirinkimas = 1;
-            var[i].gal_med = galutinis(var, i, pasirinkimas);
+            var[i].set_gal_v_m(1 , galutinis(var, i, pasirinkimas));
         }
 
         switch (meniu) /// meniu skirtas v0.2
@@ -1598,10 +1604,11 @@ void spausdinami_surikiuoti(vector<studentas> &var, double &laikas)
     for (int i = 0; i < var.size(); i++)
     {
 
-        print << left << setw(15) << var[i].Vardas << setw(15) << var[i].Pavarde;
-        print << setw(15) << fixed << setprecision(2) << var[i].gal_vid << setw(20) << setprecision(2) << var[i].gal_med << endl;
+        print << left << setw(15) << var[i].get_Vardas() << setw(15) << var[i].get_Pavarde();
+        print << setw(15) << fixed << setprecision(2) << var[i].get_gal_v_m(0) << setw(20) << setprecision(2) << var[i].get_gal_v_m(1) << endl;
+        
     }
-
+    
     auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
     std::chrono::duration<double> time = end - start;     /// laikas
     laikas += time.count();
@@ -1757,22 +1764,22 @@ void su_duomenimis_is_failu(vector<studentas> &kursiokai, vector<studentas> &var
 
 bool rikiuotiVarda(const studentas &a, const studentas &b)
 {
-    return a.Vardas < b.Vardas;
+    return a.get_Vardas() < b.get_Vardas();
 }
 
 bool rikiuotiPavarde(const studentas &a, const studentas &b)
 {
-    return a.Pavarde < b.Pavarde;
+    return a.get_Pavarde() < b.get_Pavarde();
 }
 
 bool rikiuotiVid(const studentas &a, const studentas &b)
 {
-    return a.gal_vid < b.gal_vid;
+    return a.get_gal_v_m(0) < b.get_gal_v_m(0);
 }
 
 bool rikiuotiMed(const studentas &a, const studentas &b)
 {
-    return a.gal_med < b.gal_med;
+    return a.get_gal_v_m(1) < b.get_gal_v_m(1);
 }
 
 void atsitiktiniaiPazVar(vector<studentas> &var, int &studSk)
@@ -1780,6 +1787,9 @@ void atsitiktiniaiPazVar(vector<studentas> &var, int &studSk)
 
     int n;
     var.clear();
+    string vardas, pavarde;
+    vector <int> skaiciams;
+
     int m = (rand() % 10) + 1; /// atsitiktinai sugeneruoja kiek yra studentu
     studSk = m;
     do
@@ -1789,59 +1799,64 @@ void atsitiktiniaiPazVar(vector<studentas> &var, int &studSk)
 
             bool lytis;         /// jeigu 0 - vyras, jeigu 1 - moteris
             lytis = rand() % 2; /// arba 0 arba 1
-
-            studentas naujasStudentas; /// sukuria nauja objekta
-
+            
+            studentas naujasStudentas;
+            skaiciams = naujasStudentas.get_tarpiniai();
             if (lytis == 0)
             {
 
                 int indeksas = rand() % (vyrV.size()); /// atsitinktinai  istrenkamas vardas
-                naujasStudentas.Vardas = vyrV[indeksas];
+                naujasStudentas.set_Vardas(vyrV[indeksas]);
                 indeksas = rand() % (vyrP.size());
-                naujasStudentas.Pavarde = vyrP[indeksas];
+                naujasStudentas.set_Pavarde(vyrP[indeksas]) ;
+
                 cout << "--------------------------------------------------------" << endl;
                 cout << i + 1 << "-ojo"
-                     << " studento vardas: " << naujasStudentas.Vardas << endl;
+                     << " studento vardas: " << naujasStudentas.get_Vardas() << endl;
                 cout << i + 1 << "-ojo"
-                     << " studento pavarde: " << naujasStudentas.Pavarde << endl;
+                     << " studento pavarde: " << naujasStudentas.get_Pavarde() << endl;
+                     
             }
 
             if (lytis == 1)
             {
 
                 int indeksas = rand() % (motP.size());
-                naujasStudentas.Vardas = motV[indeksas];
+                naujasStudentas.set_Vardas(motV[indeksas]);
 
                 indeksas = rand() % (motP.size());
 
-                naujasStudentas.Pavarde = motP[indeksas];
+                naujasStudentas.set_Pavarde( motP[indeksas]);
                 cout << "--------------------------------------------------------" << endl;
                 cout << i + 1 << "-ojo"
-                     << " studento vardas: " << naujasStudentas.Vardas << endl;
+                     << " studento vardas: " << naujasStudentas.get_Vardas() << endl;
                 cout << i + 1 << "-ojo"
-                     << " studento pavarde: " << naujasStudentas.Pavarde << endl;
+                     << " studento pavarde: " << naujasStudentas.get_Pavarde() << endl;
             }
 
             n = rand() % 10 + 1; /// atsitiktinai sugeneruoja kiek namu darbu atliko studentas
             cout << " Studentas atliko " << n << " namu darbu uzduotis" << endl;
 
-            naujasStudentas.pazKiekis = n;
-            naujasStudentas.tarpiniai.resize(n);
+            naujasStudentas.set_paz_kiekis(n);
+            // naujasStudentas.tarpiniai.resize(n);
 
             cout << " Atsitiktinai sugeneruoti namu darbu rezultatai: " << endl;
 
+
+            vector<int> tarpiniai;
             for (int j = 0; j < n; j++)
             {
+                
+                tarpiniai[j] = rand() % 10 + 1; /// generuoja atsitikstinius skaicius intervale nuo 1 iki 10
 
-                naujasStudentas.tarpiniai[j] = rand() % 10 + 1; /// generuoja atsitikstinius skaicius intervale nuo 1 iki 10
-
-                cout << naujasStudentas.tarpiniai[j] << "\t";
+                cout << tarpiniai[j] << "\t";
             }
+            naujasStudentas.set_tarpiniai(tarpiniai);
 
             cout << endl;
             cout << " Atsitiktinai sugeneruotas studento ezamino rezultatas: ";
-            naujasStudentas.egz_rez = rand() % 10 + 1; /// generuoja atsitikstinius skaicius intervale nuo 1 iki 10
-            cout << naujasStudentas.egz_rez << endl;
+            naujasStudentas.set_egz(rand() % 10 + 1) ; /// generuoja atsitikstinius skaicius intervale nuo 1 iki 10
+            cout << naujasStudentas.get_egz() << endl;
             cout << endl;
 
             var.push_back(naujasStudentas); /// pridedamas naujas studentas i vektoriu
@@ -1856,6 +1871,7 @@ void atsitiktiniaiPazymiai(vector<studentas> &var, int &studSk)
 
     int n; /// namu darbu kiekis
     bool pasirinkimas;
+    string vardas, pavarde;
     var.clear();
     int i = 0;
     do
@@ -1877,14 +1893,18 @@ void atsitiktiniaiPazymiai(vector<studentas> &var, int &studSk)
             break;
 
         i++;
+        
+        vector<int> tarpiniai;
 
-        studentas naujasStudentas; /// sukuria nauja objekta
+        studentas naujasStudentas;
 
         cout << "--------------------------------------------------------" << endl;
         cout << " Iveskite " << i << " studento varda: ";
-        cin >> naujasStudentas.Vardas;
+        cin >> vardas;
+        naujasStudentas.set_Vardas(vardas);
         cout << " Iveskite " << i << " studento pavarde: ";
-        cin >> naujasStudentas.Pavarde;
+        cin >> pavarde;
+        naujasStudentas.set_Pavarde(pavarde);
 
         cout << " Iveskite kiek namu darbu uzduociu atliko studentas: ";
         while (!(cin >> n) || (n < 1 && n > 100))
@@ -1894,26 +1914,29 @@ void atsitiktiniaiPazymiai(vector<studentas> &var, int &studSk)
             cout << "Iveskite nuo 1 iki 100: " << endl;
         }
 
-        naujasStudentas.pazKiekis = n;
-        naujasStudentas.tarpiniai.resize(n);
+        naujasStudentas.set_paz_kiekis(n);
+        // naujasStudentas.tarpiniai.resize(n);
 
         cout << " Atsitiktinai sugeneruoti namu darbu rezultatai: " << endl;
 
         for (int j = 0; j < n; j++)
         {
 
-            naujasStudentas.tarpiniai[j] = rand() % 10 + 1; /// generuoja atsitikstinius skaicius intervale nuo 1 iki 10
+            tarpiniai.push_back(rand() % 10 + 1); /// generuoja atsitikstinius skaicius intervale nuo 1 iki 10
 
-            cout << naujasStudentas.tarpiniai[j] << "\t";
+            cout << tarpiniai[j] << "\t";
         }
+        naujasStudentas.set_tarpiniai(tarpiniai);
 
         cout << endl;
         cout << " Atsitiktinai sugeneruotas studento ezamino rezultatas: " << endl;
-        naujasStudentas.egz_rez = rand() % 10 + 1; /// generuoja atsitikstinius skaicius intervale nuo 1 iki 10
-        cout << naujasStudentas.egz_rez << endl;
+        naujasStudentas.set_egz(rand() % 10 + 1); /// generuoja atsitikstinius skaicius intervale nuo 1 iki 10
+        cout << naujasStudentas.get_egz() << endl;
         var.push_back(naujasStudentas);
         pasirinkimas = true;
         studSk = i;
+
+        
 
     } while (pasirinkimas == true);
 }
@@ -1922,6 +1945,7 @@ void ivedimasRanka(vector<studentas> &var, int &studSk)
 {
     int i = 0;
     bool pasirinkimas;
+    string vardas, pavarde;
     var.clear();
 
     do
@@ -1963,19 +1987,24 @@ void ivedimasRanka(vector<studentas> &var, int &studSk)
             break;
 
         i++;
-        studentas naujasStudentas; // Sukuria nauja objekta
+
+        vector<int> skaiciams;
+        studentas naujasStudentas;
+       
         cout << "--------------------------------------------------------" << endl;
         cout << " Iveskite " << i << " studento varda: ";
-        cin >> naujasStudentas.Vardas;
+        cin >> vardas;
+        naujasStudentas.set_Vardas(vardas);
         cout << " Iveskite " << i << " studento pavarde: ";
-        cin >> naujasStudentas.Pavarde;
+        cin >> pavarde;
+        naujasStudentas.set_Pavarde(pavarde);
 
         cout << " Iveskite studento namu darbu rezultatus (noredami baigti ivedima iveskite 0): " << endl;
 
         int pazimys;
         string input;
         int kiek = 0; // Pazymiu sk
-        vector<int> skaiciams;
+        
 
         while (true)
         {
@@ -2021,7 +2050,7 @@ void ivedimasRanka(vector<studentas> &var, int &studSk)
             }
         }
 
-        naujasStudentas.pazKiekis = kiek;
+        naujasStudentas.set_paz_kiekis(kiek);
         naujasStudentas.set_tarpiniai ( skaiciams );
 
         cout << " Iveskite " << i << " studento egzamino rezultata: ";
@@ -2039,7 +2068,7 @@ void ivedimasRanka(vector<studentas> &var, int &studSk)
                     continue;
                 }
 
-                naujasStudentas.egz_rez = stoi(input);
+                naujasStudentas.set_egz(stoi(input)) ;
 
                 if (cin.fail())
                 {
@@ -2100,7 +2129,7 @@ void spausdinimas(vector<studentas> &var)
 
         for (int i = 0; i < var.size(); i++)
         {
-            cout << left << setw(15) << var[i].Vardas << setw(15) << var[i].Pavarde;
+            cout << left << setw(15) << var[i].get_Vardas() << setw(15) << var[i].get_Pavarde();
             cout << setw(15) << fixed << setprecision(2) << galutinis(var, i, pasirinkimas) << endl;
         }
     }
@@ -2113,7 +2142,7 @@ void spausdinimas(vector<studentas> &var)
 
         for (int i = 0; i < var.size(); i++)
         {
-            cout << left << setw(15) << var[i].Vardas << setw(15) << var[i].Pavarde;
+            cout << left << setw(15) << var[i].get_Vardas() << setw(15) << var[i].get_Pavarde();
             cout << setw(30) << fixed << setprecision(2) << galutinis(var, i, pasirinkimas) << endl;
         }
     }
@@ -2127,13 +2156,15 @@ double galutinis(vector<studentas> &var, int &k, int &pasirinkimas)
     double gal = 0.0;
     if (pasirinkimas == 0)
     {
-        gal = vidurkis(var, k) * 0.4 + 0.6 * var[k].egz_rez;
+        gal = vidurkis(var, k) * 0.4 + 0.6 *var[k].get_egz();
     }
+    
 
     else
     {
-        gal = (mediana(var, k)) * 0.4 + 0.6 * var[k].egz_rez;
+        gal = mediana(var, k) * 0.4 + 0.6 *var[k].get_egz();
     }
+    
 
     return gal;
 }
@@ -2141,7 +2172,7 @@ double galutinis(vector<studentas> &var, int &k, int &pasirinkimas)
 double mediana(vector<studentas> &var, int &k)
 {
 
-    int pazymiai = var[k].pazKiekis;
+    int pazymiai = var[k].get_paz_kieki();
     double medi;
 
     if (pazymiai == 0) /// jei nera ivesta pazymiu                                                        ///jeigu nebuvo ivestas nei vienas pazymys
@@ -2151,18 +2182,21 @@ double mediana(vector<studentas> &var, int &k)
 
     else
     {
-        sort(var[k].tarpiniai.begin(), var[k].tarpiniai.end());
+        sort(var[k].get_tarpiniai().begin(), var[k].get_tarpiniai().end());
 
         if ((pazymiai % 2) == 0)
         {
-            medi = (double(var[k].tarpiniai[pazymiai / 2 - 1]) + (var[k].tarpiniai[pazymiai / 2])) / 2;
+            vector<int> tarpiniai = var[k].get_tarpiniai();
+            medi = (double(tarpiniai[pazymiai / 2 - 1]) + (tarpiniai[pazymiai / 2])) / 2;
+
         }
 
         else
         {
-            medi = (var[k].tarpiniai[pazymiai / 2]);
+            vector<int> tarpiniai = var[k].get_tarpiniai();
+            medi = (tarpiniai[pazymiai / 2]);
         }
-        var[k].mediana = medi;
+        var[k].set_mediana(medi);
         return medi;
     }
 }
@@ -2171,20 +2205,21 @@ double vidurkis(vector<studentas> &var, int &k)
 {
     double sum = 0.0;
 
-    if (var[k].pazKiekis == 0) /// jeigu nebuvo ivestas nei vienas pazymys
+    if (var[k].get_paz_kieki() == 0)  /// jeigu nebuvo ivestas nei vienas pazymys
     {
-        return var[k].pazKiekis;
+        return var[k].get_paz_kieki();
     }
 
     else
     {
-        for (int j = 0; j < var[k].pazKiekis; j++)
+        for (int j = 0; j < var[k].get_paz_kieki(); j++)
         { /// pazymiu suma
-            sum += var[k].tarpiniai[j];
+            vector<int> tarpiniai = var[k].get_tarpiniai();
+            sum += tarpiniai[j];
         }
-        double vid = sum / var[k].pazKiekis; /// skaiciuojamas vidurkis
+        double vid = sum / var[k].get_paz_kieki(); /// skaiciuojamas vidurkis
 
-        var[k].vidurkis = vid;
+        var[k].set_vidurkis(vid);
 
         return vid;
     }
