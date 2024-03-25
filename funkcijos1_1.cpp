@@ -1792,8 +1792,7 @@ void atsitiktiniaiPazVar(vector<studentas> &var, int &studSk)
 
     int m = (rand() % 10) + 1; /// atsitiktinai sugeneruoja kiek yra studentu
     studSk = m;
-    do
-    {
+   
         for (int i = 0; i < m; i++)
         {
 
@@ -1801,12 +1800,13 @@ void atsitiktiniaiPazVar(vector<studentas> &var, int &studSk)
             lytis = rand() % 2; /// arba 0 arba 1
             
             studentas naujasStudentas;
-            skaiciams = naujasStudentas.get_tarpiniai();
+            
             if (lytis == 0)
             {
 
                 int indeksas = rand() % (vyrV.size()); /// atsitinktinai  istrenkamas vardas
                 naujasStudentas.set_Vardas(vyrV[indeksas]);
+
                 indeksas = rand() % (vyrP.size());
                 naujasStudentas.set_Pavarde(vyrP[indeksas]) ;
 
@@ -1847,7 +1847,7 @@ void atsitiktiniaiPazVar(vector<studentas> &var, int &studSk)
             for (int j = 0; j < n; j++)
             {
                 
-                tarpiniai[j] = rand() % 10 + 1; /// generuoja atsitikstinius skaicius intervale nuo 1 iki 10
+                tarpiniai.push_back( rand() % 10 + 1); /// generuoja atsitikstinius skaicius intervale nuo 1 iki 10
 
                 cout << tarpiniai[j] << "\t";
             }
@@ -1863,7 +1863,7 @@ void atsitiktiniaiPazVar(vector<studentas> &var, int &studSk)
         }
 
         m--;
-    } while (m == 0);
+   
 }
 
 void atsitiktiniaiPazymiai(vector<studentas> &var, int &studSk)
@@ -2131,6 +2131,8 @@ void spausdinimas(vector<studentas> &var)
         {
             cout << left << setw(15) << var[i].get_Vardas() << setw(15) << var[i].get_Pavarde();
             cout << setw(15) << fixed << setprecision(2) << galutinis(var, i, pasirinkimas) << endl;
+            // cout<<"-----"<<var[i]. get_egz()<<"--"<<var[i].get_mediana()<<endl;
+
         }
     }
 
@@ -2159,7 +2161,6 @@ double galutinis(vector<studentas> &var, int &k, int &pasirinkimas)
         gal = vidurkis(var, k) * 0.4 + 0.6 *var[k].get_egz();
     }
     
-
     else
     {
         gal = mediana(var, k) * 0.4 + 0.6 *var[k].get_egz();
@@ -2181,19 +2182,18 @@ double mediana(vector<studentas> &var, int &k)
     }
 
     else
-    {
-        sort(var[k].get_tarpiniai().begin(), var[k].get_tarpiniai().end());
+    {   
+        vector<int> tarpiniai = var[k].get_tarpiniai();
+        sort(tarpiniai.begin(), tarpiniai.end());
 
         if ((pazymiai % 2) == 0)
         {
-            vector<int> tarpiniai = var[k].get_tarpiniai();
-            medi = (double(tarpiniai[pazymiai / 2 - 1]) + (tarpiniai[pazymiai / 2])) / 2;
+           medi = (double(tarpiniai[pazymiai / 2 - 1]) + (tarpiniai[pazymiai / 2])) / 2;
 
         }
 
         else
         {
-            vector<int> tarpiniai = var[k].get_tarpiniai();
             medi = (tarpiniai[pazymiai / 2]);
         }
         var[k].set_mediana(medi);
