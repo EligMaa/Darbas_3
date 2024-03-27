@@ -86,16 +86,21 @@ Programos spartos palyginimas su struktūra ir class'e naudojant 3 strategija su
 | ------------ | ---------- | ---------- | ------------ | --------- |
 |   100 000    | 1.10556 s. | 0.357524 s.| 0.390313 s.  | 2.01321 s.|
 |   1 000 000  | 11.0742 s. | 4.57449 s. | 3.94622 s.   | 21.2178 s.|
+
 Programa su struktūra veikia sparčiau nei class, tačiau skirtumas minimalus.<br>
 <br>Programos spartos palyginimas su 1 000 000 dydžio failu naudojant flag'us: O1, O2, O3<br>
+
 |     Class    | Skaitymas  | Rūšiavimas | Suskirstymas |  Iš viso  | Exe failo dydis |
 | ------------ | ---------- | ---------- | ------------ | --------- | ----------------|
-|      O1      | 11.2832  s.| 4.58047 s. | 3.97579 s.   | 21.0744 s.|     438 KB      |
+|      O1      | 11.2832  s.| 4.58047 s. | 3.97579 s.   | 21.0744 s.|     232 KB      |
 |      O2      | 10.8566 s. | 4.54223 s. | 3.99914 s.   | 21.0245 s.|     438 KB      |
 |      O3      | 10.7989 s. | 4.56988 s. | 3.92201 s.   | 20.9157 s.|     438 KB      |
 
+O1 - ![image](https://github.com/EligMaa/Darbas_2/assets/151032480/38139068-d90c-4ada-974f-915706e8bed3)
+O2 - ![image](https://github.com/EligMaa/Darbas_2/assets/151032480/0668e62a-e783-4b7c-b839-e4174828314a)
+
 |    Struct    | Skaitymas  | Rūšiavimas | Suskirstymas |  Iš viso  | Exe failo dydis |
 | ------------ | ---------- | ---------- | ------------ | --------- | ----------------|
-|      O1      | 9.92013 s. | 4.03336 s. | 4.52279 s.   | 19.9238 s.|
-|      O2      | 11.0742 s. | 4.57449 s. | 3.94622 s.   | 21.2178 s.|
-|      O3      | 11.0742 s. | 4.57449 s. | 3.94622 s.   | 21.2178 s.|
+|      O1      | 10.0805 s. | 4.06028 s. | 0.696081 s.   | 16.36 s.|
+|      O2      | 10.0178 s. | 4.21788 s. | 0.75521 s.   | 16.5173 s.|
+|      O3      | 9.93927 s. | 4.24828 s. | 0.789033 s.   | 16.4895 s.|
