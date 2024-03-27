@@ -74,6 +74,7 @@ class studentas {
         string get_Pavarde ()const{
             return Pavarde;
         }
+        ~studentas ( ){}
 };
 ```
 Programos spartos palyginimas su struktūra ir class'e naudojant 3 strategija su VECTOR konteineriais :<br>
