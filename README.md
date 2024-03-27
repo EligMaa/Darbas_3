@@ -102,3 +102,5 @@ Programa su struktūra veikia sparčiau nei class, tačiau skirtumas minimalus.<
 |      O1      | 10.0805 s. | 4.06028 s. | 0.696081 s.  | 16.36 s.  |     427 KB      |
 |      O2      | 10.0178 s. | 4.21788 s. | 0.75521 s.   | 16.5173 s.|     427 KB      |
 |      O3      | 9.93927 s. | 4.24828 s. | 0.789033 s.  | 16.4895 s.|     427 KB      |
+
+Taigi, su struct naudojant flag O1 programa veikia greičiausiai, o su class greičiausiai veikia O3. Tačiau failų nuskaitymas greičiausiai įvyksta naudojant O3.
