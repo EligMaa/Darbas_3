@@ -93,14 +93,18 @@ Programa su struktūra veikia sparčiau nei class, tačiau skirtumas minimalus.<
 
 |     Class    | Skaitymas  | Rūšiavimas | Suskirstymas |  Iš viso  | Exe failo dydis |
 | ------------ | ---------- | ---------- | ------------ | --------- | ----------------|
-|      O1      | 11.2832  s.| 4.58047 s. | 3.97579 s.   | 21.0744 s.|     438 KB      |
-|      O2      | 10.8566 s. | 4.54223 s. | 3.99914 s.   | 21.0245 s.|     438 KB      |
-|      O3      | 10.7989 s. | 4.56988 s. | 3.92201 s.   | 20.9157 s.|     438 KB      |
+|      O1      | 11.2832  s.| 4.58047 s. | 3.97579 s.   | 21.0744 s.|     243 KB      |
+|      O2      | 10.8566 s. | 4.54223 s. | 3.99914 s.   | 21.0245 s.|     234 KB      |
+|      O3      | 10.7989 s. | 4.56988 s. | 3.92201 s.   | 20.9157 s.|     237 KB      |
 
 |    Struct    | Skaitymas  | Rūšiavimas | Suskirstymas |  Iš viso  | Exe failo dydis |
 | ------------ | ---------- | ---------- | ------------ | --------- | ----------------|
-|      O1      | 10.0805 s. | 4.06028 s. | 0.696081 s.  | 16.36 s.  |     427 KB      |
-|      O2      | 10.0178 s. | 4.21788 s. | 0.75521 s.   | 16.5173 s.|     427 KB      |
-|      O3      | 9.93927 s. | 4.24828 s. | 0.789033 s.  | 16.4895 s.|     427 KB      |
+|      O1      | 11.8167 s. | 1.24585 s. | 0.348938 s.  | 14.8071 s.|     231 KB      |
+|      O2      | 11.2292 s. | 1.21073 s. | 0.379523 s.  | 12.7549 s.|     221 KB      |
+|      O3      | 11.4668 s. | 1.16458 s. | 0.387194 s.  | 14.4699 s.|     227 KB      |
 
-Taigi, su struct naudojant flag O1 programa veikia greičiausiai, o su class greičiausiai veikia O3. Tačiau failų nuskaitymas greičiausiai įvyksta naudojant O3.
+![image](https://github.com/EligMaa/Darbas_2/assets/151032480/0723188c-2af3-440d-bceb-1f71f20e8df8)<br>
+![image](https://github.com/EligMaa/Darbas_2/assets/151032480/4e2bbcf9-44d7-4055-b760-050d31ed03c8)<br>
+
+
+Taigi, su su 02 programa veikia greiciausiai naudojant struktūrą, o su klase greičiausiai veikia su 03
