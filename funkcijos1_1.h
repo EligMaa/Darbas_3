@@ -17,13 +17,7 @@ class studentas {
         double gal_med;
 
     public:
-        studentas(string vardas, string pavarde, vector<int> pazymiai, int kiekis, double egzaminas) {
-            Vardas = vardas;
-            Pavarde = pavarde;
-            tarpiniai = pazymiai;
-            pazKiekis = kiekis;
-            egz_rez = egzaminas;
-        }
+        studentas () : Vardas ( ""), Pavarde ( ""), tarpiniai (), pazKiekis (0), egz_rez (0){} 
 
         void set_egz(int egz){
             egz_rez = egz;
@@ -64,18 +58,26 @@ class studentas {
             if (pasirinkimas == 0) gal_vid = gal;
             if (pasirinkimas == 1) gal_med = gal;
         }
-        double get_gal_v_m (int pasirinkimas){
+        double get_gal_v_m (int pasirinkimas) const{
             if (pasirinkimas == 0) return gal_vid;
             if (pasirinkimas == 1) return gal_med ;
         }
 
-        string get_Vardas (){
+        string set_Vardas (string var){
+            Vardas = var;
+        }
+        string get_Vardas ()const{
             return Vardas;
         }
 
-        string get_Pavarde (){
+        string set_Pavarde (string pav){
+            Pavarde = pav;
+        }
+        string get_Pavarde ()const{
             return Pavarde;
         }
+
+        virtual ~studentas ( ){}
 };
 
 /// ivairus vyriski vardai ir pavardes

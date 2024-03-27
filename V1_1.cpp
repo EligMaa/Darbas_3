@@ -164,10 +164,10 @@ int main() {
                 switch (meniu_testas)
                 {
                     case 1:
-                        cout<<"\nPirma strategija:\n";
-                        testFail(var);
-                        cout<<"\nAntra strategija:\n";
-                        testFail_2strategija(var);
+                        // cout<<"\nPirma strategija:\n";
+                        // testFail(var);
+                        // cout<<"\nAntra strategija:\n";
+                        // testFail_2strategija(var);
                         cout<<"\nTrecia strategija:\n";
                         testFail_3strategija(var);
 

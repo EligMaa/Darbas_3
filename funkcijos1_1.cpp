@@ -25,7 +25,7 @@ void testFail_list_3strategija(list<studentas> &var)
     studSk = 1000;
     galutinis = 0;
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 5; i++)
     {
 
         cout << "Testavimo laikai su " << studSk << " duomenu:" << endl;
