@@ -92,15 +92,12 @@ Programa su struktūra veikia sparčiau nei class, tačiau skirtumas minimalus.<
 
 |     Class    | Skaitymas  | Rūšiavimas | Suskirstymas |  Iš viso  | Exe failo dydis |
 | ------------ | ---------- | ---------- | ------------ | --------- | ----------------|
-|      O1      | 11.2832  s.| 4.58047 s. | 3.97579 s.   | 21.0744 s.|     232 KB      |
+|      O1      | 11.2832  s.| 4.58047 s. | 3.97579 s.   | 21.0744 s.|     438 KB      |
 |      O2      | 10.8566 s. | 4.54223 s. | 3.99914 s.   | 21.0245 s.|     438 KB      |
 |      O3      | 10.7989 s. | 4.56988 s. | 3.92201 s.   | 20.9157 s.|     438 KB      |
 
-O1 - ![image](https://github.com/EligMaa/Darbas_2/assets/151032480/38139068-d90c-4ada-974f-915706e8bed3)
-O2 - ![image](https://github.com/EligMaa/Darbas_2/assets/151032480/0668e62a-e783-4b7c-b839-e4174828314a)
-
 |    Struct    | Skaitymas  | Rūšiavimas | Suskirstymas |  Iš viso  | Exe failo dydis |
 | ------------ | ---------- | ---------- | ------------ | --------- | ----------------|
-|      O1      | 10.0805 s. | 4.06028 s. | 0.696081 s.   | 16.36 s.|
-|      O2      | 10.0178 s. | 4.21788 s. | 0.75521 s.   | 16.5173 s.|
-|      O3      | 9.93927 s. | 4.24828 s. | 0.789033 s.   | 16.4895 s.|
+|      O1      | 10.0805 s. | 4.06028 s. | 0.696081 s.  | 16.36 s.  |     427 KB      |
+|      O2      | 10.0178 s. | 4.21788 s. | 0.75521 s.   | 16.5173 s.|     427 KB      |
+|      O3      | 9.93927 s. | 4.24828 s. | 0.789033 s.  | 16.4895 s.|     427 KB      |
