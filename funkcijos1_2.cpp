@@ -8,10 +8,20 @@ void testuoti_clase(){
     vector <int> pazymiai = {1,2,3,4,5};
     int egzamino_rez = 9.5;
 
-    ///konstruktoriaus testavimas
     studentas naujasstudentas(vardas, pavarde, pazymiai, egzamino_rez);
+    naujasstudentas.set_vidurkis (); 
+    naujasstudentas.set_gal_v_m();
+    ///konstruktoriaus ir tuo paziu isvesties metodu testavimas
 
     cout<<"konstruktoriaus testavimas: "<<endl;
+    cout<<naujasstudentas.get_Vardas()<<" "<<naujasstudentas.get_Pavarde()<<" ";
+        for(int pazymys : naujasstudentas.get_tarpiniai()) {
+        cout << pazymys << " ";
+    }
+    cout<<endl<<naujasstudentas.get_egz()<<endl;
+    cout << naujasstudentas;
+    cout<<"Iveskite varda, pavarde ir namu darbu pazymius, paskutinis pazimys turi buti egzamino rezultatas, norint baigti ivedima iveskite neigiama skaiciu: "<<endl;
+    cin >> naujasstudentas;
     cout<<naujasstudentas.get_Vardas()<<" "<<naujasstudentas.get_Pavarde()<<" ";
         for(int pazymys : naujasstudentas.get_tarpiniai()) {
         cout << pazymys << " ";
@@ -67,6 +77,9 @@ void testuoti_clase(){
     perkeliamasstudentas2 varda ar kitus duomenis, tai nepavyktu
     */
     cout << "Perkeliamasstudentas2 sunaikintas" << endl;
+
+
+
 }
 
 

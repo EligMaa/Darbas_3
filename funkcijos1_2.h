@@ -110,7 +110,7 @@ class studentas {
             in >> stud.Vardas >> stud.Pavarde;
             int pazimys;
             vector <int> pazymiai;
-            while (in >> pazimys)
+            while (in >> pazimys && pazimys >= 0)
             {
                 pazymiai.push_back(pazimys);
             }
@@ -147,6 +147,11 @@ class studentas {
         void set_vidurkis(int vidur){
             vidurkis = vidur;
         }
+
+        void set_vidurkis(){
+            vidurkis = accumulate(tarpiniai.begin(), tarpiniai.end(), 0.0) / tarpiniai.size();
+        }
+
         double get_vidurkis(){
             return vidurkis;
         }
