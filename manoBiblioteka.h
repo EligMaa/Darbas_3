@@ -17,6 +17,8 @@
 #include <list>
 #include <deque>
 #include <iterator>
+#include <utility>
+#include <numeric> 
 
 
 using std::cout;
@@ -38,6 +40,9 @@ using std::istringstream;
 using std::list;
 using std::deque;
 using std::sort;
+using std::move;
+using std::ostream;
+using std::istream;
 
 
 #endif

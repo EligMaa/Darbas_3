@@ -27,10 +27,100 @@ class studentas {
             egz_rez = egz;
             pazKiekis = tarpiniai.size();
 
+        }
+
+        /// destruktorius
+        ~studentas ( ){tarpiniai.clear(), Vardas.clear(),Pavarde.clear();}
+
+        /// kopijavimo konstruktorius
+        studentas(const studentas& other) {
+            Vardas = other.Vardas;
+            Pavarde = other.Pavarde;
+            egz_rez = other.egz_rez;
+            tarpiniai = other.tarpiniai;
+            vidurkis = other.vidurkis;
+            mediana = other.mediana;
+            gal_vid = other.gal_vid;
+            gal_med = other.gal_med;
+        }
+
+        /// kopijavimo assignment operatorius
+        studentas& operator=(const studentas& other) {
+            if (this != &other) {
+                Vardas = other.Vardas;
+                Pavarde = other.Pavarde;
+                egz_rez = other.egz_rez;
+                tarpiniai = other.tarpiniai;
+                vidurkis = other.vidurkis;
+                mediana = other.mediana;
+                gal_vid = other.gal_vid;
+                gal_med = other.gal_med;
+            }
+            return *this;
+        }
+
+        /// perkelimo konstruktorius
+        studentas(studentas&& other) noexcept {
+            Vardas = move(other.Vardas);
+            Pavarde = move(other.Pavarde);
+            egz_rez = other.egz_rez;
+            tarpiniai = move(other.tarpiniai);
+            vidurkis = other.vidurkis;
+            mediana = other.mediana;
+            gal_vid = other.gal_vid;
+            gal_med = other.gal_med;
+        }
+
+        /// perkelimo assignment operatorius
+        studentas& operator=(studentas&& other) noexcept {
+            if (this != &other) {
+                Vardas = move(other.Vardas);
+                Pavarde = move(other.Pavarde);
+                egz_rez = other.egz_rez;
+                tarpiniai = move(other.tarpiniai);
+                vidurkis = other.vidurkis;
+                mediana = other.mediana;
+                gal_vid = other.gal_vid;
+                gal_med = other.gal_med;
+            }
+            return *this;
+        }
+
+        friend ostream& operator<<(ostream& out, const studentas &stud) {                ///isvesties operatorius
+        out << left << setw(15) << stud.Vardas << setw(15) << stud.Pavarde;
+        out << setw(15) << fixed << setprecision(2) << stud.get_gal_v_m(0);
+        out << setw(20) << setprecision(2) << stud.get_gal_v_m(1) << "\n";
+        return out;
+        }
+
+        friend ostream& su_mediana(ostream& out, const studentas& stud) {
+            out << left << setw(15) << stud.Vardas << setw(15) << stud.Pavarde;
+            out << setw(20) << setprecision(2) << stud.gal_med << "\n";
+            return out;
+        }
+
+        friend ostream& su_vidurkiu(ostream& out, const studentas& stud) {
+            out << left << setw(15) << stud.Vardas << setw(15) << stud.Pavarde;
+            out << setw(20) << setprecision(2) << stud.gal_vid<< "\n";
+            return out;
+        }
+
+
+        friend istream& operator>>(istream& in, studentas &stud) {                      /// ivesties operatorius
+            in >> stud.Vardas >> stud.Pavarde;
+            int pazimys;
+            vector <int> pazymiai;
+            while (in >> pazimys)
+            {
+                pazymiai.push_back(pazimys);
+            }
+            stud.egz_rez=pazymiai.back() ;
+            pazymiai.pop_back();
+
+            stud.tarpiniai = pazymiai;
 
         }
 
-        ~studentas ( ){tarpiniai.clear(), Vardas.clear(),Pavarde.clear();}
 
         void set_egz(int egz){
             egz_rez = egz;
@@ -68,9 +158,25 @@ class studentas {
             return mediana;
         }
 
-        void set_gal_v_m (int pasirinkimas, double gal){
-            if (pasirinkimas == 0) gal_vid = gal;
-            if (pasirinkimas == 1) gal_med = gal;
+        void set_gal_v_m (){
+           
+            gal_vid = vidurkis * 0.4 + 0.6 *egz_rez;
+            pazKiekis = tarpiniai.size();
+    
+            sort(tarpiniai.begin(), tarpiniai.end());
+
+            if ((pazKiekis % 2) == 0)
+                {
+                    mediana = (double(tarpiniai[pazKiekis / 2 - 1]) + (tarpiniai[pazKiekis / 2])) / 2;
+                }
+            else
+                {
+                    mediana = (tarpiniai[pazKiekis / 2]);
+                }
+
+                gal_med = mediana * 0.4 + 0.6 *egz_rez;
+            
+
         }
         double get_gal_v_m (int pasirinkimas) const{
             if (pasirinkimas == 0) return gal_vid;
@@ -130,37 +236,6 @@ void rusiavimasTest_3strategija(vector<studentas> &var, vector<studentas> &vargs
 void testFail_2strategija(vector<studentas> &var);
 void rusiavimasTest_2strategija(vector<studentas> &var, vector<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas);
 
-/// funkcijos su list
-
-void testFail_list_3strategija(list<studentas> &var);
-void rusiavimasTest_list_3strategija(list<studentas> &var, list<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas);
-void testFail_list_2strategija(list<studentas> &var);
-void rusiavimasTest_list_2strategija(list<studentas> &var, list<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas);
-void rusiavimasTest_list(list<studentas>& var, list<studentas>& vargsai,list<studentas>& galvociai, double &laikas, int &pasirinkimas,int indeksas);
-void spausdinimasTest_list(list<studentas>& vargsai, list<studentas>& galvociai, vector<string> pav, double &laikas,int &pasirinkimas,int indeksas);
-void testFail_list(list<studentas>& var);
-double mediana_list(list<studentas>& var,list<studentas>::iterator it);
-double vidurkis_list(list<studentas>& var,list<studentas>::iterator it);
-double galutinis_list(list<studentas>& var, list<studentas>::iterator it ,int &pasirinkimas);
-void skaitymas_list(list<studentas>& var, vector<string>& failoPav, int indeksas, double& laikas, int laboras);             ///nuskaito duomenis is failo ir iraso i kita faila
-void rusiavimas_list(list<studentas>& var);
-void didejimo_list (list<studentas>& var, double &laikas);
-
-
-/// funkcijos su deque
-void testFail_deque_3strategija(deque<studentas> &var);
-void rusiavimasTest_deque_3strategija(deque<studentas> &var, deque<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas);
-void testFail_deque_2strategija(deque<studentas> &var);
-void rusiavimasTest_deque_2strategija(deque<studentas> &var, deque<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas);
-void testFail_deque(deque<studentas>& var);
-void rusiavimasTest_deque(deque<studentas>& var, deque<studentas>& vargsai, deque<studentas>& galvociai, double& galutinisLaikas, int& pasirinkimas, int indeksas);
-void spausdinimasTest_deque(deque<studentas> &vargsai, deque<studentas> &galvociai, vector<string> pav, double &laikas, int &pasirinkimas, int &indeksas);
-void skaitymas_deque(deque<studentas>& var, vector<string>& failoPav, int indeksas, double& laikas, int laboras);
-void rusiavimas_deque(deque<studentas>& var);
-double galutinis_deque(deque<studentas>& var, deque<studentas>::iterator it ,int &pasirinkimas);
-double mediana_deque(deque<studentas>& var, deque<studentas>::iterator it);
-double vidurkis_deque(deque<studentas>& var, deque<studentas>::iterator it);
-void didejimo_deque (deque<studentas>& var, double &laikas);
-
+void testuoti_clase();
 
 #endif
