@@ -198,3 +198,15 @@ class studentas {
 };
 ```
 <br>
+
+### Įvesties/išvesties metodai
+Mano panaudoti metodai:<br>
+![image](https://github.com/EligMaa/Darbas_2/assets/151032480/d47f08e6-8372-4196-bd41-b3d291b9d0cd)<br>
+Juos panaudojau:<br>
+![image](https://github.com/EligMaa/Darbas_2/assets/151032480/8bdf1d2b-8495-41be-954e-fec71222c51c)<br>
+![image](https://github.com/EligMaa/Darbas_2/assets/151032480/294a60a2-781d-4bc3-a0ac-7bf5b6b86b59)<br>
+![image](https://github.com/EligMaa/Darbas_2/assets/151032480/6d1754ba-bc9e-4ff7-adc6-37352c54d053)<br>
+
+
+
+
