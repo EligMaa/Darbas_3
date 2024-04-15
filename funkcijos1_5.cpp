@@ -8,9 +8,9 @@ void testuoti_clase(){
     vector <int> pazymiai = {1,2,3,4,5};
     int egzamino_rez = 9.5;
 
-    // zmogus mama("Ma", "Ry");
-    // cout<<mama.get_Vardas()<<" "<<mama.get_Pavarde()<<" ";
-    
+    cout<<"Abstraktumo tikrinimas: "<<endl;
+    cout << std::boolalpha;
+    cout << "zmogus yra abstrakti klase: " << std::is_abstract<zmogus>::value << std::endl;
 
     studentas naujasstudentas(vardas, pavarde, pazymiai, egzamino_rez);
     naujasstudentas.set_vidurkis (); 

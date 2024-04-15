@@ -12,12 +12,10 @@ class zmogus {
         zmogus() : Vardas(""), Pavarde("") {}
         zmogus(const std::string& Var, const std::string& Pav) : Vardas(Var), Pavarde(Pav) {}
 
-        // Destructor
         virtual ~zmogus() {}
 
-        virtual void niekas( ) const = 0;
+        // virtual void niekas( ) const = 0;
 
-        // Pure virtual functions
         void set_Vardas(string var){
             Vardas = var;
         }
@@ -25,10 +23,8 @@ class zmogus {
             Pavarde = pav;
         }
 
-        // Virtual functions with default implementation
-        virtual std::string get_Vardas() const {
-            return Vardas;
-        }
+        virtual std::string get_Vardas() const = 0;
+
         virtual std::string get_Pavarde() const {
             return Pavarde;
         }
@@ -59,7 +55,11 @@ class studentas : public zmogus {
 
         }
 
-        void niekas() const override { }
+        // void niekas() const override { }
+
+        virtual std::string get_Vardas() const override {
+            return Vardas;
+        }
          
         /// destruktorius
         ~studentas ( ){tarpiniai.clear();}
