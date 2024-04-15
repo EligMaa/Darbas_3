@@ -1,5 +1,5 @@
 # Darbas_2
-Šioje versijoje reikėjo vietoje turimos v1.2 klasės Studentas sukurkite dvi: bazinę (abstrakčią) klasę, skirtą bendrai aprašyti žmogų ir tuomet iš jos išvestinę (derived) klasę.<br>
+Šioje versijoje reikėjo vietoje turimos v1.2 klasės Studentas sukurti dvi: bazinę (abstrakčią) klasę, skirtą bendrai aprašyti žmogų ir tuomet iš jos išvestinę (derived) klasę.<br>
 Ivykdžius užduotį CLASS'ės atrodo taip:
 
     class zmogus {
