@@ -8,10 +8,14 @@ void testuoti_clase(){
     vector <int> pazymiai = {1,2,3,4,5};
     int egzamino_rez = 9.5;
 
+    // zmogus mama("Ma", "Ry");
+    // cout<<mama.get_Vardas()<<" "<<mama.get_Pavarde()<<" ";
+    
+
     studentas naujasstudentas(vardas, pavarde, pazymiai, egzamino_rez);
     naujasstudentas.set_vidurkis (); 
     naujasstudentas.set_gal_v_m();
-    ///konstruktoriaus ir tuo paziu isvesties metodu testavimas
+    ///konstruktoriaus ir tuo paciu isvesties metodu testavimas
 
     cout<<"konstruktoriaus testavimas: "<<endl;
     cout<<naujasstudentas.get_Vardas()<<" "<<naujasstudentas.get_Pavarde()<<" ";

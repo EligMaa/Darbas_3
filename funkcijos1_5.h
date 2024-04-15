@@ -5,40 +5,39 @@
 
 class zmogus {
     protected:
-    
         string Vardas;
         string Pavarde;
+
     public:
-        zmogus () : Vardas ( ""), Pavarde ( ""){}
+        zmogus() : Vardas(""), Pavarde("") {}
+        zmogus(const std::string& Var, const std::string& Pav) : Vardas(Var), Pavarde(Pav) {}
 
-        zmogus( string Var, string Pav ) {
-            Vardas = Var;
-            Pavarde = Pav;
-        }
+        // Destructor
+        virtual ~zmogus() {}
 
-        /// destruktorius
-        ~zmogus ( ){Vardas.clear(),Pavarde.clear();}
+        virtual void niekas( ) const = 0;
 
-        string set_Vardas (string var){
+        // Pure virtual functions
+        void set_Vardas(string var){
             Vardas = var;
         }
-        string get_Vardas ()const{
-            return Vardas;
-        }
-
-        string set_Pavarde (string pav){
+        void set_Pavarde(string pav){
             Pavarde = pav;
         }
-        string get_Pavarde ()const{
+
+        // Virtual functions with default implementation
+        virtual std::string get_Vardas() const {
+            return Vardas;
+        }
+        virtual std::string get_Pavarde() const {
             return Pavarde;
         }
 
-
-
+        
 };
 
 class studentas : public zmogus {
-    private:
+    protected:
     
         int egz_rez;
         int pazKiekis;
@@ -59,6 +58,8 @@ class studentas : public zmogus {
             pazKiekis = tarpiniai.size();
 
         }
+
+        void niekas() const override { }
          
         /// destruktorius
         ~studentas ( ){tarpiniai.clear();}
