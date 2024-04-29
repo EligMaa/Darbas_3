@@ -1,5 +1,25 @@
-# Darbas_2
-# V2.0 pradinė
+# V2.0 
+Naudojant Doxygen kodo dokumentacija yra aprašyta HTML/TEX formatais ir pateikti kataloguose. 
+Klasių testavimui yra naudojamas C++ Unit test Catch2 framework'as. 
+Testo pavyzdys:<br>
+
+         TEST_CASE("konstruktoriaus testavimas") {
+             string vardas = "Rugile";
+             string pavarde = "Macaite";
+             vector<int> pazymiai = {1, 2, 3, 4, 5};
+             double egzamino_rez = 9.5;
+         
+             studentas naujasstudentas(vardas, pavarde, pazymiai, egzamino_rez);
+         
+             REQUIRE(naujasstudentas.get_Vardas() == vardas);
+             REQUIRE(naujasstudentas.get_Pavarde() == pavarde);   
+             REQUIRE(naujasstudentas.get_egz() == egzamino_rez);
+             REQUIRE(naujasstudentas.get_tarpiniai() == pazymiai);
+         }
+
+<br>Testavimui pasibaigus išmetama lentelė su rezultatais, šio kodo atvėju visi testai teigiami:<br>
+![image](https://github.com/EligMaa/Darbas_2/assets/151032480/6e380b29-7580-4d38-b0fe-e171d631570d)<br>
+
 ## Programos paleidimas
 1. Parsisiųskite failus iš pateikto linko: https://github.com/EligMaa/Darbas_2/tree/v2 naudodami instrukciją pateiktą šiame linke: https://blog.hubspot.com/website/download-from-github <br>
 2. Susiinstaliuokite VisualStudioCode pagal pateiktą linką: https://www.youtube.com/watch?v=DMWD7wfhgNY <br>
@@ -55,4 +75,8 @@ Pasirinkus **4** variantą vartotojas gali testuoti programos laiką, rūšiuoja
 3 - deque<br>
 4 - baigti darbą<br>
 <br>
-Pasirinkus **5** variantą vartotojas gali testuoti klasę naudojant RULE OF FIVE.<br>
+Pasirinkus **5** variantą vartotojas gali testuoti ar klasė veikia tinkamai naudojant RULE OF FIVE.<br>
+<br>
+[V1.1](https://github.com/EligMaa/Darbas_2/tree/v1.1) - šioje versijoje studentai saugomi class objektuose, ištestuotas struct ir class greitis<br>
+[V1.2](https://github.com/EligMaa/Darbas_2/tree/v1.2) - šiai užduočiai reikėjo realizuoti visus reikiamus "Rule of five" ir įvesties/išvesties operatorius turimai Studentas klasei.<br>
+[V1.5](https://github.com/EligMaa/Darbas_2/tree/v1.5) - šioje versijoje reikėjo vietoje turimos v1.2 klasės Studentas sukurti dvi: bazinę (abstrakčią) klasę, skirtą bendrai aprašyti žmogų ir tuomet iš jos išvestinę (derived) klasę.<br>
