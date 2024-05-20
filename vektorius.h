@@ -38,20 +38,6 @@ template <typename T>
                 delete[] r_masyvas;
             }
 
-            pointer begin()
-            {
-                rodykle it;
-                it = (&r_masyvas[0]);
-                return it;
-            }
-            
-            pointer end()
-            {
-                rodykle it;
-                it = &r_masyvas[dydis - 1];
-                return it;
-            };
-            
             // Kopijavimo konstruktorius
             VEKTORIUS(const VEKTORIUS& v) { create(v.begin(), v.end()); } 
 
@@ -70,9 +56,6 @@ template <typename T>
                 return *this;
             }
 
-            // Perkėlimo konstruktorius
-            VEKTORIUS(VEKTORIUS && naujas) {create(); swap(naujas); naujas.uncreate();}
-
             // Perkėlimo priskyrimo operatorius
             VEKTORIUS &operator=(VEKTORIUS &&other) noexcept
             {
@@ -89,44 +72,73 @@ template <typename T>
                 return *this;
             }
 
-            void push_back(T data) {
-                if (dydis >= kiekis){
-                    resize(dydis*2);
-                }
-                r_masyvas[dydis] = data;
-                dydis++;
-            }
+            // Perkėlimo konstruktorius
+            VEKTORIUS(VEKTORIUS && naujas) {create(); swap(naujas); naujas.uncreate();}
 
-            // Pašalinti paskutinį elementą
-            void pop_back()
+            // Pasiekia elemeta tam tikrame indekse
+            T &at(size_t indeksas)
             {
-                dydis = dydis - 1;
-                T *laikinas = new T[dydis];
-                for (size_t i = 0; i < dydis; i++)
-                    laikinas[i] = r_masyvas[i];
-                delete[] r_masyvas;
-                r_masyvas = laikinas;
-            };
+                if (indeksas >= dydis)
+                    throw std::out_of_range("Indeksas už ribų");
+                return r_masyvas[indeksas];
+            }
 
-            // Išvalyti vektorių
-            void clear()
+            // Elementas pagal indeksą []
+            T &operator[](size_t indeksas)
             {
-                dydis = 0;
-                delete[] r_masyvas;
-                r_masyvas = new T[kiekis];
+                if (indeksas >= dydis)
+                    throw std::out_of_range("Indeksas už ribų");
+                return r_masyvas[indeksas];
             }
 
-            size_t size() const { return dydis; }
-            size_t capacity() const { return kiekis; }
-
-            void erase(size_t val) {
-                if (val < 0 || val >= dydis)
-                    return;
-                dydis--;
-                std::move(&r_masyvas[val + 1], &r_masyvas[dydis], &r_masyvas[val]);
+            const T &operator[](size_t indeksas) const
+            {
+                if (indeksas >= dydis)
+                    throw std::out_of_range("Indeksas už ribų");
+                return r_masyvas[indeksas];
             }
 
-            // grazin iteratori i pradzia
+            // Pirmas elementas
+            T &front()
+            {
+                if (dydis == 0)
+                    throw std::out_of_range("Vektorius yra tuščias");
+                return r_masyvas[0];
+            }
+
+            const T &front() const
+            {
+                if (dydis == 0)
+                    throw std::out_of_range("Vektorius yra tuščias");
+                return r_masyvas[0];
+            }
+
+            // Paskutinis elementas
+            T &back()
+            {
+                if (dydis == 0)
+                    throw std::out_of_range("VEKTORIUS tuscias");
+                return r_masyvas[dydis - 1];
+            }
+
+            const T &back() const
+            {
+                if (dydis == 0)
+                    throw std::out_of_range("VEKTORIUS tuscias");
+                return r_masyvas[dydis - 1];
+            }
+
+            T *data() noexcept
+            {
+                return r_masyvas;
+            }
+
+            const T *data() const noexcept
+            {
+                return r_masyvas;
+            }
+            
+            // grazina iteratoriu i pradzia
             T* begin() {
                 return r_masyvas;
             }
@@ -143,24 +155,27 @@ template <typename T>
                 return r_masyvas + dydis;
             }
 
-            void sort()
+            T *rend() noexcept
             {
-                sort(begin(), end());
+                return r_masyvas + dydis;
             }
 
-            template <typename lyginti>
-            void sort(lyginti comp)
+            const T *rend() const noexcept
             {
-                sort(begin(), end(), comp);
+                return r_masyvas + dydis;
             }
-                    
-            void resize(size_t naujas_kiekis) {
-                T* naujas_masyvas = new T[naujas_kiekis];
-                move(r_masyvas, r_masyvas + dydis, naujas_masyvas);
-                delete[] r_masyvas;
-                r_masyvas = naujas_masyvas;
-                kiekis = naujas_kiekis;
+
+            // Ar vektorius yra tuščias
+            bool empty() const
+            {
+                return kiekis == 0;
             }
+
+            // grazina kiek yra elementu 
+            size_t size() const { return dydis; }
+
+            // kiek daugiausiai elementu vektorius gali tureti
+            size_t max_size() const { return std::numeric_limits<size_t>::max(); }
 
             // Rezervuoti vietą elementams
             void reserve(size_t naujas_kiekis)
@@ -178,39 +193,27 @@ template <typename T>
                 }
             }
 
-            // Ar vektorius yra tuščias
-            bool empty() const
-            {
-                return kiekis == 0;
-            }
+            size_t capacity() const { return dydis; }
 
-            void reverse()
-            {
-                reverse(begin(), end());
-            }
-
-            // Elementas pagal indeksą []
-            T &operator[](size_t indeksas)
-            {
-                if (indeksas >= kiekis)
-                    throw std::out_of_range("Indeksas už ribų");
-                return r_masyvas[indeksas];
-            }
-
-            // Pirmas elementas
-            T &front()
-            {
-                if (kiekis == 0)
-                    throw std::out_of_range("Vektorius yra tuščias");
-                return r_masyvas[0];
-            }
-
-            // // Paskutinis elementas
-            T& back() {
-                if (dydis == 0) {
-                    throw std::out_of_range("VEKTORIUS tuscias");
+            // funkcija sumažina vektoriaus talpą, kad ji atitiktų jo dydį
+            void shrink_to_fit() {
+                if (dydis > kiekis) {
+                    T *duomenys = new T[kiekis];
+                    for (size_t i = 0; i < kiekis; ++i) {
+                        duomenys[i] = std::move(r_masyvas[i]);
+                    }
+                    delete[] r_masyvas;
+                    r_masyvas = duomenys;
+                    dydis = kiekis;
                 }
-                return r_masyvas[dydis - 1];
+            }
+
+            // Išvalyti vektorių
+            void clear()
+            {
+                dydis = 0;
+                delete[] r_masyvas;
+                r_masyvas = new T[kiekis];
             }
 
             // Elemento iterpimas į vektorių
@@ -233,104 +236,96 @@ template <typename T>
                 ++kiekis;
                 return begin() + indeksas;
             }          
+
+            void erase(size_t indeksas) {
+                if (indeksas < 0 || indeksas >= dydis)
+                    return;
+                dydis--;
+                std::move(&r_masyvas[indeksas + 1], &r_masyvas[dydis], &r_masyvas[indeksas]);
+            }
+
+            void push_back(T data) {
+                if (dydis >= kiekis){
+                    resize(dydis*2);
+                }
+                r_masyvas[dydis] = data;
+                dydis++;
+            }
+
+            // Pašalinti paskutinį elementą
+            void pop_back()
+            {
+                dydis = dydis - 1;
+                T *laikinas = new T[dydis];
+                for (size_t i = 0; i < dydis; i++)
+                    laikinas[i] = r_masyvas[i];
+                delete[] r_masyvas;
+                r_masyvas = laikinas;
+            };
+
+            void resize(size_t naujas_kiekis) {
+                T* naujas_masyvas = new T[naujas_kiekis];
+                move(r_masyvas, r_masyvas + dydis, naujas_masyvas);
+                delete[] r_masyvas;
+                r_masyvas = naujas_masyvas;
+                kiekis = naujas_kiekis;
+            }
+
+            void swap(VEKTORIUS& other) noexcept {
+                std::swap(r_masyvas, other.r_masyvas);
+                std::swap(dydis, other.dydis);
+                std::swap(kiekis, other.kiekis);
+            }
+
+            //tikrina ar vektoriai lygus
+            template<typename T>
+            bool operator==(const VEKTORIUS<T>& lhs, const VEKTORIUS<T>& rhs) {
+                if (lhs.size() != rhs.size()) {
+                    return false;
+                }
+                for (size_t i = 0; i < lhs.size(); ++i) {
+                    if (lhs[i] != rhs[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            // tikrina ar vektoriai ne lygus
+            template<typename T>
+            bool operator!=(const VEKTORIUS<T>& lhs, const VEKTORIUS<T>& rhs) {
+                return !(lhs == rhs);
+            }
+
             
-            // Pirmas pasikartojantis elementas vektoriuje
-            T &first_duplicate()
-            {
-                for (size_t i = 0; i < kiekis; ++i)
-                {
-                    for (size_t j = i + 1; j < kiekis; ++j)
-                    {
-                        if (r_masyvas[i] == r_masyvas[j])
-                        {
-                            return r_masyvas[i];
-                        }
+            template<typename T>
+            bool operator<(const VEKTORIUS<T>& lhs, const VEKTORIUS<T>& rhs) {
+                size_t min_size = std::min(lhs.size(), rhs.size());
+                for (size_t i = 0; i < min_size; ++i) {
+                    if (lhs[i] < rhs[i]) {
+                        return true;
+                    } else if (lhs[i] > rhs[i]) {
+                        return false;
                     }
                 }
-                throw std::logic_error("Vektorius neturi pasikartojančių elementų");
+                return lhs.size() < rhs.size();
             }
 
-            // Elementu sk, kurie atitinka sąlyga
-            template <typename Predicate>
-            size_t count_if(Predicate pred)
-            {
-                size_t sum = 0;
-                for (const auto &element : *this)
-                {
-                    if (pred(element))
-                    {
-                        ++sum;
-                    }
-                }
-                return sum;
+            template<typename T>
+            bool operator<=(const VEKTORIUS<T>& lhs, const VEKTORIUS<T>& rhs) {
+                return !(rhs < lhs);
             }
 
-            //Surikiuoti vektoriu
-            template <typename Func>
-            void sort_by(Func func)
-            {
-                std::sort(begin(), end(), [&](const T &a, const T &b)
-                        { return func(a) < func(b); });
+            template<typename T>
+            bool operator>(const VEKTORIUS<T>& lhs, const VEKTORIUS<T>& rhs) {
+                return rhs < lhs;
             }
 
-            // Sukeičia du elementus pagal ju indeksus
-            void swap_elements(size_t indeksas1, size_t indeksas2)
-            {
-                if (indeksas1 >= kiekis || indeksas2 >= kiekis)
-                {
-                    throw std::out_of_range("Indeksas už ribų");
-                }
-                std::swap(r_masyvas[indeksas1], r_masyvas[indeksas2]);
+            template<typename T>
+            bool operator>=(const VEKTORIUS<T>& lhs, const VEKTORIUS<T>& rhs) {
+                return !(lhs < rhs);
             }
-
-            // Vektoriaus elementų tvarka keiciama tarp nurodytų indeksų            
-            void rotate(iterator start, iterator middle, iterator end)
-            {
-                size_t leftkiekis = middle - start;
-                size_t rightkiekis = end - middle;
-                VEKTORIUS<T> temp(leftkiekis + rightkiekis); // Temporary VEKTORIUS to store rotated elements
-
-                // Copy elements from the left side to temporary VEKTORIUS
-                for (size_t i = 0; i < leftkiekis; ++i)
-                {
-                    temp[i] = std::move(start[i]);
-                }
-
-                // Move elements from the right side to the original VEKTORIUS's left side
-                for (size_t i = 0; i < rightkiekis; ++i)
-                {
-                    start[i] = std::move(middle[i]);
-                }
-
-                // Move elements from the temporary VEKTORIUS to the original VEKTORIUS's right side
-                for (size_t i = 0; i < leftkiekis; ++i)
-                {
-                    start[rightkiekis + i] = std::move(temp[i]);
-                }
-            }
-
-            // Tikrina ar vektorius surikiuotas didėjančia tvarka
-            bool is_sorted() const
-            {
-                return std::is_sorted(begin(), end());
-            }
-
-            // Spausdina vektorių į srautą
-            friend std::ostream &operator<<(std::ostream &out, const VEKTORIUS &vektorius)
-            {
-                out << "[";
-                if (!vektorius.empty())
-                {
-                    out << vektorius[0];
-                    for (size_t i = 1; i < vektorius.size(); ++i)
-                    {
-                        out << ", " << vektorius[i];
-                    }
-                }
-                out << "]";
-                return out;
-            }
-            
+           
     };
 
 #endif // VEKTORIUS_H
