@@ -264,6 +264,73 @@ template <typename T>
                 }
                 return sum;
             }
+
+            //Surikiuoti vektoriu
+            template <typename Func>
+            void sort_by(Func func)
+            {
+                std::sort(begin(), end(), [&](const T &a, const T &b)
+                        { return func(a) < func(b); });
+            }
+
+            // Sukeičia du elementus pagal ju indeksus
+            void swap_elements(size_t indeksas1, size_t indeksas2)
+            {
+                if (indeksas1 >= kiekis || indeksas2 >= kiekis)
+                {
+                    throw std::out_of_range("Indeksas už ribų");
+                }
+                std::swap(r_masyvas[indeksas1], r_masyvas[indeksas2]);
+            }
+
+            // Vektoriaus elementų tvarka keiciama tarp nurodytų indeksų            
+            void rotate(iterator start, iterator middle, iterator end)
+            {
+                size_t leftkiekis = middle - start;
+                size_t rightkiekis = end - middle;
+                VEKTORIUS<T> temp(leftkiekis + rightkiekis); // Temporary VEKTORIUS to store rotated elements
+
+                // Copy elements from the left side to temporary VEKTORIUS
+                for (size_t i = 0; i < leftkiekis; ++i)
+                {
+                    temp[i] = std::move(start[i]);
+                }
+
+                // Move elements from the right side to the original VEKTORIUS's left side
+                for (size_t i = 0; i < rightkiekis; ++i)
+                {
+                    start[i] = std::move(middle[i]);
+                }
+
+                // Move elements from the temporary VEKTORIUS to the original VEKTORIUS's right side
+                for (size_t i = 0; i < leftkiekis; ++i)
+                {
+                    start[rightkiekis + i] = std::move(temp[i]);
+                }
+            }
+
+            // Tikrina ar vektorius surikiuotas didėjančia tvarka
+            bool is_sorted() const
+            {
+                return std::is_sorted(begin(), end());
+            }
+
+            // Spausdina vektorių į srautą
+            friend std::ostream &operator<<(std::ostream &out, const VEKTORIUS &vektorius)
+            {
+                out << "[";
+                if (!vektorius.empty())
+                {
+                    out << vektorius[0];
+                    for (size_t i = 1; i < vektorius.size(); ++i)
+                    {
+                        out << ", " << vektorius[i];
+                    }
+                }
+                out << "]";
+                return out;
+            }
+            
     };
 
 #endif // VEKTORIUS_H
