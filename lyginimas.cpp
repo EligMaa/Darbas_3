@@ -50,11 +50,11 @@ int main() {
         cout<<V[i]<<" ";
     }
 
-    /// RESIZE
-    v.resize(6);
-    V.resize(6);
+    /// INSERT
+    v.insert(v.begin(), 15);
+    V.insert(V.begin(), 15);
 
-    cout<<"\n\nResize:"<<endl;
+    cout<<"\n\nInsert:"<<endl;
     cout<<"Std::vector :"<<endl;
     for (int i = 0; i < v.size(); i++) {
         cout<<v[i]<<" ";    }
@@ -63,6 +63,7 @@ int main() {
         cout<<V[i]<<" ";
     }
 
+    
     /// ERASE 
     v.erase(v.begin()+5);
     V.erase(V.begin()+5);
@@ -76,37 +77,60 @@ int main() {
     for (int i = 0; i < V.size(); i++) {
         cout<<V[i]<<" ";
     }
+    cout<<endl;
 
-    cout<<"\n\nTestavimas naudojant PUSH_BACK funkcija"<<endl;
-    VEKTORIUS <int> LAIKO={0};
-    vector <int> laiko={0};
-    int l=10000;
+    // cout<<"\n\nTestavimas naudojant PUSH_BACK funkcija"<<endl;
+    // VEKTORIUS <int> LAIKO={0};
+    // vector <int> laiko={0};
+    // int l=10000;
 
-    for(int j=0; j<5; j++){
+    // for(int j=0; j<5; j++){
 
-        auto start = std::chrono::high_resolution_clock::now();
-        for(int i=0; i<l; i++){
+    //     auto start = std::chrono::high_resolution_clock::now();
+    //     for(int i=0; i<l; i++){
 
-            laiko.push_back(i);
-        }
-        auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
-        std::chrono::duration<double> time = end - start;
-        cout<<"Su "<<l<<": "<<time.count()<<endl;
-        l*=10;
-    }
+    //         laiko.push_back(i);
+    //     }
+    //     auto end = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
+    //     std::chrono::duration<double> time = end - start;
+    //     cout<<"Su "<<l<<": "<<time.count()<<endl;
+    //     l*=10;
+    // }
 
-    for(int j=0; j<5; j++){
 
-        auto start1 = std::chrono::high_resolution_clock::now();
-        for(int i=0; i<l; i++){
+    // for(int j=0; j<5; j++){
 
-            LAIKO.push_back(i);
-        }
-        auto end1 = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
-        std::chrono::duration<double> time1 = end1 - start1;
-        cout<<"Su "<<l<<": "<<time1.count()<<endl;
-        l*=10;
-    }
+    //     auto start1 = std::chrono::high_resolution_clock::now();
+    //     for(int i=0; i<l; i++){
+
+    //         LAIKO.push_back(i);
+    //     }
+    //     auto end1 = std::chrono::high_resolution_clock::now(); /// baigti laiko skaiciavima
+    //     std::chrono::duration<double> time1 = end1 - start1;
+    //     cout<<"Su "<<l<<": "<<time1.count()<<endl;
+    //     l*=10;
+    // }
+
+            unsigned int sk = 100000000;  // 10000, 100000, 1000000, 10000000, 100000000
+            // std::vector<int> v1;
+            // int std_vector_perskirstymas = 0;
+            // for (int i = 1; i <= sk; ++i) {
+            //     v1.push_back(i);
+            //     if (v1.capacity() == v1.size()) {
+            //         ++std_vector_perskirstymas;
+            //     }
+            // }
+            // cout << "Atmintis buvo perskirstyta " << std_vector_perskirstymas << " kartu su std::vector" << endl;
+
+            VEKTORIUS<int> v2;
+            int vector_perskirstymas = 0;
+            for (int i = 1; i <= sk; ++i) {
+                v2.push_back(i);
+                if (v2.capacity() == v2.size()) {
+                    ++vector_perskirstymas;
+                }
+            } 
+            cout << "Atmintis buvo perskirstyta " << vector_perskirstymas << " kartu su Vector" << endl;
 
     return 0;
 }

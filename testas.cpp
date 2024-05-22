@@ -1,47 +1,49 @@
 #define CATCH_CONFIG_MAIN
-#include "FUNKCIJOS2.h" 
 #include"catch.hpp"
+#include "VEKTORIUS.h"
 
-TEST_CASE("konstruktoriaus testavimas") {
-    string vardas = "Rugile";
-    string pavarde = "Macaite";
-    vector<int> pazymiai = {1, 2, 3, 4, 5};
-    double egzamino_rez = 9.5;
+TEST_CASE(" push_back ") {
 
-    studentas naujasstudentas(vardas, pavarde, pazymiai, egzamino_rez);
+    VEKTORIUS<int> v = {1};
 
-    REQUIRE(naujasstudentas.get_Vardas() == vardas);
-    REQUIRE(naujasstudentas.get_Pavarde() == pavarde);
-    REQUIRE(naujasstudentas.get_egz() == egzamino_rez);
-    REQUIRE(naujasstudentas.get_tarpiniai() == pazymiai);
+    v.push_back(2);
+    v.push_back(3);
+    REQUIRE(v[0] == 1);
+    REQUIRE(v[1] == 2);
+    REQUIRE(v[2] == 3);
 }
 
-TEST_CASE("Konstruktoriaus kopijavimo testavimas") {
-    string vardas = "Rugile";
-    string pavarde = "Macaite";
-    vector<int> pazymiai = {1, 2, 3, 4, 5};
-    double egzamino_rez = 9.5;
+TEST_CASE(" pop_back ") {
 
-    studentas naujasstudentas(vardas, pavarde, pazymiai, egzamino_rez);
-    studentas kopijastudentas(naujasstudentas);
+    VEKTORIUS<int> v = {1,2,3};
+    size_t dydis = v.size();
 
-    REQUIRE(kopijastudentas.get_Vardas() == vardas);
-    REQUIRE(kopijastudentas.get_Pavarde() == pavarde);
-    REQUIRE(kopijastudentas.get_egz() == egzamino_rez);
-    REQUIRE(kopijastudentas.get_tarpiniai() == pazymiai);
+    v.pop_back();
+    REQUIRE(v.size() == dydis - 1);
+
+    for (size_t i = 0; i < v.size(); ++i) {
+        REQUIRE(v[i] == i + 1);
+    }
+
 }
 
-TEST_CASE("Perkelimo konstruktoriaus testavimas") {
-    string vardas = "Rugile";
-    string pavarde = "Macaite";
-    vector<int> pazymiai = {1, 2, 3, 4, 5};
-    double egzamino_rez = 9.5;
+TEST_CASE(" erase ") {
+    
+    VEKTORIUS<int> v = {1,2,3};
+    v.erase(v.begin()+1);
+    REQUIRE(v.size() == 2);
+    REQUIRE(v[0] == 1);
+    REQUIRE(v[1] == 3);
+}
 
-    studentas naujasstudentas(vardas, pavarde, pazymiai, egzamino_rez);
-    studentas perkeliamasstudentas(move(naujasstudentas));
+TEST_CASE(" insert ") {
+    
+    VEKTORIUS<int> v = {1,2,3};
+    v.insert(v.begin(), 15);
+    REQUIRE(v.size() == 4);
+    REQUIRE(v[0] == 15);
+    REQUIRE(v[1] == 1);
+    REQUIRE(v[2] == 2);
+    REQUIRE(v[3] == 3);
 
-    REQUIRE(perkeliamasstudentas.get_Vardas() == vardas);
-    REQUIRE(perkeliamasstudentas.get_Pavarde() == pavarde);
-    REQUIRE(perkeliamasstudentas.get_egz() == egzamino_rez);
-    REQUIRE(perkeliamasstudentas.get_tarpiniai() == pazymiai);
 }
