@@ -1,0 +1,383 @@
+\doxysection{vektorius.\+h}
+\hypertarget{vektorius_8h_source}{}\label{vektorius_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ VEKTORIUS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ VEKTORIUS\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}manoBiblioteka.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <algorithm>}\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <chrono>}\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <iomanip>}\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <numeric>}\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS}}}
+\DoxyCodeLine{00015\ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ T\ *r\_masyvas;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ dydis;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ kiekis;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ T\ *\mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s_ab0aa29b089f9c0db0044ab4628ca746d}{rodykle}};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ T\ *iterator;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{size\_t}\ size\_type;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ T\ reiksme\_type;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ std::allocator<T>\ alloc;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{const}\ T*\ const\_iterator;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ std::reverse\_iterator<iterator>\ reverse\_iterator;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ std::reverse\_iterator<const\_iterator>\ const\_reverse\_iterator;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ iterator\ pradzia;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ iterator\ pab;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Konstruktorius}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS}}()\ :\ r\_masyvas(nullptr),\ dydis(0),\ kiekis(0)\ \{\}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VEKTORIUS(std::initializer\_list<T>\ init\_list)\ \{}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ dydis\ =\ init\_list.size();}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ kiekis\ =\ dydis;}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ r\_masyvas\ =\ new\ T[kiekis];}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ std::copy(init\_list.begin(),\ init\_list.end(),\ r\_masyvas);}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS}}(size\_type\ n\_dydis,\ \textcolor{keyword}{const}\ T\&\ value\ =\ T())}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ kiekis(new\ T[n\_dydis]),\ dydis(n\_dydis),\ kiekis(n\_dydis)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::fill(r\_masyvas,\ r\_masyvas\ +\ dydis,\ value);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ VEKTORIUS(size\_t\ initial\_size)\ :\ dydis(initial\_size),\ kiekis(0)\ \{}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ r\_masyvas\ =\ new\ T[initial\_size];}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS}}(std::initializer\_list<T>\ sarasas)}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ r\_masyvas(new\ T[sarasas.size()]),\ dydis(sarasas.size()),\ kiekis(sarasas.size())}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::copy(sarasas.begin(),\ sarasas.end(),\ r\_masyvas);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Kopijavimo\ konstruktorius}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS}}\&\ kitas)}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ r\_masyvas(new\ T[kitas.dydis]),\ dydis(kitas.dydis),\ kiekis(kitas.kiekis)}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ !=dydis;\ ++i)}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\_masyvas[i]=kitas.r\_masyvas[i];}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Kopijavimo\ priskyrimo\ operatorius}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS}}\ \&operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS}}\&\ naujas)}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ !=\ \&naujas)\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T*\ naujiDuom\ =\ \textcolor{keyword}{new}\ T[naujas.dydis];}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ !=dydis;\ ++i)}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ naujiDuom[i]=naujas.r\_masyvas[i];}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ r\_masyvas;\ \ \ \ \textcolor{comment}{//\ atlaisvinama\ sena\ atmintis}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\_masyvas\ =\ naujiDuom;\ \textcolor{comment}{//\ mduom\ pointina\ i\ nauja\ atminti}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dydis\ =\ naujas.dydis;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kiekis\ =\ naujas.kiekis;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perkėlimo\ priskyrimo\ operatorius}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS}}\ \&operator=(\mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS}}\ \&\&naujas)\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\&naujas\ ==\ \textcolor{keyword}{this})\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ r\_masyvas;\ \textcolor{comment}{//\ atlaisviname\ seną\ atmintį}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\_masyvas\ =\ naujas.r\_masyvas;\ \textcolor{comment}{//\ elem\ point'ina\ į\ v.elem\ atmintį}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dydis\ =\ naujas.dydis;\ \textcolor{comment}{//\ atnaujiname\ size}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kiekis\ =\ naujas.kiekis;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ naujas.r\_masyvas\ =\ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ v\ neturi\ jokių\ elementų}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ naujas.dydis\ =\ 0;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ naujas.kiekis=\ 0;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\ \textcolor{comment}{//\ grąžiname\ objektą}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perkėlimo\ konstruktorius}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS}}(\mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS}}\ \&\&\ naujas)\ noexcept}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ r\_masyvas(naujas.r\_masyvas),\ dydis(naujas.dydis),\ kiekis(naujas.kiekis)}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ naujas.r\_masyvas\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ naujas.dydis\ =\ 0;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ naujas.kiekis\ =\ 0;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Dekstruktorius}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{\string~VEKTORIUS}}()}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ r\_masyvas;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Pasiekia\ elemeta\ tam\ tikrame\ indekse}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ T\ \&at(\textcolor{keywordtype}{size\_t}\ indeksas)}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (indeksas\ >=\ kiekis)}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Indeksas\ uz\ ribu"{}});}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r\_masyvas[indeksas];}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T\&\ at(size\_type\ indeksas)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00128\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (indeksas\ >=\ dydis)}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Index\ out\ of\ range"{}});}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r\_masyvas[indeksas];}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Elementas\ pagal\ indeksą\ []}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ T\ \&operator[](\textcolor{keywordtype}{size\_t}\ indeksas)}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (indeksas\ >=\ dydis)}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Indeksas\ uz\ ribu"{}});}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r\_masyvas[indeksas];}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T\ \&operator[](\textcolor{keywordtype}{size\_t}\ indeksas)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00143\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (indeksas\ >=\ dydis)}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Indeksas\ uz\ ribu"{}});}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r\_masyvas[indeksas];}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Pirmas\ elementas}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ T\ \&front()}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\ ==\ 0)}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}VEKTORIUS\ yra\ tuščias"{}});}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r\_masyvas[0];}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T\ \&front()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00158\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\ ==\ 0)}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}VEKTORIUS\ yra\ tuščias"{}});}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r\_masyvas[0];}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Paskutinis\ elementas}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ T\ \&back()}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\ ==\ 0)}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}VEKTORIUS\ tuscias"{}});}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r\_masyvas[dydis\ -\/\ 1];}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T\ \&back()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00173\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\ ==\ 0)}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}VEKTORIUS\ tuscias"{}});}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r\_masyvas[dydis\ -\/\ 1];}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ T*\ data()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ r\_masyvas;\ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ grazina\ iteratoriu\ i\ pradzia}}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ iterator\ begin()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ r\_masyvas;\ \}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ const\_iterator\ begin()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ r\_masyvas;\ \}}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ iterator\ end()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ r\_masyvas\ +\ dydis;\ \}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ const\_iterator\ end()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ r\_masyvas\ +\ dydis;\ \}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ const\_iterator\ cbegin()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ r\_masyvas;\ \}}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ const\_iterator\ cend()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ r\_masyvas\ +\ dydis;\ \}}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ reverse\_iterator\ rbegin()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ reverse\_iterator(end());\ \}}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ const\_reverse\_iterator\ rbegin()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ const\_reverse\_iterator(end());\ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ reverse\_iterator\ rend()\ noexcept\ \{\ \textcolor{keywordflow}{return}\ reverse\_iterator(begin());\ \}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ const\_reverse\_iterator\ rend()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ const\_reverse\_iterator(begin());\ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ const\_reverse\_iterator\ crbegin()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ const\_reverse\_iterator(end());\ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ const\_reverse\_iterator\ crend()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ const\_reverse\_iterator(begin());\ \}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ar\ VEKTORIUS\ yra\ tuščias}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ empty()\ const\ noexcept}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dydis\ ==\ 0;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ grazina\ kiek\ yra\ elementu\ }}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ size\_type\ size()\ const\ noexcept\ \{\ \textcolor{keywordflow}{return}\ dydis;\ \}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ kiek\ daugiausiai\ elementu\ VEKTORIUS\ gali\ tureti}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ size\_type\ max\_size()\ const\ noexcept\{\ \textcolor{keywordflow}{return}\ std::numeric\_limits<size\_t>::max();\ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rezervuoti\ vietą\ elementams}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ reserve(size\_type\ naujsKiekis)}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (naujsKiekis\ <=\ kiekis)}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T*\ naujiDuom\ =\ \textcolor{keyword}{new}\ T[naujsKiekis];}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (size\_type\ k\ =\ 0;\ k\ <\ dydis;\ ++k)}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ naujiDuom[k]\ =\ std::move(r\_masyvas[k]);}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ r\_masyvas;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\_masyvas\ =\ naujiDuom;}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kiekis\ =\ naujsKiekis;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ size\_type\ capacity()\ const\ noexcept\{\ \textcolor{keywordflow}{return}\ kiekis;\ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ funkcija\ sumažina\ vektoriaus\ talpą,\ kad\ ji\ atitiktų\ jo\ dydį}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ shrink\_to\_fit()\ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\ <\ kiekis)\ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T*\ naujiDuom\ =\ \textcolor{keyword}{new}\ T[dydis];}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::copy(r\_masyvas,\ r\_masyvas\ +\ dydis,\ naujiDuom);}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ r\_masyvas;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\_masyvas\ =\ naujiDuom;}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kiekis\ =\ dydis;}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clear()\ noexcept}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dydis\ =\ 0;}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Elemento\ iterpimas\ į\ vektorių}}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ iterator\ insert(const\_iterator\ pos,\ \textcolor{keyword}{const}\ T\&\ reiksme)\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\_type\ index\ =\ pos\ -\/\ begin();}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\ ==\ kiekis)\ \{}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\_type\ new\_capacity\ =\ (kiekis\ ==\ 0)\ ?\ 1\ :\ kiekis\ *\ 2;}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reserve(new\_capacity);}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perstumiam\ visus\ elementus\ nuo\ įterpimo\ vietos\ į\ dešinę\ per\ viena}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (size\_type\ i\ =\ dydis;\ i\ >\ index;\ -\/-\/i)\ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\_masyvas[i]\ =\ std::move(r\_masyvas[i\ -\/\ 1]);}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Įterpiame\ naują\ elementą\ į\ vietą\ 'pos'}}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\_masyvas[index]\ =\ reiksme;}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++dydis;}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ begin()\ +\ index;}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ iterator\ erase(const\_iterator\ pos)\ \{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\_type\ index\ =\ pos\ -\/\ begin();}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ dydis)\ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Index\ out\ of\ range"{}});}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perstumiam\ visus\ elementus\ nuo\ vienetu\ i\ kaire}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (size\_type\ i\ =\ index;\ i\ <\ dydis\ -\/\ 1;\ ++i)\ \{}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\_masyvas[i]\ =\ std::move(r\_masyvas[i\ +\ 1]);}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/dydis;}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ begin()\ +\ index;}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ iterator\ erase(const\_iterator\ pirmas,\ const\_iterator\ paskutinis)}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\_type\ pirmas\_indeks\ =\ pirmas\ -\/\ begin();}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\_type\ paskutinis\_indeks\ =\ paskutinis\ -\/\ begin();}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pirmas\_indeks\ >\ paskutinis\_indeks\ ||\ paskutinis\_indeks\ >\ dydis)\ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}Invalid\ range"{}});}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\_type\ istrinamas\ =\ paskutinis\_indeks\ -\/\ pirmas\_indeks;}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (size\_type\ i\ =\ pirmas\_indeks;\ i\ <\ dydis\ -\/\ istrinamas;\ ++i)\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\_masyvas[i]\ =\ std::move(r\_masyvas[i\ +\ istrinamas]);}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dydis\ -\/=\ istrinamas;}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ begin()\ +\ pirmas\_indeks;}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ push\_back(\textcolor{keyword}{const}\ T\&\ pradziaa)\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (kiekis\ ==\ dydis)\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reserve(kiekis\ ==\ 0\ ?\ 1\ :\ kiekis\ *\ 2);}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ r\_masyvas[dydis++]\ =\ pradziaa;}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ pop\_back()}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dydis\ >\ 0)}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/dydis;}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ iterator\ resize(size\_t\ n\_dydis)\ \{}}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ if\ (n\_dydis\ ==\ 0)\ \{\ }}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ dydis\ =\ 0;}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ kiekis\ =\ 2;}}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ T\ *naujas\ =\ new\ T[kiekis];}}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ delete[]\ r\_masyvas;}}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ r\_masyvas\ =\ naujas;}}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ return\ 0;}}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ size\_t\ lim;}}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ T\ *naujas\ =\ new\ T[n\_dydis];\ }}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ if\ (n\_dydis\ <\ dydis)\ \{}}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ dydis\ =\ n\_dydis;}}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ lim\ =\ n\_dydis;}}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ else\ lim\ =\ dydis;}}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ std::move(\&r\_masyvas[0],\ \&r\_masyvas[lim],\ naujas);}}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ kiekis\ =\ n\_dydis;}}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ delete[]\ r\_masyvas;\ }}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ r\_masyvas\ =\ naujas;}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ resize(size\_type\ new\_size)}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (new\_size\ <\ dydis)\ \{}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dydis\ =\ new\_size;}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (new\_size\ >\ dydis)\ \{}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reserve(new\_size);}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dydis\ =\ new\_size;}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ swap(\mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS}}\&\ naujas)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::swap(r\_masyvas,\ naujas.r\_masyvas);}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::swap(dydis,\ naujas.dydis);}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::swap(kiekis,\ naujas.kiekis);}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS<T>}}\&\ naujas)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (size()\ !=\ naujas.size())\ \{}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::equal(begin(),\ end(),\ naujas.begin());}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS<T>}}\&\ naujas)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(*\textcolor{keyword}{this}\ ==\ naujas);}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator\ <\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS<T>}}\ \&\ naujas)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::lexicographical\_compare(\ \ begin(),\ end(),\ naujas.begin(),\ naujas.end());}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator\ <=\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS<T>}}\ \&\ naujas)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(naujas\ <\ *\textcolor{keyword}{this});}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator\ >\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS<T>}}\ \&\ naujas)\textcolor{keyword}{const\ \ }\{}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::lexicographical\_compare(\ naujas.begin(),\ naujas.end(),\ begin(),\ end());}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator\ >=\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_v_e_k_t_o_r_i_u_s}{VEKTORIUS<T>}}\ \&\ naujas)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(naujas\ >\ *\textcolor{keyword}{this});}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ T\ suma()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::accumulate(begin(),\ end(),\ T());}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00374\ \ \ \ \ \};}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \ \ \ \ }
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ VEKTORIUS\_H}}
+
+\end{DoxyCode}
