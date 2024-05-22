@@ -1,4 +1,6 @@
 #include "funkcijos3.h"
+#include "vektorius.h"
+
 
 int main() {
 

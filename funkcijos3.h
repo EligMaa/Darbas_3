@@ -1,5 +1,7 @@
-#ifndef FUNKCIJOS2_H
-#define FUNKCIJOS2_H
+#ifndef FUNKCIJOS3_H
+#define FUNKCIJOS3_H
+#include <numeric>
+#include "VEKTORIUS.h"
 
 #include "manoBiblioteka.h"
 
@@ -35,7 +37,7 @@ class studentas : public zmogus {
     
         double egz_rez;
         int pazKiekis;
-        vector<int> tarpiniai;
+        VEKTORIUS <int> tarpiniai;
         double vidurkis;
         double mediana;
         double gal_vid;
@@ -44,7 +46,7 @@ class studentas : public zmogus {
     public:
         studentas () : tarpiniai (), pazKiekis (0), egz_rez (0){}
 
-        studentas(string Var, string Pav, vector<int> tarp,double egz ) : zmogus(Var, Pav) {
+        studentas(string Var, string Pav, VEKTORIUS <int> tarp, double egz ) : zmogus(Var, Pav) {
             
             tarpiniai = tarp;
             pazKiekis = tarp.size();
@@ -141,24 +143,21 @@ class studentas : public zmogus {
         }
 
 
-        friend istream& operator>>(istream& in, studentas &stud) {                      /// ivesties operatorius
-            
-            string vardas, pavarde;
-            in >> vardas >> pavarde;
-
-            stud.set_Vardas(vardas); 
-            stud.set_Pavarde(pavarde);
-            int pazimys;
-            vector <int> pazymiai;
-            while (in >> pazimys && pazimys >= 0)
+        friend istream& operator>>(istream& in, studentas &stud){
+            in >> stud.Vardas >> stud.Pavarde;
+            int paz;
+            VEKTORIUS <int> pzm;
+            while(in >> paz)
             {
-                pazymiai.push_back(pazimys);
+                stud.tarpiniai.push_back(paz);
             }
-            stud.egz_rez=pazymiai.back() ;
-            pazymiai.pop_back();
-
-            stud.tarpiniai = pazymiai;
-
+            if(!stud.tarpiniai.empty())
+            {
+                stud.egz_rez = stud.tarpiniai.back();
+                stud.tarpiniai.pop_back();
+            }
+            
+            return in;
         }
 
         bool operator==(const studentas stud) const {                      /// ivesties operatorius
@@ -173,21 +172,29 @@ class studentas : public zmogus {
 
         double get_egz(){            return egz_rez;        }
 
-        void set_tarpiniai(vector<int> tarp){            tarpiniai = tarp;        }
+        void set_tarpiniai(VEKTORIUS <int> tarp){            tarpiniai = tarp;        }
 
-        vector <int> get_tarpiniai( ){            return tarpiniai;        }
+        VEKTORIUS <int> get_tarpiniai( ) const{       return tarpiniai;        }
 
         void set_paz_kiekis(int paz){            pazKiekis = paz;                 }
 
         int get_paz_kieki(){            return pazKiekis;        }
 
-        void set_vidurkis(int vidur){            vidurkis = vidur;        }
+        void set_vidurkis(double vidur){            vidurkis = vidur;        }
 
-        void set_vidurkis(){            vidurkis = accumulate(tarpiniai.begin(), tarpiniai.end(), 0.0) / tarpiniai.size();        }
+        // void set_vidurkis(){            vidurkis = accumulate(tarpiniai.begin(), tarpiniai.end(), 0.0) / tarpiniai.size();        }
+        void set_vidurkis() {
+            double sum = 0.0;
+            for (size_t i = 0; i < tarpiniai.size(); ++i) {
+                sum += tarpiniai[i];
+            }
+            vidurkis = (tarpiniai.size() > 0) ? (sum / tarpiniai.size()) : 0;
+        }
+
 
         double get_vidurkis(){     return vidurkis;        }
 
-        void set_mediana(int medi){  mediana = medi;    }
+        void set_mediana(double medi){  mediana = medi;    }
 
         double get_mediana(){  return mediana; }
 
@@ -201,14 +208,16 @@ class studentas : public zmogus {
             if ((pazKiekis % 2) == 0)
                 {
                     mediana = (double(tarpiniai[pazKiekis / 2 - 1]) + (tarpiniai[pazKiekis / 2])) / 2;
+                    if(mediana >10) mediana = gal_vid;
                 }
             else
                 {
                     mediana = (tarpiniai[pazKiekis / 2]);
+                    if(mediana >10) mediana = gal_vid;
                 }
 
                 gal_med = mediana * 0.4 + 0.6 *egz_rez;
-            
+           
 
         }
         double get_gal_v_m (int pasirinkimas) const{
@@ -220,12 +229,12 @@ class studentas : public zmogus {
 
 
 /// ivairus vyriski vardai ir pavardes
-const vector<string> vyrV = {"Jonas", "Petras", "Antanas", "Juozas","Arnas","Dziugas", "Mantas", "Stasius","Vilius", "Kazimieras", "Algirdas", "Rimas", "Mindaugas", "Rokas", "Paulius","Kajus", "Pijus", "Titas"};
-const vector<string> vyrP = {"Kazlauskas", "Petrauskas", "Jonaitis", "Antanaitis", "Rimkus", "Grybauskas", "Brazauskas", "Vaitkevicius", "Statkus", "Sutkaitis","Baciuska", "Zulkus"};
+const VEKTORIUS <string> vyrV = {"Jonas", "Petras", "Antanas", "Juozas","Arnas","Dziugas", "Mantas", "Stasius","Vilius", "Kazimieras", "Algirdas", "Rimas", "Mindaugas", "Rokas", "Paulius","Kajus", "Pijus", "Titas"};
+const VEKTORIUS <string> vyrP = {"Kazlauskas", "Petrauskas", "Jonaitis", "Antanaitis", "Rimkus", "Grybauskas", "Brazauskas", "Vaitkevicius", "Statkus", "Sutkaitis","Baciuska", "Zulkus"};
 
 /// ivairus moteriski vardai ir pavardes
-const vector <string> motV = {"Ona", "Marija", "Lina", "Gabija", "Jurga", "Egle", "Ruta","Aida","Karolina","Austeja","Karina","Meda","Jorune", "Gintare", "Deimante", "Aiste", "Kamile", "Rugile", "Ugne","Selina","Monika", "Paulina", "Adriana"};
-const vector <string> motP = {"Kazlauskiene", "Petrauskiene", "Jonaite", "Antanaite", "Rimkute", "Grybauskiene", "Brazauskiene", "Vaitkeviciute", "Zobelaite","Macaite","Mockute"};
+const VEKTORIUS <string> motV = {"Ona", "Marija", "Lina", "Gabija", "Jurga", "Egle", "Ruta","Aida","Karolina","Austeja","Karina","Meda","Jorune", "Gintare", "Deimante", "Aiste", "Kamile", "Rugile", "Ugne","Selina","Monika", "Paulina", "Adriana"};
+const VEKTORIUS <string> motP = {"Kazlauskiene", "Petrauskiene", "Jonaite", "Antanaite", "Rimkute", "Grybauskiene", "Brazauskiene", "Vaitkeviciute", "Zobelaite","Macaite","Mockute"};
 
 void spausdinimas(vector<studentas>& var);
 double galutinis(vector<studentas>& var, int &k,int &pasirinkimas);
@@ -236,8 +245,8 @@ void tikrinimas(int &pasirinkimas);
 void ivedimasRanka(vector<studentas>& var, int &studSk);
 void atsitiktiniaiPazVar (vector<studentas>& var, int &studSk);
 void su_duomenimis_is_failu(vector<studentas>& kursiokai, vector<studentas>& var);
-void skaitymas(vector<studentas>& var, vector<string>&failoPav, int indeksas, double &laikas,int laboras);             ///nuskaito duomenis is failo ir iraso i kita faila
-void failoKurimas(vector<string>&failoPav, int indeksas, int &kiekND,int &studSk, double &laikas);
+void skaitymas(vector<studentas>& var, VEKTORIUS <string>&failoPav, int indeksas, double &laikas,int laboras);             ///nuskaito duomenis is failo ir iraso i kita faila
+void failoKurimas(VEKTORIUS <string>&failoPav, int indeksas, int &kiekND,int &studSk, double &laikas);
 void rusiavimas(vector<studentas>& var);
 void spausdinami_surikiuoti(vector<studentas>& var,double &laikas);
 bool rikiuotiVarda(const studentas &a, const studentas &b);
@@ -248,7 +257,7 @@ void didejimo (vector<studentas>& var, double &laikas);
 
 void testavimui(vector<studentas>& var);
 void rusiavimasTest(vector<studentas>& var, vector<studentas>& vargsai,vector<studentas>& galvociai, double &laikas, int &pasirinkimas,int indeksas);
-void spausdinimasTest(vector<studentas>& vargsai, vector<studentas>& galvociai, vector<string> pav, double &laikas,int &pasirinkimas, int indeksas);
+void spausdinimasTest(vector<studentas>& vargsai, vector<studentas>& galvociai, VEKTORIUS <string> pav, double &laikas,int &pasirinkimas, int indeksas);
 void testFail(vector<studentas>& var);
 void testFail_3strategija(vector<studentas> &var);
 void rusiavimasTest_3strategija(vector<studentas> &var, vector<studentas> &vargsai, double &galutinisLaikas, int &pasirinkimas, int indeksas);

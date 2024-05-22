@@ -1,11 +1,12 @@
 #include "funkcijos3.h"
+#include "vektorius.h"
 
 
 void testuoti_clase(){
 
     {
     string vardas = "Rugile", pavarde = "Macaite";
-    vector <int> pazymiai = {1,2,3,4,5};
+    VEKTORIUS <int> pazymiai = {1,2,3,4,5};
     int egzamino_rez = 9.5;
 
     cout<<"Abstraktumo tikrinimas: "<<endl;
@@ -90,8 +91,8 @@ void testFail_3strategija(vector<studentas> &var)
 
     vector<studentas> vargsai;
 
-    vector<string> failoPav{"test1000.txt", "test10000.txt", "test100000.txt", "test1000000.txt", "test10000000.txt"}; /// vektorius saugo failu pavadinimus
-    vector<string> pav{"v1000.txt", "g1000.txt", "v10000.txt", "g10000.txt", "v100000.txt", "g100000.txt", "v1000000.txt", "g1000000.txt", "v10000000.txt", "g10000000.txt"};
+    VEKTORIUS <string> failoPav{"test1000.txt", "test10000.txt", "test100000.txt", "test1000000.txt", "test10000000.txt"}; /// vektorius saugo failu pavadinimus
+    VEKTORIUS <string> pav{"v1000.txt", "g1000.txt", "v10000.txt", "g10000.txt", "v100000.txt", "g100000.txt", "v1000000.txt", "g1000000.txt", "v10000000.txt", "g10000000.txt"};
 
     cout << endl;
     cout << "Iveskite kaip norite rusiuoti vargsus ir galvocius (0 - pagal vidurki, 1 - pagal mediana): " << endl;
@@ -160,8 +161,8 @@ void testFail_2strategija(vector<studentas> &var)
 
     vector<studentas> vargsai;
 
-    vector<string> failoPav{"test1000.txt", "test10000.txt", "test100000.txt", "test1000000.txt", "test10000000.txt"}; /// vektorius saugo failu pavadinimus
-    vector<string> pav{"v1000.txt", "g1000.txt", "v10000.txt", "g10000.txt", "v100000.txt", "g100000.txt", "v1000000.txt", "g1000000.txt", "v10000000.txt", "g10000000.txt"};
+    VEKTORIUS<string> failoPav{"test1000.txt", "test10000.txt", "test100000.txt", "test1000000.txt", "test10000000.txt"}; /// vektorius saugo failu pavadinimus
+    VEKTORIUS<string> pav{"v1000.txt", "g1000.txt", "v10000.txt", "g10000.txt", "v100000.txt", "g100000.txt", "v1000000.txt", "g1000000.txt", "v10000000.txt", "g10000000.txt"};
 
     cout << endl;
     cout << "Iveskite kaip norite rusiuoti vargsus ir galvocius (0 - pagal vidurki, 1 - pagal mediana): " << endl;
@@ -233,8 +234,8 @@ void testFail(vector<studentas> &var)
 
     vector<studentas> vargsai, galvociai;
 
-    vector<string> failoPav{"test1000.txt", "test10000.txt", "test100000.txt", "test1000000.txt", "test10000000.txt"}; /// vektorius saugo failu pavadinimus
-    vector<string> pav{"v1000.txt", "g1000.txt", "v10000.txt", "g10000.txt", "v100000.txt", "g100000.txt", "v1000000.txt", "g1000000.txt", "v10000000.txt", "g10000000.txt"};
+    VEKTORIUS<string> failoPav{"test1000.txt", "test10000.txt", "test100000.txt", "test1000000.txt", "test10000000.txt"}; /// vektorius saugo failu pavadinimus
+    VEKTORIUS<string> pav{"v1000.txt", "g1000.txt", "v10000.txt", "g10000.txt", "v100000.txt", "g100000.txt", "v1000000.txt", "g1000000.txt", "v10000000.txt", "g10000000.txt"};
 
     cout << endl;
     cout << "Iveskite kaip norite rusiuoti vargsus ir galvocius (0 - pagal vidurki, 1 - pagal mediana): " << endl;
@@ -294,12 +295,12 @@ void testavimui(vector<studentas> &var)
 
     vector<studentas> vargsai, galvociai;
 
-    vector<string> failoPav{"test1000.txt", "test10000.txt", "test100000.txt", "test1000000.txt", "test10000000.txt"}; /// vektorius saugo failu pavadinimus
-    vector<string> pav1{"v1000.txt", "g1000.txt"};
-    vector<string> pav2{"v10000.txt", "g10000.txt"};
-    vector<string> pav3{"v100000.txt", "g100000.txt"};
-    vector<string> pav4{"v1000000.txt", "g1000000.txt"};
-    vector<string> pav5{"v10000000.txt", "g10000000.txt"};
+    VEKTORIUS<string> failoPav{"test1000.txt", "test10000.txt", "test100000.txt", "test1000000.txt", "test10000000.txt"}; /// vektorius saugo failu pavadinimus
+    VEKTORIUS<string> pav1{"v1000.txt", "g1000.txt"};
+    VEKTORIUS<string> pav2{"v10000.txt", "g10000.txt"};
+    VEKTORIUS<string> pav3{"v100000.txt", "g100000.txt"};
+    VEKTORIUS<string> pav4{"v1000000.txt", "g1000000.txt"};
+    VEKTORIUS<string> pav5{"v10000000.txt", "g10000000.txt"};
 
     cout << "\nIveskite kiek namu darbu atliko studentai (nuo 1 iki 20): " << endl;
     while (!(cin >> kiekND) || (kiekND <= 0 || kiekND > 20))
@@ -469,7 +470,7 @@ void rusiavimasTest(vector<studentas> &var, vector<studentas> &vargsai, vector<s
     galutinisLaikas = time.count();                       /// laikas
 }
 
-void spausdinimasTest(vector<studentas> &vargsai, vector<studentas> &galvociai, vector<string> pav, double &laikas, int &pasirinkimas, int indeksas)
+void spausdinimasTest(vector<studentas> &vargsai, vector<studentas> &galvociai, VEKTORIUS<string> pav, double &laikas, int &pasirinkimas, int indeksas)
 {
 
     laikas = 0;
@@ -529,7 +530,7 @@ void spausdinimasTest(vector<studentas> &vargsai, vector<studentas> &galvociai, 
     galvociai.clear();
 }
 
-void skaitymas(vector<studentas> &var, vector<string> &failoPav, int indeksas, double &laikas, int laboras)
+void skaitymas(vector<studentas> &var, VEKTORIUS<string> &failoPav, int indeksas, double &laikas, int laboras)
 { /// nuskaito pasirinkta faila pagal indeksa ir sukuria rezultatu faila
     
     int kiekMok = 0;           /// mokiniu skaicius
@@ -567,7 +568,7 @@ void skaitymas(vector<studentas> &var, vector<string> &failoPav, int indeksas, d
 
         dalijimas >> naujasStudentas;    ///naudojamas ivesties metodas
 
-        vector <int> temp = naujasStudentas.get_tarpiniai();
+        VEKTORIUS <int> temp = naujasStudentas.get_tarpiniai();
         
         naujasStudentas.set_vidurkis(std::accumulate(temp.begin(), temp.end(), 0.0) / temp.size()); 
         naujasStudentas.set_gal_v_m ();
@@ -696,7 +697,7 @@ void spausdinami_surikiuoti(vector<studentas> &var, double &laikas)
     print.close();
 }
 
-void failoKurimas(vector<string> &failoPav, int indeksas, int &kiekND, int &studSk, double &laikas)
+void failoKurimas(VEKTORIUS<string> &failoPav, int indeksas, int &kiekND, int &studSk, double &laikas)
 { /// sukuria "kursiokai.txt" faila
 
     auto start = std::chrono::high_resolution_clock::now(); /// pradeti laiko skaiciavima
@@ -753,7 +754,7 @@ void su_duomenimis_is_failu(vector<studentas> &kursiokai, vector<studentas> &var
     double laikas;
     bool baigti = false;
     int kiekND, indeksas, studSk, laboras = 3;
-    vector<string> failoPav{"kursiokai.txt", "studentai10000.txt", "studentai100000.txt", "studentai1000000.txt"}; /// vektorius saugo failu pavadinimus
+    VEKTORIUS<string> failoPav{"kursiokai.txt", "studentai10000.txt", "studentai100000.txt", "studentai1000000.txt"}; /// vektorius saugo failu pavadinimus
 
     cout << "Pasirinkite kuri duomenu faila nauduosite: " << endl;
 
@@ -866,7 +867,7 @@ void atsitiktiniaiPazVar(vector<studentas> &var, int &studSk)
     int n;
     var.clear();
     string vardas, pavarde;
-    vector <int> skaiciams;
+    VEKTORIUS <int> skaiciams;
 
     int m = (rand() % 10) + 1; /// atsitiktinai sugeneruoja kiek yra studentu
     studSk = m;
@@ -918,7 +919,7 @@ void atsitiktiniaiPazVar(vector<studentas> &var, int &studSk)
             cout << " Atsitiktinai sugeneruoti namu darbu rezultatai: " << endl;
 
 
-            vector<int> tarpiniai;
+            VEKTORIUS <int> tarpiniai ={};
             for (int j = 0; j < n; j++)
             {
                 tarpiniai.push_back( rand() % 10 + 1); /// generuoja atsitikstinius skaicius intervale nuo 1 iki 10
@@ -972,7 +973,7 @@ void atsitiktiniaiPazymiai(vector<studentas> &var, int &studSk)
 
         i++;
         
-        vector<int> tarpiniai;
+        VEKTORIUS <int> tarpiniai ={};
         cout << "--------------------------------------------------------" << endl;
         cout << " Iveskite " << i << " studento varda: ";
         cin >> vardas;
@@ -1064,7 +1065,7 @@ void ivedimasRanka(vector<studentas> &var, int &studSk)
 
         i++;
 
-        vector<int> skaiciams;
+        VEKTORIUS <int> skaiciams;
        
         cout << "--------------------------------------------------------" << endl;
         cout << " Iveskite " << i << " studento varda: ";
@@ -1254,7 +1255,7 @@ double mediana(vector<studentas> &var, int &k)
 
     else
     {   
-        vector<int> tarpiniai = var[k].get_tarpiniai();
+        VEKTORIUS <int> tarpiniai = var[k].get_tarpiniai();
         sort(tarpiniai.begin(), tarpiniai.end());
 
         if ((pazymiai % 2) == 0)
@@ -1285,7 +1286,7 @@ double vidurkis(vector<studentas> &var, int &k)
     {
         for (int j = 0; j < var[k].get_paz_kieki(); j++)
         { /// pazymiu suma
-            vector<int> tarpiniai = var[k].get_tarpiniai();
+            VEKTORIUS <int> tarpiniai = var[k].get_tarpiniai();
             sum += tarpiniai[j];
         }
         double vid = sum / var[k].get_paz_kieki(); /// skaiciuojamas vidurkis
